@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<!-- sub-route: /it  (건축 트랙 페이지와 상호 링크·언급 없음) -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>필립 스튜디오 — 웹·앱 개발 / AI·IT 강의</title>
+<style>
+  :root {
+    --navy: #14213d;
+    --navy-soft: #2b3a5c;
+    --amber: #fca311;
+    --amber-deep: #e08900;
+    --ink: #1f2430;
+    --ink-sub: #5a6272;
+    --line: #e6e8ee;
+    --bg: #ffffff;
+    --bg-soft: #f6f7fa;
+    --bg-navy: #101a30;
+    --ok: #1a7f5a;
+    --radius: 14px;
+    --shadow: 0 6px 24px rgba(20, 33, 61, 0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    word-break: keep-all;
+  }
+  img { max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* ===== header ===== */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; gap: 20px; height: 60px; }
+  .brand { font-weight: 800; font-size: 17px; color: var(--navy); letter-spacing: -0.02em; }
+  .brand em { color: var(--amber-deep); font-style: normal; }
+  .nav-links { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
+  .nav-links a {
+    font-size: 13.5px; color: var(--ink-sub); padding: 6px 10px; border-radius: 8px;
+  }
+  .nav-links a:hover { background: var(--bg-soft); color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: #fff !important; font-weight: 700;
+    padding: 8px 16px !important; border-radius: 10px;
+  }
+  .nav-cta:hover { background: var(--navy-soft) !important; }
+
+  /* ===== hero ===== */
+  .hero { background: linear-gradient(180deg, #fdfbf6 0%, #ffffff 100%); padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff7e8; color: var(--amber-deep); border: 1px solid #f5d9a8;
+    font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4.6vw, 44px); line-height: 1.3; letter-spacing: -0.03em;
+    color: var(--navy); font-weight: 800; max-width: 720px;
+  }
+  .hero h1 .hl { box-shadow: inset 0 -0.45em 0 #ffe3ae; }
+  .hero p.sub { margin-top: 18px; font-size: 17px; color: var(--ink-sub); max-width: 640px; }
+  .hero-ctas { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; font-weight: 700; font-size: 15px;
+    padding: 13px 26px; border-radius: 12px; transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-amber { background: var(--amber); color: #3a2600; }
+  .btn-ghost { border: 1.5px solid var(--line); color: var(--navy); background: #fff; }
+  .hero-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 34px; }
+  .chip {
+    font-size: 12.5px; font-weight: 600; color: var(--navy-soft);
+    background: #fff; border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px;
+  }
+
+  /* ===== stats ===== */
+  .stats { padding: 34px 0; border-bottom: 1px solid var(--line); background: var(--bg); }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .stat { background: var(--bg-soft); border-radius: var(--radius); padding: 20px 22px; }
+  .stat b { display: block; font-size: 20px; color: var(--navy); letter-spacing: -0.02em; }
+  .stat span { font-size: 13px; color: var(--ink-sub); }
+
+  /* ===== sections ===== */
+  section { padding: 72px 0; }
+  section.alt { background: var(--bg-soft); }
+  .eyebrow {
+    display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 0.08em;
+    color: var(--amber-deep); text-transform: uppercase; margin-bottom: 10px;
+  }
+  h2 { font-size: clamp(24px, 3.2vw, 32px); color: var(--navy); letter-spacing: -0.02em; line-height: 1.35; }
+  .sec-desc { margin-top: 12px; color: var(--ink-sub); max-width: 620px; font-size: 15.5px; }
+
+  /* ===== pricing cards (크몽식) ===== */
+  .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 38px; }
+  .tier {
+    position: relative; background: #fff; border: 1.5px solid var(--line);
+    border-radius: var(--radius); padding: 28px 26px; display: flex; flex-direction: column;
+  }
+  .tier.featured { border-color: var(--amber); box-shadow: var(--shadow); }
+  .tier .flag {
+    position: absolute; top: -12px; left: 24px; background: var(--amber); color: #3a2600;
+    font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px;
+  }
+  .tier .grade { font-size: 12.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--ink-sub); }
+  .tier h3 { font-size: 19px; color: var(--navy); margin-top: 6px; }
+  .tier .price { margin-top: 14px; font-size: 26px; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+  .tier .price small { font-size: 13px; font-weight: 600; color: var(--ink-sub); }
+  .tier ul { list-style: none; margin-top: 18px; flex: 1; }
+  .tier ul li {
+    font-size: 14px; color: var(--ink); padding: 7px 0 7px 26px; position: relative;
+    border-bottom: 1px dashed var(--line);
+  }
+  .tier ul li:last-child { border-bottom: none; }
+  .tier ul li::before { content: "✓"; position: absolute; left: 2px; color: var(--ok); font-weight: 800; }
+  .tier .meta { margin-top: 14px; font-size: 12.5px; color: var(--ink-sub); }
+
+  /* wide card */
+  .wide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 18px; }
+  .wide {
+    background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+    padding: 24px 26px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .wide h3 { font-size: 17px; color: var(--navy); }
+  .wide p { font-size: 14px; color: var(--ink-sub); }
+  .wide .price-line { font-weight: 800; color: var(--navy); font-size: 17px; margin-top: auto; }
+
+  /* AI consulting band */
+  .band {
+    margin-top: 26px; background: var(--bg-navy); border-radius: var(--radius);
+    padding: 34px 32px; color: #eef1f8; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;
+  }
+  .band .grow { flex: 1 1 380px; }
+  .band h3 { font-size: 21px; color: #fff; }
+  .band h3 em { color: var(--amber); font-style: normal; }
+  .band p { margin-top: 10px; font-size: 14.5px; color: #b9c2d8; max-width: 560px; }
+  .band .price-tag { font-size: 15px; font-weight: 700; color: var(--amber); white-space: nowrap; }
+
+  /* ===== class cards (탈잉식) ===== */
+  .class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 38px; }
+  .class-card {
+    background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .class-card .head {
+    padding: 18px 22px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+    color: #fff;
+  }
+  .class-card .head .lv { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--amber); }
+  .class-card .head h3 { font-size: 17px; margin-top: 4px; line-height: 1.4; }
+  .class-card .body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .class-card .body p { font-size: 13.5px; color: var(--ink-sub); flex: 1; }
+  .class-card .fee { font-size: 14px; font-weight: 700; color: var(--navy); border-top: 1px solid var(--line); padding-top: 12px; }
+  .fee-note {
+    margin-top: 22px; background: #fff7e8; border: 1px solid #f5d9a8; border-radius: var(--radius);
+    padding: 16px 20px; font-size: 13.5px; color: #6b4a00;
+  }
+
+  /* ===== process ===== */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 38px; counter-reset: step; }
+  .step { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 20px 18px; }
+  .step::before {
+    counter-increment: step; content: counter(step, decimal-leading-zero);
+    display: block; font-size: 13px; font-weight: 800; color: var(--amber-deep); margin-bottom: 8px;
+  }
+  .step b { display: block; font-size: 15px; color: var(--navy); margin-bottom: 4px; }
+  .step span { font-size: 12.5px; color: var(--ink-sub); }
+
+  /* ===== benefits ===== */
+  .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 38px; }
+  .benefit { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .benefit .ico { font-size: 26px; }
+  .benefit b { display: block; margin-top: 10px; color: var(--navy); font-size: 16px; }
+  .benefit p { margin-top: 6px; font-size: 13.5px; color: var(--ink-sub); }
+
+  /* ===== Q&A (숨고식) ===== */
+  .qa { margin-top: 38px; display: grid; gap: 16px; }
+  .qa-item { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px 26px; }
+  .qa-item .q { font-weight: 800; color: var(--navy); font-size: 16px; }
+  .qa-item .q::before { content: "Q. "; color: var(--amber-deep); }
+  .qa-item .a { margin-top: 10px; font-size: 14.5px; color: var(--ink); }
+  .qa-item .a::before { content: "A. "; font-weight: 800; color: var(--ink-sub); }
+
+  /* ===== FAQ ===== */
+  .faq { margin-top: 38px; display: grid; gap: 10px; }
+  details {
+    background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 0 22px;
+  }
+  details[open] { border-color: var(--navy-soft); }
+  summary {
+    cursor: pointer; list-style: none; font-weight: 700; color: var(--navy);
+    font-size: 15px; padding: 17px 0; position: relative; padding-right: 28px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; position: absolute; right: 2px; top: 14px; font-size: 20px; color: var(--amber-deep); }
+  details[open] summary::after { content: "−"; }
+  details .ans { padding: 0 0 18px; font-size: 14px; color: var(--ink-sub); }
+
+  /* ===== contact ===== */
+  .contact { background: var(--bg-navy); color: #eef1f8; }
+  .contact h2 { color: #fff; }
+  .contact .sec-desc { color: #b9c2d8; }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 34px; }
+  .contact-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: var(--radius); padding: 22px 24px;
+  }
+  .contact-card b { display: block; color: var(--amber); font-size: 13px; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .contact-card span { font-size: 15px; }
+  .placeholder { color: #8a94ad; font-style: italic; }
+
+  footer { padding: 28px 0 40px; background: var(--bg-navy); color: #6f7a94; font-size: 12.5px; border-top: 1px solid rgba(255,255,255,0.08); }
+  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+
+  .track-tag {
+    display: inline-block; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
+  }
+  .track-it { background: #e8f0ff; color: #1d4fa1; }
+  .track-ar { background: #eaf6ef; color: #1a7f5a; }
+
+  @media (max-width: 640px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+    section { padding: 54px 0; }
+    .hero { padding: 54px 0 44px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">PHILIP<em>&nbsp;STUDIO</em></a>
+    <nav class="nav-links">
+      <a href="#dev">웹·앱 개발</a>
+      <a href="#ai">AI 도입</a>
+      <a href="#lecture">AI·IT 강의</a>
+      <a href="#process">진행 방식</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="#contact">문의하기</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <span class="hero-badge">⚡ 시리즈C AI 스타트업 현직 풀스택 엔지니어</span>
+    <h1>AI 시대에도 프로그래밍의 본질은<br>여전히 <span class="hl">건재합니다.</span></h1>
+    <p class="sub">
+      400억 규모 투자유치 AI 스타트업에서 상업 서비스를 만들고 운영하는 풀스택 엔지니어가
+      웹·앱 개발, 기업 AI 도입, AI·IT 교육을 직접 수행합니다. 만드는 사람과 운영하는 사람이 같습니다.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#contact">프로젝트 상담하기</a>
+      <a class="btn btn-amber" href="#lecture">강의 커리큘럼 보기</a>
+      <a class="btn btn-ghost" href="#ai">AI 도입 진단</a>
+    </div>
+    <div class="hero-chips">
+      <span class="chip">고려대학교 컴퓨터학과</span>
+      <span class="chip">앱 3종 Chief Lead (Obtopus · PigeonToday · M-Raum)</span>
+      <span class="chip">TypeScript · React · Electron</span>
+      <span class="chip">AI 에이전트 오케스트레이션 실무</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= STATS ================= -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><b>시리즈C 재직</b><span>400억 규모 투자유치 AI 스타트업 풀스택 엔지니어</span></div>
+    <div class="stat"><b>앱 3종 Chief Lead</b><span>Obtopus · PigeonToday · M-Raum 기획–개발 총괄</span></div>
+    <div class="stat"><b>AI 에이전트 실전</b><span>수백 건 규모 sub-agent 병렬 마이그레이션 지휘</span></div>
+    <div class="stat"><b>풀사이클 커버</b><span>기획–개발–배포–운영을 한 사람이 연결</span></div>
+  </div>
+</div>
+
+<!-- ================= DEV ================= -->
+<section id="dev">
+  <div class="wrap">
+    <span class="track-tag track-it">WEB · APP</span>
+    <div class="eyebrow">Web / App Development</div>
+    <h2>웹 · 앱 개발 외주</h2>
+    <p class="sec-desc">
+      단순 홍보 페이지부터 설치형 애플리케이션까지, 상업 서비스를 운영해 본 엔지니어의 기준으로 만듭니다.
+      모든 견적은 범위 확정 후 고정가로 제시하며, 선금 50% · 검수 후 잔금 원칙입니다.
+    </p>
+
+    <div class="tier-grid">
+      <div class="tier">
+        <span class="grade">STANDARD</span>
+        <h3>정적 홍보 · 랜딩 페이지</h3>
+        <div class="price">90만원~ <small>/ 작업 7일</small></div>
+        <ul>
+          <li>단일 페이지 반응형 제작</li>
+          <li>기본 SEO 메타 세팅</li>
+          <li>도메인 연결 가이드</li>
+          <li>소스코드 제공</li>
+          <li>수정 2회 포함</li>
+        </ul>
+        <div class="meta">매장·포트폴리오·행사 소개에 적합</div>
+      </div>
+
+      <div class="tier featured">
+        <span class="flag">인기</span>
+        <span class="grade">DELUXE</span>
+        <h3>인터랙션 페이지</h3>
+        <div class="price">240만원~ <small>/ 작업 14일</small></div>
+        <ul>
+          <li>스크롤 애니메이션 · 마이크로 인터랙션</li>
+          <li>1~3페이지 구성</li>
+          <li>성능 최적화 (모바일 포함)</li>
+          <li>기본 분석 도구 연결</li>
+          <li>수정 3회 포함</li>
+        </ul>
+        <div class="meta">브랜드 경험이 중요한 제품·서비스 소개</div>
+      </div>
+
+      <div class="tier">
+        <span class="grade">PREMIUM</span>
+        <h3>기능 웹 서비스</h3>
+        <div class="price">600만원~ <small>/ 기간 협의</small></div>
+        <ul>
+          <li>로그인 · 회원 시스템</li>
+          <li>DB 연동 · 관리자 화면</li>
+          <li>결제 등 기능 단위 협의</li>
+          <li>기능 명세서 기반 확정 견적</li>
+          <li>배포 후 30일 무상 버그 수정</li>
+        </ul>
+        <div class="meta">예약 · 커뮤니티 · 사내 도구 등</div>
+      </div>
+    </div>
+
+    <div class="wide-grid">
+      <div class="wide">
+        <h3>🖥️ 설치형 애플리케이션 (Windows / macOS)</h3>
+        <p>Electron 기반 데스크톱 앱. 자동 업데이트, 설치 패키징까지 포함한 프로덕션 수준 구축.</p>
+        <div class="price-line">1,000만원~ · 별도 견적</div>
+      </div>
+      <div class="wide">
+        <h3>🔧 유지보수 리테이너</h3>
+        <p>월 4시간 내 버그 수정과 소규모 개선. 초과분은 시간 단위 정산. 납품 후 안정 운영을 책임집니다.</p>
+        <div class="price-line">월 40만원~</div>
+      </div>
+    </div>
+
+    <div class="band" id="ai">
+      <div class="grow">
+        <h3>기업용 <em>AI 도입 진단 &amp; 에이전트 구축</em></h3>
+        <p>
+          업무 흐름을 분석해 AI가 실제로 돈이 되는 지점을 찾아드립니다. 진단 리포트와 도입 로드맵 제공,
+          이후 사내 문서 기반 검색·자동화 에이전트 구축까지. 수백 건 규모의 AI 에이전트 병렬 오케스트레이션을
+          실무에서 지휘한 경험으로 설계합니다.
+        </p>
+      </div>
+      <div class="price-tag">진단 패키지 300만원 / 구축 별도 견적</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LECTURE ================= -->
+<section class="alt" id="lecture">
+  <div class="wrap">
+    <span class="track-tag track-it">COURSE</span>
+    <div class="eyebrow">AI / IT Course</div>
+    <h2>AI · IT 강의</h2>
+    <p class="sec-desc">
+      유행하는 도구 나열이 아니라, 상업 수준 서비스를 만들고 운영해 본 사람의 기준으로 원리부터 실전까지 다룹니다.
+      전 과정에 직접 제작한 실적용 비법노트가 교재로 제공됩니다.
+    </p>
+
+    <div class="class-grid">
+      <div class="class-card">
+        <div class="head"><span class="lv">입문</span><h3>AI시대, IT 핵심 짚고가기</h3></div>
+        <div class="body">
+          <p>비전공자·창업 준비자를 위한 IT 전체 지도. 웹이 돌아가는 원리, 개발자와 일하는 법, 외주 견적 읽는 법까지.</p>
+          <div class="fee">1:1 회당(2h) 20만원 · 4회 패키지 72만원</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="head"><span class="lv">심화</span><h3>상업수준 운영을 위한 IT Deep Dive 세션</h3></div>
+        <div class="body">
+          <p>서비스를 "만드는 것"과 "운영하는 것"의 차이. 배포, 장애 대응, 데이터 관리 등 운영 실무의 핵심.</p>
+          <div class="fee">1:1 회당(2h) 20만원 · 커리큘럼 6회 구성</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="head"><span class="lv">원리</span><h3>원리부터 파악하는 AI</h3></div>
+        <div class="body">
+          <p>LLM이 왜 되는지, 어디서 틀리는지. 원리를 알아야 도구가 바뀌어도 흔들리지 않습니다.</p>
+          <div class="fee">1:1 회당(2h) 20만원</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="head"><span class="lv">실전</span><h3>당장활용! AI 실전세션</h3></div>
+        <div class="body">
+          <p>내 업무에 바로 붙이는 원포인트 실습. 문서 자동화, 리서치, 콘텐츠 제작 등 케이스 지참 환영.</p>
+          <div class="fee">1:1 회당(2h) 20만원 · 그룹(4인 이하) 인당 7만원</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="head"><span class="lv">맞춤형</span><h3>AI 레벨업 세션</h3></div>
+        <div class="body">
+          <p>현재 수준 진단 후 커리큘럼을 설계하는 맞춤 과정. 팀 단위 도입 교육도 가능합니다.</p>
+          <div class="fee">진단 후 견적 · 기업 출강 시간당 25만원~</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="head"><span class="lv">맞춤형</span><h3>IT 레벨업 세션</h3></div>
+        <div class="body">
+          <p>개발 입문부터 아키텍처 리뷰까지, 목표에 맞춰 설계하는 IT 역량 강화 과정.</p>
+          <div class="fee">진단 후 견적 · 기업 출강 시간당 25만원~</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fee-note">
+      📒 모든 수강생에게 <b>실적용 직제작 비법노트</b>(교재)와 <b>Obtopus · PigeonToday · M-Raum 멤버십</b>이 제공됩니다.
+    </div>
+  </div>
+</section>
+
+<!-- ================= BENEFITS ================= -->
+<section id="benefit">
+  <div class="wrap">
+    <div class="eyebrow">Membership &amp; Benefits</div>
+    <h2>모든 고객에게 드리는 공통 혜택</h2>
+    <div class="benefit-grid">
+      <div class="benefit"><span class="ico">📱</span><b>Obtopus Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
+      <div class="benefit"><span class="ico">🕊️</span><b>PigeonToday Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
+      <div class="benefit"><span class="ico">🏠</span><b>M-Raum Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
+      <div class="benefit"><span class="ico">📒</span><b>실적용 직제작 비법노트</b><p>실무에서 검증한 내용만 담은 자체 제작 교재를 제공합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="alt" id="process">
+  <div class="wrap">
+    <div class="eyebrow">Process</div>
+    <h2>진행 방식</h2>
+    <p class="sec-desc">모든 프로젝트는 아래 7단계 표준 프로세스로 진행됩니다. 범위를 문서로 확정한 뒤 착수하므로 견적이 흔들리지 않습니다.</p>
+    <div class="steps">
+      <div class="step"><b>상담</b><span>텍스트 기반 무료 15분</span></div>
+      <div class="step"><b>요구사항 정리</b><span>범위·제외 범위 1페이지 문서화</span></div>
+      <div class="step"><b>견적 · 일정 확정</b><span>고정가 견적, 유효기간 14일</span></div>
+      <div class="step"><b>계약 · 선금</b><span>표준 계약서, 선금 50%</span></div>
+      <div class="step"><b>개발</b><span>중간 보고 1회 이상</span></div>
+      <div class="step"><b>검수 · 잔금</b><span>약정 수정 횟수 내 수정</span></div>
+      <div class="step"><b>사후지원</b><span>배포 후 30일 무상 버그 수정</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Q&A ================= -->
+<section id="expert">
+  <div class="wrap">
+    <div class="eyebrow">Expert Interview</div>
+    <h2>전문가에게 물었습니다</h2>
+    <div class="qa">
+      <div class="qa-item">
+        <div class="q">고용 전에 고객이 꼭 알아야 할 것이 있다면요?</div>
+        <div class="a">
+          외주의 성패는 착수 전 "범위 문서"에서 결정됩니다. 그래서 저는 어떤 프로젝트든 요구사항 정리서를 먼저 쓰고,
+          거기 적힌 것만큼만 정확히 약속합니다. 견적이 낮은데 범위가 애매한 제안보다, 범위가 명확한 고정가가 결국 더 쌉니다.
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="q">개발 외주가 가장 자주 실패하는 지점은 어디인가요?</div>
+        <div class="a">
+          납품 직후입니다. 만드는 일과 운영하는 일은 다른 기술이라, 배포·장애 대응·데이터 관리가 빠진 결과물은
+          한 달 뒤에 멈춥니다. 저는 상업 서비스를 직접 운영하는 사람이라 처음부터 운영을 전제로 설계하고,
+          납품 후 30일 무상 버그 수정과 유지보수 리테이너로 그 구간을 함께 넘습니다.
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="q">AI 강의가 넘쳐나는데, 무엇이 다른가요?</div>
+        <div class="a">
+          도구 사용법은 유튜브에 다 있습니다. 제가 다루는 것은 상업 서비스에 AI를 붙여 운영해 본 사람만 아는
+          "실패 지점"입니다. 수백 건 규모의 AI 에이전트 오케스트레이션을 실무로 지휘하며 얻은 기준을,
+          직접 만든 비법노트로 정리해 드립니다.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="alt" id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2>자주 묻는 질문</h2>
+    <div class="faq">
+      <details>
+        <summary>견적은 어떻게 산정되나요?</summary>
+        <div class="ans">예상 작업 시간에 난이도와 요구사항 명확도를 반영해 고정가로 제시합니다. 요구사항 정리서가 확정된 뒤에는 추가 비용이 발생하지 않으며, 범위가 바뀌는 경우에만 재견적합니다.</div>
+      </details>
+      <details>
+        <summary>환불 규정이 궁금합니다.</summary>
+        <div class="ans">착수 전에는 전액 환불됩니다. 착수 후에는 진행률을 공제한 뒤 환불되며, 검수 승인 이후에는 환불이 불가합니다. 플랫폼(크몽·탈잉)을 통한 거래는 해당 플랫폼의 표준 환불 규정을 따릅니다.</div>
+      </details>
+      <details>
+        <summary>수정은 몇 회까지 가능한가요?</summary>
+        <div class="ans">상품별로 명시된 수정 횟수(2~3회)가 포함되어 있습니다. 초과 수정이나 범위 추가는 사전 안내 후 시간 단위로 정산합니다.</div>
+      </details>
+      <details>
+        <summary>일정이 급한데 빨리 시작할 수 있나요?</summary>
+        <div class="ans">품질 유지를 위해 동시 진행 건수를 제한하고 있어 대기가 발생할 수 있습니다. 상담 시 현재 대기 상황과 가능한 착수일을 정확히 안내드립니다.</div>
+      </details>
+      <details>
+        <summary>강의는 어디서, 어떤 방식으로 진행되나요?</summary>
+        <div class="ans">기본은 온라인 1:1이며, 그룹(4인 이하)과 기업 출강도 가능합니다. 기업 출강은 사전 진단 후 커리큘럼을 설계해 제안드립니다.</div>
+      </details>
+      <details>
+        <summary>포트폴리오를 볼 수 있나요?</summary>
+        <div class="ans">상담 시 앱 3종과 웹 서비스 구축 사례를 공유드립니다. 고객사 보안 정책상 공개 범위가 제한되는 자료는 사례 요약으로 대체됩니다.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Contact</div>
+    <h2>프로젝트를 시작해 볼까요?</h2>
+    <p class="sec-desc">텍스트 상담은 무료입니다. 만들고 싶은 것을 한 문단으로 보내주시면, 범위와 견적의 초안으로 답장드립니다.</p>
+    <div class="contact-grid">
+      <div class="contact-card"><b>EMAIL</b><span class="placeholder">[개인 이메일 기입]</span></div>
+      <div class="contact-card"><b>오픈카톡</b><span class="placeholder">[오픈카톡 링크 기입]</span></div>
+      <div class="contact-card"><b>플랫폼</b><span class="placeholder">[크몽 · 탈잉 프로필 링크 기입]</span></div>
+    </div>
+    <div class="hero-ctas" style="margin-top:30px;">
+      <a class="btn btn-amber" href="#top">서비스 다시 보기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>PHILIP STUDIO — Web · App · AI Engineering. 모든 작업은 표준 계약서 기반으로 진행됩니다.</div>
+    <div>표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다. (내부 초안: 배포 전 연락처·가격 확정 필요)</div>
+  </div>
+</footer>
+
+</body>
+</html>
