@@ -228,25 +228,6 @@
   .track-it { background: #e8f0ff; color: #1d4fa1; }
   .track-ar { background: #eaf6ef; color: #1a7f5a; }
 
-  /* ===== notes library ===== */
-  .note-series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 38px; }
-  .note-series { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px 26px; }
-  .note-series .lv-tag {
-    display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em;
-    color: var(--amber-deep); background: #fff7e8; border: 1px solid #f5d9a8; padding: 3px 10px; border-radius: 999px;
-  }
-  .note-series h3 { font-size: 17px; color: var(--navy); margin-top: 10px; }
-  .note-series p.desc { font-size: 13px; color: var(--ink-sub); margin-top: 6px; }
-  .note-series ol { margin-top: 14px; list-style: none; counter-reset: note; }
-  .note-series ol li { counter-increment: note; font-size: 13.5px; color: var(--ink); padding: 8px 0 8px 30px; position: relative; border-bottom: 1px dashed var(--line); }
-  .note-series ol li:last-child { border-bottom: none; }
-  .note-series ol li::before {
-    content: counter(note, decimal-leading-zero); position: absolute; left: 0; top: 9px;
-    font-size: 11.5px; font-weight: 800; color: var(--amber-deep);
-  }
-  .note-series ol li small { display: block; color: var(--ink-sub); font-size: 12px; font-weight: 400; }
-  .note-rule { margin-top: 22px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 16px 20px; font-size: 13.5px; color: var(--ink-sub); }
-
   /* ===== process split ===== */
   .proc-block { margin-top: 34px; }
   .proc-block h3 { font-size: 17px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
@@ -282,7 +263,6 @@
       <a href="#dev">웹·앱 개발</a>
       <a href="#ai">AI 도입</a>
       <a href="#lecture">AI·IT 강의</a>
-      <a href="#notes">비법노트</a>
       <a href="#process">진행 방식</a>
       <a href="#contract">계약서</a>
       <a href="#faq">FAQ</a>
@@ -471,62 +451,8 @@
   </div>
 </section>
 
-<!-- ================= NOTES ================= -->
-<section id="notes">
-  <div class="wrap">
-    <span class="track-tag track-it">PLAYBOOK</span>
-    <div class="eyebrow">Playbook Library</div>
-    <h2>비법노트 라이브러리</h2>
-    <p class="sec-desc">
-      실무에서 검증한 내용만 노트 한 권 = 세션 한 번(2h) 분량으로 분절해 두었습니다.
-      수준 진단 후 필요한 노트부터 순서대로 진행하며, 수강한 세션의 노트는 교재로 제공됩니다.
-    </p>
-    <div class="note-series-grid">
-      <div class="note-series">
-        <span class="lv-tag">SERIES 1 · 입문</span>
-        <h3>IT 기초 지도 — 발주자의 방어 지식</h3>
-        <p class="desc">서비스를 발주하거나 운영해야 하는 비전공자가 당하지 않기 위한 최소 지식.</p>
-        <ol>
-          <li>웹이 돌아가는 원리<small>도메인 → 서버 → 화면까지, 클릭 한 번이 지나가는 길 전체 지도</small></li>
-          <li>외주 견적서 읽는 법<small>페이지·기능 단위 산정 구조, 싼 견적이 비싸지는 경로</small></li>
-          <li>개발자와 일하는 언어<small>요구사항 1페이지 문서화 — 범위와 제외 범위 쓰는 법</small></li>
-          <li>내 서비스의 데이터는 어디에 있나<small>DB·백업·계정 소유권, 업체가 사라져도 살아남는 준비</small></li>
-        </ol>
-      </div>
-      <div class="note-series">
-        <span class="lv-tag">SERIES 2 · 실전</span>
-        <h3>AI 실전 운용 — 도구가 바뀌어도 남는 사용법</h3>
-        <p class="desc">상용 서비스에 AI를 붙여 운영하며 굳어진, 그대로 따라 할 수 있는 운용 습관.</p>
-        <ol>
-          <li>지시를 문서로 만드는 법<small>일회성 프롬프트를 재사용 가능한 지시서로 승격시키기</small></li>
-          <li>AI에게 나를 학습시키는 법<small>규칙·용어사전·메모리로 내 기준을 이식하는 설계</small></li>
-          <li>반복 업무를 명령어로 압축하는 법<small>자주 하는 일을 커스텀 스킬 하나로 만드는 절차</small></li>
-          <li>AI 산출물 검수 체크리스트<small>그럴듯한 오답을 걸러내는 교차 검증 루틴</small></li>
-          <li>멀티에이전트 리서치 설계<small>회의론자 역할을 붙여 낙관 편향을 교정하는 조사법</small></li>
-        </ol>
-      </div>
-      <div class="note-series">
-        <span class="lv-tag">SERIES 3 · 심화</span>
-        <h3>상업 수준 개발 — 만드는 것과 운영하는 것 사이</h3>
-        <p class="desc">배포 이후에도 멈추지 않는 서비스를 위한 설계·운영 기준.</p>
-        <ol>
-          <li>타입 안전 원칙<small>런타임 검증으로 "돌긴 도는" 코드를 걷어내는 법</small></li>
-          <li>에러를 설계하는 법<small>도메인 에러 분류 — 사용자에게 보일 것과 숨길 것</small></li>
-          <li>상태관리 설계 기준<small>전역 상태 · 서버 상태 · 로컬 상태의 경계 긋기</small></li>
-          <li>배포와 운영 입문<small>컨테이너 배포, 도메인·TLS, 백업과 복구 리허설</small></li>
-          <li>장애 대응 런북 만들기<small>새벽 장애에도 순서대로 따라가면 되는 문서 체계</small></li>
-        </ol>
-      </div>
-    </div>
-    <div class="note-rule">
-      모든 노트는 직접 만들고 운영하는 서비스에서 검증한 내용으로 구성하며, 재직 기업의 내부 정보는 일절 포함하지 않습니다.
-      공개 자료를 인용할 때는 출처와 라이선스를 확인해 수록합니다.
-    </div>
-  </div>
-</section>
-
 <!-- ================= BENEFITS ================= -->
-<section class="alt" id="benefit">
+<section id="benefit">
   <div class="wrap">
     <div class="eyebrow">Membership &amp; Benefits</div>
     <h2>모든 고객에게 드리는 공통 혜택</h2>
@@ -540,7 +466,7 @@
 </section>
 
 <!-- ================= PROCESS ================= -->
-<section id="process">
+<section class="alt" id="process">
   <div class="wrap">
     <div class="eyebrow">Process</div>
     <h2>진행 방식</h2>
@@ -575,7 +501,7 @@
 </section>
 
 <!-- ================= Q&A ================= -->
-<section class="alt" id="expert">
+<section id="expert">
   <div class="wrap">
     <div class="eyebrow">Expert Interview</div>
     <h2>전문가에게 물었습니다</h2>
@@ -608,7 +534,7 @@
 </section>
 
 <!-- ================= FAQ ================= -->
-<section id="faq">
+<section class="alt" id="faq">
   <div class="wrap">
     <div class="eyebrow">FAQ</div>
     <h2>자주 묻는 질문</h2>
@@ -642,7 +568,7 @@
 </section>
 
 <!-- ================= CONTRACT ================= -->
-<section class="alt" id="contract">
+<section id="contract">
   <div class="wrap">
     <div class="eyebrow">Contract Builder</div>
     <h2>계약서 자동작성</h2>
