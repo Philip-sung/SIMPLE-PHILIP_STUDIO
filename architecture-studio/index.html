@@ -257,11 +257,11 @@
   .contract-box { margin-top: 38px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 28px; }
   .contract-box .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
   .contract-box label { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy-soft); margin-bottom: 5px; }
-  .contract-box input, .contract-box textarea {
+  .contract-box input, .contract-box textarea, .contract-box select {
     width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px;
     font: inherit; font-size: 14px; color: var(--ink); background: var(--bg-soft);
   }
-  .contract-box input:focus, .contract-box textarea:focus { outline: 2px solid var(--amber); border-color: var(--amber); background: #fff; }
+  .contract-box input:focus, .contract-box textarea:focus, .contract-box select:focus { outline: 2px solid var(--amber); border-color: var(--amber); background: #fff; }
   .contract-box .full { grid-column: 1 / -1; }
   .contract-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
   .contract-note { font-size: 12.5px; color: var(--ink-sub); margin-top: 14px; }
@@ -637,26 +637,32 @@
       <div class="form-grid">
         <div><label for="cName">발주자 (상호 또는 성명)</label><input id="cName" placeholder="주식회사 OO / 홍길동"></div>
         <div><label for="cRep">대표자</label><input id="cRep" placeholder="홍길동"></div>
-        <div><label for="cContact">연락처 (이메일·전화)</label><input id="cContact" placeholder="contact@example.com"></div>
-        <div><label for="cProject">프로젝트명 (공간·용도)</label><input id="cProject" placeholder="OO 카페 실내건축 설계"></div>
-        <div><label for="cAddress">현장 주소</label><input id="cAddress" placeholder="서울시 OO구 OO로 00"></div>
-        <div><label for="cArea">대상 면적 (평 또는 ㎡)</label><input id="cArea" placeholder="28평"></div>
-        <div><label for="cAmount">계약 금액 (원, VAT 별도)</label><input id="cAmount" inputmode="numeric" placeholder="1400000"></div>
+        <div><label for="cBizNo">사업자등록번호 (선택)</label><input id="cBizNo" placeholder="000-00-00000"></div>
+        <div><label for="cContact">연락처 (전자우편)</label><input id="cContact" placeholder="contact@example.com"></div>
+        <div><label for="cProject">용역명 (대상 공간)</label><input id="cProject" placeholder="OO 카페 실내건축 설계"></div>
+        <div><label for="cAddress">현장 소재지</label><input id="cAddress" placeholder="서울시 OO구 OO로 00"></div>
+        <div><label for="cUse">용도</label><input id="cUse" placeholder="근린생활시설(카페)"></div>
+        <div><label for="cArea">면적 (평)</label><input id="cArea" inputmode="numeric" placeholder="28"></div>
+        <div><label for="cAmount">용역비 (원)</label><input id="cAmount" inputmode="numeric" placeholder="1400000"></div>
+        <div><label for="cVat">부가가치세</label><select id="cVat"><option value="별도">별도</option><option value="포함">포함</option></select></div>
+        <div><label for="cTravel">출장비</label><select id="cTravel"><option value="포함">포함</option><option value="별도">별도</option></select></div>
         <div><label for="cAdvance">선금 비율 (%)</label><input id="cAdvance" inputmode="numeric" value="50"></div>
         <div><label for="cStart">실측(착수) 예정일</label><input id="cStart" type="date"></div>
         <div><label for="cEnd">납품 예정일</label><input id="cEnd" type="date"></div>
         <div><label for="cRevision">포함 수정 횟수</label><input id="cRevision" inputmode="numeric" value="2"></div>
-        <div class="full"><label for="cScope">용역 범위 요약</label><textarea id="cScope" rows="3" placeholder="예: 현장 실측, CAD 평면·입면 도면 1식, 3D 모델링, 디자인 컨셉 제안 (PACKAGE B 기준)"></textarea></div>
+        <div><label for="cInspect">검수 기간 (일)</label><input id="cInspect" inputmode="numeric" value="7"></div>
+        <div class="full"><label for="cScope">용역 범위 요약 (별첨 1의 요지)</label><textarea id="cScope" rows="3" placeholder="예: 현장 실측, CAD 평면·입면 도면 1식, 3D 모델링, 디자인 컨셉 제안 (PACKAGE B 기준)"></textarea></div>
         <div class="full"><label for="cSpecial">특약사항 (선택)</label><textarea id="cSpecial" rows="2" placeholder="예: 시공사 견적 검증 1회 포함"></textarea></div>
       </div>
       <div class="contract-actions">
-        <button class="btn btn-primary" type="button" onclick="buildContract('simple')">📄 심플 양식 생성</button>
-        <button class="btn btn-amber" type="button" onclick="buildContract('formal')">📑 정식 양식 생성</button>
+        <button class="btn btn-primary" type="button" onclick="buildContract('simple')">📄 간이 용역계약서 (A4 1장)</button>
+        <button class="btn btn-amber" type="button" onclick="buildContract('formal')">📑 표준 용역계약서 (전 22조)</button>
       </div>
       <div class="contract-note">
-        심플 양식은 1페이지 핵심 조항(범위 · 금액 · 일정 · 수정 · 성과품 · 해지)으로 구성되고,
-        정식 양식은 검수 · 오기 수정 · 현장 협조 · 비밀유지 · 손해배상 · 분쟁해결까지 갖춘 표준 용역계약서입니다.
-        본 양식은 참고용 표준 양식이며, 서명 전 필요 시 법률 전문가의 검토를 권합니다.
+        간이 양식은 현장 점검·견적 검증·강의의 단건 의뢰용으로 A4 1장에 들어오고, 표준 양식은 업무범위의 한계·
+        현장 안전·검수·오기 무상수정·저작권·지체상금·분쟁해결까지 22개 조문을 갖춘 정식 계약서입니다.
+        비워 둔 항목은 밑줄 공란으로 출력되어 수기로 채울 수 있습니다.
+        본 양식은 참고용이며, 서명 전 필요 시 법률 전문가의 검토를 권합니다.
       </div>
     </div>
   </div>
@@ -687,125 +693,326 @@
 </footer>
 
 <script>
+/* 계약서 생성기 — 기준 양식: SIMPLE-BizSetting/01_Secure (간이 A4 1장 / 표준 전 22조) */
 (function () {
   "use strict";
 
-  function val(id) {
+  var VENDOR = {
+    name: "카르쉬 (PHILIP STUDIO)",
+    bizNo: "432-18-02438",
+    addr: "서울특별시 성북구 보문로 136-4, B01호",
+    rep: "성 &nbsp; 필"
+  };
+
+  function raw(id) {
     var el = document.getElementById(id);
-    return el && el.value ? el.value.trim() : "";
+    return el && el.value ? String(el.value).trim() : "";
   }
-  function orBlank(v) { return v || "（　　　　　　　　）"; }
   function esc(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
-  function fmtDate(raw) {
-    if (!raw) return "　　　　년　　월　　일";
-    var p = raw.split("-");
-    return p[0] + "년 " + Number(p[1]) + "월 " + Number(p[2]) + "일";
-  }
-  function parseAmount(raw) {
-    var digits = (raw || "").replace(/[^0-9]/g, "");
+  function val(id) { return esc(raw(id)); }
+  function num(id) {
+    var digits = raw(id).replace(/[^0-9]/g, "");
     return digits ? Number(digits) : null;
   }
   function won(n) { return n.toLocaleString("ko-KR"); }
-  function art(head, text) {
-    return "<h2>" + head + "</h2><div class='c'>" + text + "</div>";
+  function ymd(id) {
+    var v = raw(id);
+    if (!v) return null;
+    var p = v.split("-");
+    return { y: p[0], m: String(Number(p[1])), d: String(Number(p[2])), ts: new Date(v).getTime() };
+  }
+  function u(value, cls) {
+    return value ? '<span class="f">' + value + '</span>'
+                 : '<span class="b ' + cls + '">&nbsp;</span>';
   }
 
+  function collect() {
+    var d = {
+      name: val("cName"), rep: val("cRep"), bizNo: val("cBizNo"),
+      contact: val("cContact"), project: val("cProject"),
+      address: val("cAddress"), use: val("cUse"), area: val("cArea"),
+      scope: val("cScope"), special: val("cSpecial"),
+      vat: val("cVat") || "별도", travel: val("cTravel") || "포함",
+      revision: val("cRevision"), inspect: val("cInspect"),
+      amount: num("cAmount"), advPct: num("cAdvance"), areaNum: num("cArea"),
+      start: ymd("cStart"), end: ymd("cEnd")
+    };
+    if (d.advPct === null || d.advPct < 0 || d.advPct > 100) d.advPct = 50;
+    if (d.amount !== null) {
+      d.adv = Math.round(d.amount * d.advPct / 100);
+      d.rest = d.amount - d.adv;
+    }
+    if (d.areaNum !== null) d.sqm = (d.areaNum * 3.3058).toFixed(1);
+    return d;
+  }
+
+  function periodRow(d) {
+    return u(d.start && d.start.y, "w4") + "년 " + u(d.start && d.start.m, "w3") + "월 " +
+           u(d.start && d.start.d, "w3") + "일 부터 " +
+           u(d.end && d.end.y, "w4") + "년 " + u(d.end && d.end.m, "w3") + "월 " +
+           u(d.end && d.end.d, "w3") + "일 까지 (실측일 " +
+           u(d.start ? d.start.y + "." + d.start.m + "." + d.start.d : "", "w5") + ")";
+  }
+
+  function amountRow(d) {
+    return "一金 " + u(d.amount !== null ? won(d.amount) : "", "w20") + " 원整 (₩ " +
+           u(d.amount !== null ? won(d.amount) : "", "w10") + ")<br>부가가치세 " +
+           (d.vat === "포함" ? "☐ 별도 &nbsp; <b>☑ 포함</b>" : "<b>☑ 별도</b> &nbsp; ☐ 포함") +
+           " &nbsp;/&nbsp; 출장비 " +
+           (d.travel === "별도" ? "☐ 포함 &nbsp; <b>☑ 별도</b>(<span class='b w7'>&nbsp;</span>원)"
+                                : "<b>☑ 포함</b> &nbsp; ☐ 별도");
+  }
+
+  function payRow(d) {
+    return "선금 " + u(String(d.advPct), "w3") + "% (" + u(d.amount !== null ? won(d.adv) : "", "w10") +
+           "원) : 계약 체결 후 <span class='b w3'>&nbsp;</span>일 내<br>" +
+           "잔금 " + u(String(100 - d.advPct), "w3") + "% (" + u(d.amount !== null ? won(d.rest) : "", "w10") +
+           "원) : 설계도서 검수 승인 후 <span class='b w3'>&nbsp;</span>일 내<br>" +
+           "입금계좌: <span class='b w6'>&nbsp;</span> 은행 <span class='b w14'>&nbsp;</span> (예금주 <span class='b w5'>&nbsp;</span>)";
+  }
+
+  function art(no, title, body) {
+    return '<p class="art"><b>제' + no + '조(' + title + ')</b> ' + body + '</p>';
+  }
+
+  function standardBody(d) {
+    var revision = u(d.revision, "w4");
+    var inspect = u(d.inspect, "w4");
+    var t = "";
+
+    t += '<table class="particulars">' +
+      '<tr><th>용역명(계약명)</th><td colspan="3">' + u(d.project, "wfull") + '</td></tr>' +
+      '<tr><th>소재지</th><td colspan="3">' + u(d.address, "wfull") + '</td></tr>' +
+      '<tr><th>용도 및 규모</th><td colspan="3">용도 ' + u(d.use, "w7") + ' &nbsp;/&nbsp; 연면적 ' +
+        u(d.sqm, "w5") + ' ㎡ (' + u(d.area, "w4") + ' 평) &nbsp;/&nbsp; 층수 <span class="b w4">&nbsp;</span></td></tr>' +
+      '<tr><th>용역 범위</th><td colspan="3">' + (d.scope ? '<span class="f">' + d.scope + '</span><br>' : '') +
+        '세부 내용은 별첨 1 「과업범위 명세서」에 따른다.</td></tr>' +
+      '<tr><th>용역 기간</th><td colspan="3">' + periodRow(d) + '</td></tr>' +
+      '<tr><th>용역비<br>(계약금액)</th><td colspan="3">' + amountRow(d) + '</td></tr>' +
+      '<tr><th>대금 지급</th><td colspan="3">' + payRow(d) + '</td></tr>' +
+      '<tr><th>약정 수정 횟수</th><td>' + revision + ' 회</td>' +
+        '<th>검수 기간</th><td>납품 통지 후 ' + inspect + ' 일</td></tr>' +
+      '<tr><th>설계도서 납품</th><td><span class="b w3">&nbsp;</span> 부 · 원본파일 ☐ 제공</td>' +
+        '<th>지체상금률</th><td>1일당 용역비의 <span class="b w4">&nbsp;</span> / 1,000 <span class="hint">(통상 1.5)</span></td></tr>' +
+      '</table>';
+
+    t += '<h2 class="sec">계약 조항</h2>';
+    t += art(1, "목적", '본 계약은 “갑”이 “을”에게 위탁하는 위 표기 용역(이하 “본 용역”이라 한다)의 수행에 필요한 “갑”과 “을”의 권리와 의무를 정하는 것을 목적으로 한다.');
+    t += art(2, "용역기간", '본 용역의 수행기간은 위 표기와 같다. 다만 현장 출입의 제한, “갑”의 자료 제공 지연 또는 의사결정·검수 지연 등 “을”의 책임 없는 사유로 지연된 기간은 용역기간에 산입하지 아니한다.');
+    t += art(3, "용역범위", '① 본 용역의 범위는 위 표기 및 별첨 1 「과업범위 명세서」에 기재된 사항으로 확정하며, 별첨 1에 기재되지 아니한 사항은 본 용역의 범위에 포함되지 아니한다. ② “갑”의 구두 지시 또는 요청은 서면(전자우편 등 전자문서를 포함한다)으로 확인된 때에 효력을 가진다.');
+    t += art(4, "용역비의 산출 및 지불방법", '① 용역비는 대상 공간의 면적과 요구 범위를 기준으로 산출한 위 표기 금액으로 하고, 부가가치세와 출장비의 처리는 위 표기에 따른다. ② “갑”은 선금과 잔금을 위 표기 기일 내에 “을”이 지정하는 계좌로 지급하며, “을”은 대금을 수령할 때 세금계산서를 발급한다. ③ “을”은 선금이 지급된 날부터 본 용역에 착수한다. ④ “갑”이 대금의 지급을 지체한 경우 지체일수에 대하여 연 100분의 12의 지연손해금을 가산하여 지급한다. 지급 지연이 7일을 초과하는 경우 “을”은 본 용역의 수행을 중지하거나 설계도서의 인도를 보류할 수 있으며, 이로 인하여 발생한 일정의 지연은 “을”의 책임으로 보지 아니한다.');
+    t += art(5, "대가의 조정", '“갑”의 사유로 계약면적이 100분의 5 이상 증감된 경우, 또는 자재·시공방법의 변경 등으로 과업의 범위가 100분의 10 이상 증가된 경우 “갑”과 “을”은 협의하여 해당 금액을 정산한다.');
+    t += art(6, "자료의 제공 및 성실의무", '① “갑”은 “을”이 본 용역을 수행하는 데 필요한 기존 도면·현황자료·관리규약 등을 요구받은 때에는 지체 없이 제공하고, 실측 및 현장 확인을 위한 출입에 협조하여야 한다. ② “을”은 관계 법령과 건축·실내건축 실무의 기준에 따라 성실하게 본 용역을 수행한다. ③ “갑”이 제공한 도면·이미지·자재 자료 등은 “갑”이 적법한 이용 권원을 보유한 것이어야 하며, 이로 인하여 제3자와 권리 분쟁이 발생한 경우 “갑”의 책임과 비용으로 이를 해결하고 “을”을 면책한다.');
+    t += art(7, "현장의 출입·안전 및 관계자 협의", '① 공동주택·집합건물의 경우 관리주체에 대한 신고, 인접 세대 및 이해관계인의 동의 등 현장 작업에 필요한 협의는 “갑”의 책임과 비용으로 완료한다. ② “갑”은 석면·누전·붕괴 우려 등 현장의 위험 요인을 알고 있는 경우 이를 사전에 고지한다. ③ “을”은 현장에서 안전수칙을 준수하며, “갑”이 고지하지 아니한 위험으로 발생한 사고에 대하여 “을”은 책임을 지지 아니한다. ④ “을”의 과실로 현장의 시설물이 훼손된 경우 “을”이 원상으로 회복하거나 그 비용을 부담한다.');
+    t += art(8, "설계도서의 제출 및 검수", '① “을”은 위 표기 부수의 설계도서를 제출하고, 제출 형식은 “갑”과 “을”이 협의하여 정한다. ② “갑”은 납품 통지 후 위 표기 검수기간 내에 별첨 1을 기준으로 검수하고 그 결과를 서면으로 통지하며, 위 기간 내에 통지가 없는 경우 검수에 합격하여 인수한 것으로 본다.');
+    t += art(9, "설계 변경 및 수정 횟수", '위 표기 약정 수정 횟수의 수정 작업이 용역비에 포함된다. 이를 초과하는 수정 또는 별첨 1의 범위를 벗어나는 요청은 “을”의 사전 안내와 “갑”의 승낙을 거쳐 시간 단위(시간당 <span class="b w7">&nbsp;</span>원)로 정산한다. 다만 납품 후 발견된 치수·표기의 오기는 횟수와 무관하게 “을”이 무상으로 수정한다.');
+    t += art(10, "업무범위의 한계", '① 본 용역은 실내건축 디자인 및 설계도서 작성 용역이며, 「건축법」에 따른 허가·신고 대상 건축물의 설계 및 공사감리는 본 용역의 범위에서 제외한다. ② 제1항의 업무가 필요한 경우 “갑”은 건축사사무소에 이를 별도로 위탁하며, 관계 기관의 인허가·신고·수수료 및 그에 따른 책임은 “갑”이 부담한다. ③ 다중이용업소의 안전시설·방염 성능 등 관계 법령이 정한 확인·신고 의무는 “갑”이 이행한다.');
+    t += art(11, "시공 및 공사비에 관한 책임", '① 본 용역은 시공을 포함하지 아니하며, “을”은 시공자의 선정, 시공의 결과, 공정 관리 및 현장 안전에 대하여 책임을 지지 아니한다. ② 견적설계는 물량 산출의 기준을 제시하는 것으로서 실제 공사비의 금액을 보증하지 아니한다. ③ 은폐부위 등 실측이 불가능한 부분은 “갑”이 제공한 자료를 근거로 작성하며, 해체 후 현황이 다른 경우 제5조에 따라 조정한다. ④ 실측 치수는 마감면을 기준으로 하며 통상의 계측 오차(±10mm)를 허용한다. 구조체의 기울기나 부재의 변형으로 오차가 확대되는 부분은 “을”이 도면에 이를 표기한다.');
+    t += art(12, "저작권 보호", '① 설계도서에 대한 저작권은 “을”에게 있다. ② “갑”은 용역비를 완납한 후 본 계약의 대상 공간에 한하여 설계도서를 시공·유지관리의 목적으로 사용·복제할 수 있고, 원본파일의 제공은 위 표기에 따른다. ③ “갑”이 설계도서를 다른 현장에 전용하거나 제3자에게 제공하려는 경우에는 “을”의 사전 서면 동의를 받아야 한다. ④ “을”은 “갑”의 사전 서면 동의를 받아 본 용역을 실적(포트폴리오)으로 표시할 수 있다.');
+    t += art(13, "비밀유지", '당사자는 본 용역의 수행 과정에서 알게 된 상대방의 영업상·기술상 정보 및 현장 정보를 제3자에게 누설하거나 본 계약의 목적 외로 사용하지 아니하며, 그 의무는 계약이 종료된 후 <span class="b w3">&nbsp;</span>년간 <span class="hint">(통상 2)</span> 존속한다. 거주자의 신상·생활 정보와 현장 사진의 취급에도 같다.');
+    t += art(14, "지체상금", '“을”의 책임 있는 사유로 설계도서의 제출이 지체된 경우 “을”은 지체일수마다 용역비에 위 표기 지체상금률을 곱한 금액을 “갑”에게 지급한다. 지체상금의 총액은 용역비의 100분의 10을 초과하지 아니한다.');
+    t += art(15, "계약의 해제·해지 및 환불", '① 당사자가 본 계약을 위반하고 상대방의 서면 시정 요구를 받은 날부터 <span class="b w3">&nbsp;</span>일 <span class="hint">(통상 7)</span> 내에 이를 시정하지 아니한 경우 상대방은 본 계약을 해제 또는 해지할 수 있다. ② “갑”의 사정으로 해지하는 경우 실측 착수 전에는 기수령액을 전액 반환하고, 착수 후에는 수행 진행률에 해당하는 대가를 공제한 후 반환하며, 검수 승인 이후에는 반환하지 아니한다. ③ 중개 플랫폼을 통한 거래는 해당 플랫폼의 환불 규정을 우선하여 적용한다. ④ “갑”이 「소비자기본법」에 따른 소비자인 경우, 회차·단계로 구분되어 이행되는 용역에 대하여 “갑”은 언제든지 계약을 해지할 수 있고, “을”은 이미 이행한 부분과 제공한 자료의 대가를 공제한 나머지를 해지 통지를 받은 날부터 3영업일 내에 환급한다. 본 항은 관계 법령이 정한 소비자의 권리를 제한하지 아니한다.');
+    t += art(16, "손해배상 및 책임의 제한", '당사자의 손해배상 책임은 상대방에게 실제로 발생한 통상의 손해로 한정하며, 그 총액은 용역비를 초과하지 아니한다. 다만 고의 또는 중대한 과실이 있는 경우에는 그러하지 아니하다.');
+    t += art(17, "양도·재위탁 및 독립계약자의 지위", '① 당사자는 상대방의 사전 서면 동의 없이 본 계약상의 권리·의무를 제3자에게 양도하거나 본 용역의 주요 부분을 재위탁할 수 없다. ② “을”은 “갑”과 독립한 사업자로서 본 용역을 자기의 재량과 책임으로 수행하며, 본 계약은 당사자 사이에 고용·파견 관계를 형성하지 아니한다.');
+    t += art(18, "불가항력", '천재지변, 감염병, 화재·누수 등 현장 사고, 법령의 제정·개정 등 당사자가 통제할 수 없는 사유로 의무의 이행이 지연되거나 불가능하게 된 경우 해당 당사자는 그 책임을 지지 아니한다. 이 경우 지체 없이 상대방에게 통지하고 대응 방안을 협의한다.');
+    t += art(19, "통지", '본 계약에 따른 통지·승낙·검수 결과의 통보는 아래 서명란에 기재한 전자우편으로 하며, 발신한 날의 다음 영업일에 상대방에게 도달한 것으로 본다. 연락처가 변경된 경우 지체 없이 상대방에게 알린다.');
+    t += art(20, "분쟁의 해결", '본 계약에 관한 분쟁은 상호 협의로 해결하고, 협의가 이루어지지 아니한 경우 <span class="b w10">&nbsp;</span> 법원을 관할법원으로 한다. 다만 “갑”이 소비자인 경우에는 「민사소송법」이 정하는 바에 따른다.');
+    t += art(21, "특약사항", d.special ? '<span class="f">' + d.special + '</span>' : '<span class="b wfull">&nbsp;</span>');
+    t += art(22, "기타", '본 계약에 정하지 아니한 사항은 관계 법령 및 일반 상관례에 따르며, 국토교통부 「건축물의 설계 표준계약서」의 취지를 참작하여 해석한다.');
+    return t;
+  }
+
+  function standardCss() {
+    return "@page { size: A4; margin: 11mm 13mm; }" +
+      "* { box-sizing: border-box; } html, body { margin: 0; padding: 0; }" +
+      "body { font-family: 'Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',sans-serif;" +
+      "font-size: 9.0pt; line-height: 1.36; color: #111; background: #f2f3f5; word-break: keep-all; }" +
+      ".tools { max-width: 210mm; margin: 0 auto; padding: 12px 16px; font-size: 12px; color: #444;" +
+      "background: #eaf6ef; border-bottom: 1px solid #b9dcc7; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
+      ".tools button { font: inherit; font-weight: 700; padding: 7px 13px; border: none; border-radius: 7px; cursor: pointer; background: #fca311; }" +
+      ".sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 11mm 13mm; background: #fff; box-shadow: 0 2px 14px rgba(0,0,0,.12); }" +
+      "h1 { font-size: 15pt; text-align: center; letter-spacing: 0.32em; margin: 0 0 1.2mm; font-weight: 800; }" +
+      ".subtitle { text-align: center; font-size: 9.4pt; color: #333; margin: 0 0 2.6mm; }" +
+      ".lead { margin: 0 0 2.4mm; text-align: justify; }" +
+      "table.particulars { width: 100%; border-collapse: collapse; margin-bottom: 2.6mm; }" +
+      "table.particulars th, table.particulars td { border: 0.6pt solid #333; padding: 0.85mm 2mm; vertical-align: middle; }" +
+      "table.particulars th { width: 30mm; background: #f0f1f4; font-weight: 700; text-align: center; white-space: nowrap; }" +
+      "h2.sec { font-size: 9.5pt; font-weight: 800; margin: 2.6mm 0 1.2mm; border-bottom: 1.2pt solid #111; padding-bottom: 0.8mm; }" +
+      "p.art { margin: 0 0 0.8mm; text-align: justify; } p.art b { font-weight: 800; }" +
+      ".b { display: inline-block; border-bottom: 0.7pt solid #111; vertical-align: bottom; line-height: 1.3; }" +
+      ".f { font-weight: 700; border-bottom: 0.7pt solid #111; padding: 0 1mm; }" +
+      ".w3 { width: 3.2em; } .w4 { width: 4.4em; } .w5 { width: 5.5em; } .w6 { width: 6.5em; }" +
+      ".w7 { width: 7.5em; } .w10 { width: 11em; } .w14 { width: 15em; } .w20 { width: 21em; } .wfull { width: 100%; }" +
+      ".hint { font-size: 7.8pt; color: #6b7280; }" +
+      ".closing { margin: 2.6mm 0 3mm; text-align: justify; }" +
+      ".datebox { text-align: center; font-size: 10.2pt; letter-spacing: 0.05em; margin: 3mm 0; }" +
+      "table.sign { width: 100%; border-collapse: collapse; }" +
+      "table.sign td { border: 0.6pt solid #333; padding: 1.6mm 2.6mm; vertical-align: top; width: 50%; }" +
+      "table.sign .party { font-weight: 800; font-size: 9.6pt; margin-bottom: 1.2mm; }" +
+      "table.sign .row { margin-bottom: 1.1mm; } table.sign .seal { font-weight: 800; margin-left: 2mm; }" +
+      ".attach { margin-top: 2.4mm; font-size: 8.5pt; color: #222; } .attach div { margin-bottom: 0.6mm; }" +
+      "@media print { body { background: #fff; } .tools { display: none; }" +
+      ".sheet { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }" +
+      "table.sign, .datebox { page-break-inside: avoid; } }";
+  }
+
+  function simpleCss() {
+    return "@page { size: A4; margin: 11mm 13mm; }" +
+      "* { box-sizing: border-box; } html, body { margin: 0; padding: 0; }" +
+      ":root { --accent: #14503a; --accent2: #1a7f5a; --ink: #1c2027; --sub: #6b7280; --line: #d9dde4; --soft: #f5f8f6; }" +
+      "body { font-family: 'Pretendard','Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',sans-serif;" +
+      "font-size: 9.2pt; line-height: 1.42; color: var(--ink); background: #eef0f3; word-break: keep-all;" +
+      "-webkit-print-color-adjust: exact; print-color-adjust: exact; }" +
+      ".tools { max-width: 210mm; margin: 0 auto; padding: 11px 16px; font-size: 12px; color: #4b5563;" +
+      "background: #eaf6ef; border-bottom: 1px solid #b9dcc7; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
+      ".tools button { font: inherit; font-weight: 700; padding: 7px 13px; border: none; border-radius: 7px; cursor: pointer; background: #1a7f5a; color: #fff; }" +
+      ".sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 11mm 13mm; background: #fff; box-shadow: 0 2px 14px rgba(0,0,0,.12); }" +
+      ".brand { font-size: 8.4pt; font-weight: 800; letter-spacing: 0.22em; color: var(--accent2); margin-bottom: 2.5mm; }" +
+      "h1 { font-size: 15pt; font-weight: 800; letter-spacing: -0.02em; color: var(--accent); margin: 0; }" +
+      ".tag { font-size: 9pt; color: var(--sub); margin-top: 1.2mm; }" +
+      ".rule { height: 2.2pt; background: var(--accent); margin: 2.2mm 0 2.6mm; border-radius: 2pt; }" +
+      ".sec { margin-bottom: 2.2mm; }" +
+      ".sec > h2 { font-size: 8.6pt; font-weight: 800; letter-spacing: 0.14em; color: var(--accent); margin: 0 0 1.4mm; }" +
+      ".card { border: 0.7pt solid var(--line); border-radius: 2.6mm; padding: 2.0mm 3.0mm; background: var(--soft); }" +
+      ".grid { display: grid; grid-template-columns: 22mm 1fr; gap: 0.9mm 3.5mm; align-items: baseline; }" +
+      ".grid.two { grid-template-columns: 22mm 1fr 16mm 1fr; }" +
+      ".k { font-size: 8.8pt; font-weight: 700; color: var(--sub); } .v { min-height: 3.8mm; }" +
+      ".b { display: inline-block; border-bottom: 0.7pt solid #8b93a1; vertical-align: bottom; line-height: 1.25; }" +
+      ".f { font-weight: 700; }" +
+      ".w3 { width: 3.2em; } .w4 { width: 4.4em; } .w5 { width: 5.8em; } .w7 { width: 7.5em; }" +
+      ".w10 { width: 11em; } .w14 { width: 15em; } .wf { width: 100%; }" +
+      ".ck { font-size: 10.5pt; color: #3f4652; }" +
+      "ol.terms { margin: 0; padding: 0; list-style: none; counter-reset: t; }" +
+      "ol.terms li { counter-increment: t; position: relative; padding: 0 0 0 6.4mm; margin-bottom: 1.0mm; text-align: justify; }" +
+      "ol.terms li::before { content: counter(t); position: absolute; left: 0; top: 0.2mm; width: 4.6mm; height: 4.6mm;" +
+      "border-radius: 50%; background: var(--accent); color: #fff; font-size: 7.2pt; font-weight: 800; text-align: center; line-height: 4.6mm; }" +
+      "ol.terms b { font-weight: 800; color: var(--accent); }" +
+      ".datebox { text-align: center; font-size: 10pt; margin: 3mm 0 2.6mm; }" +
+      ".signs { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }" +
+      ".sig { border-top: 1.6pt solid var(--accent); padding-top: 2.2mm; }" +
+      ".sig .who { font-size: 8.6pt; font-weight: 800; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1.6mm; }" +
+      ".sig .row { margin-bottom: 1.0mm; font-size: 9.2pt; } .sig .seal { font-weight: 800; margin-left: 2mm; }" +
+      ".foot { margin-top: 2.2mm; font-size: 8.2pt; color: var(--sub); text-align: center; }" +
+      "@media print { body { background: #fff; } .tools { display: none; }" +
+      ".sheet { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }" +
+      ".signs, .datebox { page-break-inside: avoid; } }";
+  }
+
+  function simpleBody(d) {
+    var t = "";
+    t += '<div class="brand">PHILIP STUDIO</div>';
+    t += '<h1>간이 용역계약서</h1>';
+    t += '<div class="tag">현장 점검 · 하자 진단 · 견적서 검증 · 강의 — 단건 의뢰용</div>';
+    t += '<div class="rule"></div>';
+
+    t += '<div class="sec"><h2>1. 당사자</h2><div class="card"><div class="grid two">' +
+      '<div class="k">의뢰인 (갑)</div><div class="v">' + u(d.name, "wf") + '</div>' +
+      '<div class="k">연락처</div><div class="v">' + u(d.contact, "wf") + '</div>' +
+      '<div class="k">수행자 (을)</div><div class="v">카르쉬 · ' + VENDOR.bizNo + ' · 성필</div>' +
+      '<div class="k">연락처</div><div class="v"><span class="b wf">&nbsp;</span></div>' +
+      '</div></div></div>';
+
+    t += '<div class="sec"><h2>2. 용역 내용</h2><div class="card"><div class="grid">' +
+      '<div class="k">용역명</div><div class="v">' + u(d.project, "wf") + '</div>' +
+      '<div class="k">구분</div><div class="v">☐ 현장 점검·하자 진단 &nbsp; ☐ 견적서 검증 &nbsp; ☐ 강의·세션 &nbsp; ☐ 현장 동행 &nbsp; ☐ 기타 <span class="b w5">&nbsp;</span></div>' +
+      '<div class="k">소재지</div><div class="v">' + u(d.address, "wf") + '</div>' +
+      '<div class="k">면적 · 방문</div><div class="v">' + u(d.sqm, "w5") + '㎡ (' + u(d.area, "w4") + '평) &nbsp;·&nbsp; 방문 ' +
+        u(d.start ? d.start.y + "." + d.start.m + "." + d.start.d : "", "w10") + ' &nbsp; 출장비 ' +
+        (d.travel === "별도" ? "☐포함 <b>☑별도</b>" : "<b>☑포함</b> ☐별도") + '</div>' +
+      '<div class="k">결과물</div><div class="v">' + (d.scope ? '<span class="f">' + d.scope + '</span> &nbsp; ' : '☐ 점검 리포트 &nbsp; ☐ 검토 의견서 &nbsp; ☐ 도면 파일 &nbsp; ') +
+        '납품 기한 ' + u(d.end ? d.end.y + "." + d.end.m + "." + d.end.d : "", "w7") + '</div>' +
+      '</div></div></div>';
+
+    t += '<div class="sec"><h2>3. 금액과 지급</h2><div class="card"><div class="grid">' +
+      '<div class="k">금액</div><div class="v">회당 <span class="b w7">&nbsp;</span>원 × <span class="b w3">&nbsp;</span>회 = 총 ' +
+        u(d.amount !== null ? won(d.amount) : "", "w7") + '원 &nbsp; 부가세 ' +
+        (d.vat === "포함" ? "☐별도 <b>☑포함</b>" : "<b>☑별도</b> ☐포함") + '</div>' +
+      '<div class="k">지급 방법</div><div class="v">☐ 전액 선불 &nbsp; ☐ 선금 ' + u(String(d.advPct), "w3") +
+        '% / 잔금 ' + u(String(100 - d.advPct), "w3") + '% &nbsp; 지급기일 <span class="b w7">&nbsp;</span></div>' +
+      '<div class="k">입금계좌</div><div class="v"><span class="b w5">&nbsp;</span> 은행 <span class="b w14">&nbsp;</span> (예금주 성필)</div>' +
+      '<div class="k">증빙</div><div class="v">☐ 세금계산서 &nbsp; ☐ 현금영수증 &nbsp; ☐ 없음</div>' +
+      '</div></div></div>';
+
+    var revision = u(d.revision, "w3");
+    var inspect = u(d.inspect, "w3");
+    t += '<div class="sec"><h2>4. 약정</h2><ol class="terms">' +
+      '<li><b>범위</b> 위 2항에 적은 내용만 이 계약에 포함한다. 그 밖의 요청은 문자·메일 등 글로 다시 합의하고, 필요하면 금액과 일정을 조정한다. 갑이 건넨 도면·자료는 갑이 쓸 권리를 가진 것이어야 하며, 이로 인해 분쟁이 생기면 갑이 해결한다.</li>' +
+      '<li><b>방문과 일정</b> 갑은 실측·점검을 위한 현장 출입과 기존 도면·현황자료 제공에 협조하고, 공동주택이면 관리주체 신고와 이웃 동의를 갑이 맡는다. 예정 시각 <span class="b w3">&nbsp;</span>시간 전까지 알리면 일정을 무상으로 바꾸고, 그 이후의 취소는 1회를 진행한 것으로 본다.</li>' +
+      '<li><b>현장 안전</b> 갑은 알고 있는 위험 요인을 미리 알린다. 갑이 알리지 않은 위험으로 생긴 사고는 을의 책임이 아니며, 을의 잘못으로 시설을 훼손하면 을이 되돌리거나 그 비용을 낸다.</li>' +
+      '<li><b>대금</b> 지급이 늦어지면 늦은 기간에 대해 연 12%를 더해 지급한다. 7일을 넘겨 지급이 없으면 을은 작업을 멈추거나 결과물 전달을 미룰 수 있다.</li>' +
+      '<li><b>검수와 수정</b> 결과물을 전달한 뒤 ' + inspect + '일 안에 회신이 없으면 인수한 것으로 본다. 약정한 ' + revision + '회까지 무상으로 수정하며, 치수나 표기의 오기는 횟수와 무관하게 무상으로 고친다.</li>' +
+      '<li><b>업무의 한계</b> 이 계약은 「건축법」에 따른 허가·신고 대상 설계와 공사감리를 포함하지 않는다. 점검은 육안 점검을 기준으로 하고 은폐부위는 제외하며, 실측 치수는 마감면 기준 ±10mm의 오차를 허용한다. 을은 시공의 결과에 책임을 지지 않고, 물량 산출과 견적 검토는 판단의 기준을 제시하는 것이지 공사비를 보증하지 않는다.</li>' +
+      '<li><b>결과물</b> 도면과 리포트의 저작권은 을에게 있다. 갑은 대금을 모두 지급한 뒤 이 계약의 대상 공간에 한하여 이를 쓰고, 다른 현장에 전용하거나 제3자에게 넘기려면 을의 동의를 먼저 받는다.</li>' +
+      '<li><b>취소와 환불, 그 밖에</b> 방문 전에는 전액, 방문·착수 뒤에는 진행한 만큼을 뺀 금액을 돌려주고, 검수를 승인한 뒤에는 돌려주지 않는다(플랫폼 거래는 그 플랫폼의 규정을 먼저 따른다). 회차로 나뉜 강의는 갑이 언제든 그만둘 수 있고, 진행한 회차와 제공한 자료 값을 뺀 나머지를 3영업일 안에 돌려준다. 서로 알게 된 현장·영업 정보는 밖으로 알리지 않으며, 다툼은 먼저 협의로 풀고 이 문서에 없는 내용은 관계 법령과 일반 상관례에 따른다.</li>' +
+      (d.special ? '<li><b>특약</b> ' + d.special + '</li>' : '') +
+      '</ol></div>';
+
+    t += '<div class="datebox"><span class="b w4">&nbsp;</span> 년 <span class="b w3">&nbsp;</span> 월 <span class="b w3">&nbsp;</span> 일</div>';
+    t += '<div class="signs">' +
+      '<div class="sig"><div class="who">의뢰인 (갑)</div>' +
+      '<div class="row">성명 · 상호 ' + u(d.name, "w10") + '</div>' +
+      '<div class="row">서명 <span class="b w10">&nbsp;</span> <span class="seal">(인)</span></div></div>' +
+      '<div class="sig"><div class="who">수행자 (을)</div>' +
+      '<div class="row">카르쉬 (PHILIP STUDIO) · ' + VENDOR.bizNo + '</div>' +
+      '<div class="row">성 &nbsp; 필 <span class="b w10">&nbsp;</span> <span class="seal">(인)</span></div></div>' +
+      '</div>';
+    t += '<div class="foot">이 계약서는 2부를 만들어 각자 1부를 보관하거나, 1부에 함께 서명한 뒤 사본을 나눠 갖는다.</div>';
+    return t;
+  }
+
+  function standardSheet(d) {
+    var t = "";
+    t += '<h1>표준용역계약서</h1>';
+    t += '<p class="subtitle">실내건축 설계(실측·도면작성·모델링·견적설계) 및 시설점검 용역</p>';
+    t += '<p class="lead">발주자 ' + u(d.name, "w20") + ' (이하 “갑”이라 한다)와 수급인 카르쉬(브랜드: PHILIP STUDIO) (이하 “을”이라 한다)는 ' +
+      '아래 계약내용에 관하여 상호 신뢰와 대등한 지위에서 다음과 같이 용역계약을 체결한다.</p>';
+    t += standardBody(d);
+    t += '<p class="closing">본 계약의 성립을 증명하기 위하여 계약서 2부를 작성하고, “갑”과 “을”이 각 조항을 확인한 후 기명·날인하여 각 1부씩 보관한다.</p>';
+    t += '<div class="datebox"><span class="b w5">&nbsp;</span> 년 <span class="b w3">&nbsp;</span> 월 <span class="b w3">&nbsp;</span> 일</div>';
+    t += '<table class="sign"><tr><td>' +
+      '<div class="party">“갑” (발주자 · 건축주)</div>' +
+      '<div class="row">상호(성명) : ' + u(d.name, "w14") + '</div>' +
+      '<div class="row">사업자등록번호 : ' + u(d.bizNo, "w10") + '</div>' +
+      '<div class="row">주 &nbsp;&nbsp; 소 : ' + u(d.address, "w14") + '</div>' +
+      '<div class="row">연락처(전자우편) : ' + u(d.contact, "w14") + '</div>' +
+      '<div class="row">대표자(본인) : ' + u(d.rep, "w10") + ' <span class="seal">(인)</span></div>' +
+      '</td><td>' +
+      '<div class="party">“을” (수급인)</div>' +
+      '<div class="row">상 &nbsp;&nbsp; 호 : ' + VENDOR.name + '</div>' +
+      '<div class="row">사업자등록번호 : ' + VENDOR.bizNo + '</div>' +
+      '<div class="row">주 &nbsp;&nbsp; 소 : ' + VENDOR.addr + '</div>' +
+      '<div class="row">연락처(전자우편) : <span class="b w14">&nbsp;</span></div>' +
+      '<div class="row">대 표 자 : ' + VENDOR.rep + ' <span class="seal">(인)</span></div>' +
+      '</td></tr></table>';
+    t += '<div class="attach">' +
+      '<div><b>별첨 1.</b> 과업범위 명세서(요구사항 정리서) 1부 &nbsp;—&nbsp; 본 계약의 일부를 구성한다.</div>' +
+      '<div><b>별첨 2.</b> 견적서 1부 &nbsp;·&nbsp; <b>별첨 3.</b> <span class="b w20">&nbsp;</span></div>' +
+      '</div>';
+    return t;
+  }
+
+  window.renderContract = function (kind, d) {
+    var simple = kind === "simple";
+    var title = simple ? "간이 용역계약서 — 현장 점검·견적 검증·강의" : "표준용역계약서 — 실내건축 설계 용역";
+    var fileName = simple ? "간이용역계약서_실내건축" : "표준용역계약서_실내건축";
+    var note = simple
+      ? "Ctrl+P → 용지 A4, 배율 100%, 여백 기본, 배경 그래픽 켜기. A4 1장 분량입니다."
+      : "Ctrl+P → 용지 A4, 배율 100%, 여백 기본, 배경 그래픽 끄기. A4 2장 분량입니다.";
+    var dl = "function dl(){var b=new Blob(['<!DOCTYPE html>'+document.documentElement.outerHTML]," +
+             "{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(b);" +
+             "a.download='" + fileName + ".html';a.click();}";
+    return "<!DOCTYPE html><html lang='ko'><head><meta charset='UTF-8'><title>" + title + "</title>" +
+      "<style>" + (simple ? simpleCss() : standardCss()) + "</style></head><body>" +
+      "<div class='tools'><button onclick='window.print()'>인쇄 · PDF로 저장</button>" +
+      "<button onclick='dl()'>HTML 파일 다운로드</button><span>" + note + " 이 안내줄은 인쇄되지 않습니다.</span></div>" +
+      "<div class='sheet'>" + (simple ? simpleBody(d) : standardSheet(d)) + "</div>" +
+      "<scr" + "ipt>" + dl + "</scr" + "ipt></body></html>";
+  };
+
   window.buildContract = function (kind) {
-    var client = orBlank(esc(val("cName")));
-    var rep = orBlank(esc(val("cRep")));
-    var contact = orBlank(esc(val("cContact")));
-    var project = orBlank(esc(val("cProject")));
-    var address = orBlank(esc(val("cAddress")));
-    var area = orBlank(esc(val("cArea")));
-    var scope = esc(val("cScope")) || "（용역 범위를 별지 또는 수기로 기재）";
-    var special = esc(val("cSpecial"));
-    var revision = val("cRevision") || "2";
-    var startD = fmtDate(val("cStart"));
-    var endD = fmtDate(val("cEnd"));
-    var amount = parseAmount(val("cAmount"));
-    var advPct = parseAmount(val("cAdvance"));
-    if (advPct === null || advPct < 0 || advPct > 100) advPct = 50;
-
-    var amountLine, advLine, restLine;
-    if (amount !== null) {
-      var adv = Math.round(amount * advPct / 100);
-      amountLine = "금 " + won(amount) + "원정 (₩" + won(amount) + ", VAT 별도)";
-      advLine = "선금(" + advPct + "%): 금 " + won(adv) + "원 — 계약 체결 시 지급";
-      restLine = "잔금(" + (100 - advPct) + "%): 금 " + won(amount - adv) + "원 — 검수 승인 후 7일 이내 지급";
-    } else {
-      amountLine = "금 　　　　　　　원정 (VAT 별도)";
-      advLine = "선금(" + advPct + "%): 계약 체결 시 지급";
-      restLine = "잔금(" + (100 - advPct) + "%): 검수 승인 후 7일 이내 지급";
-    }
-
-    var today = new Date();
-    var signDate = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월 " + today.getDate() + "일";
-    var title = kind === "simple" ? "실내건축 설계 용역 계약서 (심플)" : "실내건축 설계 용역 계약서";
-    var siteLine = "현장: " + address + " (대상 면적: " + area + ")";
-
-    var body = "";
-    if (kind === "simple") {
-      body +=
-        art("1. 프로젝트", "프로젝트명: " + project + "<br>" + siteLine + "<br>용역 범위: " + scope) +
-        art("2. 금액과 지급", amountLine + "<br>" + advLine + "<br>" + restLine) +
-        art("3. 일정", "실측(착수)일: " + startD + " / 납품 예정일: " + endD + "<br>발주자의 현장 출입 협조 지연 등 수급자 귀책이 아닌 사유로 지연된 기간만큼 일정은 순연된다.") +
-        art("4. 수정", "본 계약에는 수정 " + revision + "회가 포함된다. 초과 수정 및 범위 추가는 사전 협의 후 별도 정산한다. 납품 후 발견된 도면 표기 오류(오기)는 횟수와 무관하게 무상으로 수정한다.") +
-        art("5. 성과품과 권리", "성과품(CAD 도면 원본 포함)은 잔금 완납 시 발주자에게 제공되며, 발주자는 해당 현장의 시공·인허가·유지관리 목적으로 자유롭게 사용할 수 있다. 다른 현장에의 재사용은 사전 협의한다.") +
-        art("6. 해지와 환불", "착수 전 해지 시 전액 환불한다. 실측 착수 후에는 진행률을 공제하고 정산하며, 검수 승인 이후에는 환불하지 않는다.");
-      if (special) body += art("7. 특약사항", special);
-    } else {
-      body +=
-        art("제1조 (목적)", "본 계약은 발주자가 의뢰한 “" + project + "”(이하 “본 건 용역”)의 수행에 관하여 양 당사자의 권리와 의무를 정함을 목적으로 한다.") +
-        art("제2조 (용역의 범위 및 현장)", siteLine + "<br>본 건 용역의 범위는 다음과 같으며, 여기에 명시되지 않은 작업(시공, 감리, 인허가 대행 등)은 범위에 포함되지 않는다.<br>" + scope) +
-        art("제3조 (계약 기간)", "실측(착수)일: " + startD + "<br>납품 예정일: " + endD + "<br>발주자의 현장 출입 협조 지연, 자료 제공 지연, 의사결정 지연 등 수급자의 귀책이 아닌 사유로 지연된 기간만큼 일정은 자동 순연된다.") +
-        art("제4조 (계약 금액 및 지급 방법)", "계약 금액: " + amountLine + "<br>" + advLine + "<br>" + restLine + "<br>지급이 7일 이상 지연되는 경우 수급자는 작업을 중지할 수 있으며, 이로 인한 일정 지연은 수급자의 책임이 아니다.") +
-        art("제5조 (수정 및 범위 변경)", "본 계약에는 수정 " + revision + "회가 포함된다. 포함 횟수를 초과하는 수정, 또는 제2조의 범위를 벗어나는 추가 요청(면적 확대, 설계 방향 전면 변경 등)은 사전 협의 후 별도 견적으로 정산한다.") +
-        art("제6조 (검수)", "수급자가 성과품을 납품하면 발주자는 7일 이내에 검수 결과를 통지한다. 기간 내 통지가 없으면 검수를 승인한 것으로 본다. 검수 요청 사항은 제5조의 수정 횟수 내에서 처리한다.") +
-        art("제7조 (오기의 무상 수정)", "납품 후 발견된 도면 표기 오류(치수 오기, 표기 누락 등)는 제5조의 수정 횟수와 무관하게 무상으로 수정한다.") +
-        art("제8조 (성과품 및 권리)", "성과품은 CAD 도면 원본 파일을 포함하여 잔금 완납 시 발주자에게 제공된다. 발주자는 해당 현장의 시공·견적 비교·인허가·유지관리 목적으로 성과품을 자유롭게 사용할 수 있다. 해당 현장 외 다른 프로젝트에의 재사용은 사전 협의를 거친다.") +
-        art("제9조 (현장 협조 및 출장)", "발주자는 실측 및 점검에 필요한 현장 출입과 안전 조치를 협조한다. 계약 범위 외 추가 현장 방문 및 원거리 출장은 사전 안내 후 출장비를 별도 정산한다.") +
-        art("제10조 (비밀유지)", "양 당사자는 본 건 용역 수행 중 알게 된 상대방의 정보(현장 정보, 보안 사항 포함)를 제3자에게 누설하지 않는다. 본 조의 의무는 계약 종료 후 2년간 존속한다.") +
-        art("제11조 (계약의 해제·해지 및 정산)", "착수 전 해지 시 선금은 전액 환불한다. 실측 착수 후 발주자의 사정으로 해지하는 경우 진행률에 해당하는 금액을 공제하고 정산하며, 검수 승인 이후에는 환불하지 않는다. 일방이 계약을 중대하게 위반하고 7일 이내 시정하지 않으면 상대방은 계약을 해지할 수 있다.") +
-        art("제12조 (손해배상)", "각 당사자의 손해배상 책임은 고의 또는 중대한 과실이 없는 한 본 계약 금액을 한도로 한다. 수급자의 성과품은 설계 도서이며, 시공 품질 및 시공사의 이행에 대한 책임은 포함하지 않는다.") +
-        art("제13조 (분쟁의 해결)", "본 계약과 관련한 분쟁은 우선 상호 협의로 해결하며, 협의가 이루어지지 않을 경우 민사조정 또는 관할 법원의 판결에 따른다.");
-      if (special) body += art("제14조 (특약사항)", special);
-    }
-
-    var html =
-      "<!DOCTYPE html><html lang='ko'><head><meta charset='UTF-8'>" +
-      "<title>" + title + "</title><style>" +
-      "body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;color:#1f2430;line-height:1.7;max-width:760px;margin:0 auto;padding:40px 24px;}" +
-      "h1{font-size:22px;text-align:center;letter-spacing:0.1em;margin-bottom:28px;}" +
-      "h2{font-size:14px;margin:22px 0 6px;}" +
-      "p,div.c{font-size:13.5px;margin:0 0 4px;}" +
-      ".meta{border:1px solid #888;padding:14px 18px;font-size:13.5px;margin-bottom:20px;}" +
-      ".sign{margin-top:44px;font-size:13.5px;}" +
-      ".sign .row{display:flex;justify-content:space-between;gap:24px;margin-top:28px;}" +
-      ".sign .box{flex:1;}" +
-      ".toolbar{position:sticky;top:0;background:#14213d;color:#fff;padding:10px 16px;margin:-40px -24px 30px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}" +
-      ".toolbar button{font:inherit;font-weight:700;padding:8px 14px;border:none;border-radius:8px;cursor:pointer;background:#fca311;}" +
-      ".toolbar span{font-size:12.5px;opacity:0.85;}" +
-      "@media print{.toolbar{display:none;}}" +
-      "</style></head><body>" +
-      "<div class='toolbar'><button onclick='window.print()'>인쇄 · PDF로 저장</button><button onclick='dl()'>HTML 파일 다운로드</button><span>인쇄 대화상자에서 “PDF로 저장”을 선택하면 파일로 보관할 수 있습니다.</span></div>" +
-      "<h1>" + title + "</h1>" +
-      "<div class='meta'>" +
-      "발주자(갑): " + client + " (대표자: " + rep + " / 연락처: " + contact + ")<br>" +
-      "수급자(을): 필립 스튜디오 (PHILIP STUDIO)<br>" +
-      "프로젝트명: " + project + "<br>" + siteLine +
-      "</div>" +
-      body +
-      "<p style='margin-top:26px;'>위 계약의 성립을 증명하기 위하여 본 계약서 2부를 작성하고, 갑과 을이 각 1부씩 보관한다.</p>" +
-      "<div class='sign'><p style='text-align:center;'>" + signDate + "</p>" +
-      "<div class='row'>" +
-      "<div class='box'>발주자(갑)<br>상호: " + client + "<br>대표자: " + rep + " (인)</div>" +
-      "<div class='box'>수급자(을)<br>상호: 필립 스튜디오<br>대표자: 　　　　　　 (인)</div>" +
-      "</div></div>" +
-      "<scr" + "ipt>function dl(){var b=new Blob(['<!DOCTYPE html>'+document.documentElement.outerHTML],{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='" + title + ".html';a.click();}</scr" + "ipt>" +
-      "</body></html>";
-
+    var html = window.renderContract(kind, collect());
     var w = window.open("", "_blank");
     if (!w) { alert("팝업이 차단되어 있습니다. 이 사이트의 팝업을 허용한 뒤 다시 눌러주세요."); return; }
     w.document.open();
