@@ -72,6 +72,7 @@
   .btn {
     display: inline-block; font-weight: 700; font-size: 15px;
     padding: 13px 26px; border-radius: 12px; transition: transform .15s ease, box-shadow .15s ease;
+    border: none; cursor: pointer; font-family: inherit;
   }
   .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
   .btn-primary { background: var(--navy); color: #fff; }
@@ -227,6 +228,44 @@
   .track-it { background: #e8f0ff; color: #1d4fa1; }
   .track-ar { background: #eaf6ef; color: #1a7f5a; }
 
+  /* ===== notes library ===== */
+  .note-series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 38px; }
+  .note-series { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px 26px; }
+  .note-series .lv-tag {
+    display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--amber-deep); background: #fff7e8; border: 1px solid #f5d9a8; padding: 3px 10px; border-radius: 999px;
+  }
+  .note-series h3 { font-size: 17px; color: var(--navy); margin-top: 10px; }
+  .note-series p.desc { font-size: 13px; color: var(--ink-sub); margin-top: 6px; }
+  .note-series ol { margin-top: 14px; list-style: none; counter-reset: note; }
+  .note-series ol li { counter-increment: note; font-size: 13.5px; color: var(--ink); padding: 8px 0 8px 30px; position: relative; border-bottom: 1px dashed var(--line); }
+  .note-series ol li:last-child { border-bottom: none; }
+  .note-series ol li::before {
+    content: counter(note, decimal-leading-zero); position: absolute; left: 0; top: 9px;
+    font-size: 11.5px; font-weight: 800; color: var(--amber-deep);
+  }
+  .note-series ol li small { display: block; color: var(--ink-sub); font-size: 12px; font-weight: 400; }
+  .note-rule { margin-top: 22px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 16px 20px; font-size: 13.5px; color: var(--ink-sub); }
+
+  /* ===== process split ===== */
+  .proc-block { margin-top: 34px; }
+  .proc-block h3 { font-size: 17px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+  .proc-block h3 .track-tag { margin-bottom: 0; }
+  .proc-block .steps { margin-top: 16px; }
+
+  /* ===== contract generator ===== */
+  .contract-box { margin-top: 38px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .contract-box .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .contract-box label { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy-soft); margin-bottom: 5px; }
+  .contract-box input, .contract-box textarea {
+    width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px;
+    font: inherit; font-size: 14px; color: var(--ink); background: var(--bg-soft);
+  }
+  .contract-box input:focus, .contract-box textarea:focus { outline: 2px solid var(--amber); border-color: var(--amber); background: #fff; }
+  .contract-box .full { grid-column: 1 / -1; }
+  .contract-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
+  .contract-note { font-size: 12.5px; color: var(--ink-sub); margin-top: 14px; }
+
   @media (max-width: 640px) {
     .nav-links a:not(.nav-cta) { display: none; }
     section { padding: 54px 0; }
@@ -243,7 +282,9 @@
       <a href="#design">설계 · 인테리어</a>
       <a href="#care">점검 · 관리</a>
       <a href="#lecture">건축 강의</a>
+      <a href="#notes">비법노트</a>
       <a href="#process">진행 방식</a>
+      <a href="#contract">계약서</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#contact">문의하기</a>
     </nav>
@@ -265,10 +306,10 @@
       <a class="btn btn-ghost" href="#lecture">강의 커리큘럼 보기</a>
     </div>
     <div class="hero-chips">
-      <span class="chip">고려대학교 건축학과(5년제)</span>
       <span class="chip">물류센터 실시설계</span>
       <span class="chip">병원 외장설계 · 그린리모델링 · 인테리어 설계</span>
       <span class="chip">경기도 건축문화상 수상 건물 시설관리팀장</span>
+      <span class="chip">고려대학교 건축학과(5년제)</span>
     </div>
   </div>
 </div>
@@ -276,10 +317,10 @@
 <!-- ================= STATS ================= -->
 <div class="stats">
   <div class="wrap stats-grid">
-    <div class="stat"><b>5년제 건축학과</b><span>고려대학교 건축학과 졸업, 실시설계 실무 수행</span></div>
     <div class="stat"><b>실시설계 실적</b><span>물류센터 · 병원 외장/인테리어 · 스마트쉼터</span></div>
     <div class="stat"><b>시설관리 실무</b><span>건축문화상 수상 건물 시설관리팀장, 정기점검 다수</span></div>
     <div class="stat"><b>풀사이클 커버</b><span>실측–도면–모델링–견적설계를 한 사람이 연결</span></div>
+    <div class="stat"><b>5년제 건축학과</b><span>고려대학교 건축학과 졸업, 실시설계 실무 수행</span></div>
   </div>
 </div>
 
@@ -382,21 +423,21 @@
         <div class="head"><span class="lv">입문</span><h3>기초 스케치업 / 웹툴 강의</h3></div>
         <div class="body">
           <p>내 공간을 직접 그려보는 3D 입문. 설치 없이 쓰는 무료 웹툴 활용법까지 포함합니다.</p>
-          <div class="fee">1:1 회당(2h) 15만원 · 4회 패키지 할인</div>
+          <div class="fee">1:1 회당(2h) 15만원 · 4회 패키지 59만원</div>
         </div>
       </div>
       <div class="class-card">
         <div class="head"><span class="lv">실무</span><h3>도면 읽고쓰기 기초</h3></div>
         <div class="body">
           <p>평면도·입면도·상세도를 읽고, 원하는 바를 도면 언어로 시공사에 전달하는 법.</p>
-          <div class="fee">1:1 회당(2h) 15만원</div>
+          <div class="fee">1:1 회당(2h) 15만원 · 4회 패키지 59만원</div>
         </div>
       </div>
       <div class="class-card">
         <div class="head"><span class="lv">방어</span><h3>시공관리 포인트 집중세션</h3></div>
         <div class="body">
           <p>구조안전 셀프진단과 주요 하자부위 체크. 인테리어에서 당하지 않기 위한 핵심 지식.</p>
-          <div class="fee">1:1 회당(2h) 20만원 · 현장 동행 시 출장비 별도</div>
+          <div class="fee">1:1 회당(2h) 15만원 · 현장 동행 시 출장비 별도</div>
         </div>
       </div>
       <div class="class-card">
@@ -414,8 +455,60 @@
   </div>
 </section>
 
+<!-- ================= NOTES ================= -->
+<section id="notes">
+  <div class="wrap">
+    <span class="track-tag track-ar">PLAYBOOK</span>
+    <div class="eyebrow">Playbook Library</div>
+    <h2>비법노트 라이브러리</h2>
+    <p class="sec-desc">
+      실무에서 검증한 내용만 노트 한 권 = 세션 한 번(2h) 분량으로 분절해 두었습니다.
+      수준 진단 후 필요한 노트부터 순서대로 진행하며, 수강한 세션의 노트는 교재로 제공됩니다.
+    </p>
+    <div class="note-series-grid">
+      <div class="note-series">
+        <span class="lv-tag">SERIES 1 · 방어</span>
+        <h3>공간주의 방어 지식 — 당하지 않는 법</h3>
+        <p class="desc">인테리어·공사를 발주하는 사람이 계약 전에 알아야 하는 최소 지식.</p>
+        <ol>
+          <li>도면 읽는 법<small>평면도 · 입면도 · 상세도, 도면에서 돈이 걸리는 표기 찾기</small></li>
+          <li>견적서 물량 검증법<small>평당 단가의 함정 — 총액 견적을 항목별 근거로 쪼개는 법</small></li>
+          <li>하자 체크포인트<small>준공 직후에는 보이지 않는 부위, 시기별 점검 목록</small></li>
+          <li>공사 계약과 범위 문서화<small>"이건 안 하기로 했잖아요" 분쟁을 계약 전에 끝내는 문서</small></li>
+        </ol>
+      </div>
+      <div class="note-series">
+        <span class="lv-tag">SERIES 2 · 실전</span>
+        <h3>직접 그리는 공간 — 요구를 도면 언어로</h3>
+        <p class="desc">내 공간을 남에게 설명하지 않고 직접 그려서 보여주기 위한 실기.</p>
+        <ol>
+          <li>실측의 기술<small>줄자 하나로 시작하는 실측 순서와 기록 양식</small></li>
+          <li>스케치업 · 웹툴 3D 입문<small>설치 없이 쓰는 무료 도구로 내 공간 모델링</small></li>
+          <li>도면 언어로 전달하기<small>원하는 바를 시공사가 오해 없이 받는 표기법</small></li>
+          <li>자재 · 마감 선택 기준<small>보이는 값과 유지비용 — 마감재 선택의 판단 축</small></li>
+        </ol>
+      </div>
+      <div class="note-series">
+        <span class="lv-tag">SERIES 3 · 운영</span>
+        <h3>건물을 오래 쓰는 법 — 유지관리의 기준</h3>
+        <p class="desc">건축문화상 수상 건물 시설관리에서 반복 검증한 운영 루틴.</p>
+        <ol>
+          <li>정기점검 루틴<small>계절별 · 연간 점검 항목과 육안 점검의 우선순위</small></li>
+          <li>보수 우선순위와 예산 배분<small>하자가 커지기 전에 잡는 연 단위 유지관리 설계</small></li>
+          <li>시설관리 기록 체계<small>점검 · 보수 이력을 자산으로 남기는 기록 양식</small></li>
+          <li>그린리모델링 개요<small>에너지 개선 공사의 범위와 지원 제도의 큰 그림</small></li>
+        </ol>
+      </div>
+    </div>
+    <div class="note-rule">
+      모든 노트는 실시설계 · 시설관리 실무에서 검증한 내용으로 구성하며, 특정 발주처의 내부 정보는 일절 포함하지 않습니다.
+      법규 · 제도 관련 내용은 공개 자료 기준으로 출처를 확인해 수록합니다.
+    </div>
+  </div>
+</section>
+
 <!-- ================= BENEFITS ================= -->
-<section id="benefit">
+<section class="alt" id="benefit">
   <div class="wrap">
     <div class="eyebrow">Deliverables &amp; Benefits</div>
     <h2>모든 고객에게 드리는 공통 혜택</h2>
@@ -429,25 +522,42 @@
 </section>
 
 <!-- ================= PROCESS ================= -->
-<section class="alt" id="process">
+<section id="process">
   <div class="wrap">
     <div class="eyebrow">Process</div>
     <h2>진행 방식</h2>
-    <p class="sec-desc">모든 프로젝트는 아래 7단계 표준 프로세스로 진행됩니다. 범위를 문서로 확정한 뒤 착수하므로 견적이 흔들리지 않습니다.</p>
-    <div class="steps">
-      <div class="step"><b>상담</b><span>텍스트 기반 무료 15분</span></div>
-      <div class="step"><b>요구사항 정리</b><span>범위·제외 범위 1페이지 문서화</span></div>
-      <div class="step"><b>견적 · 일정 확정</b><span>고정가 견적, 유효기간 14일</span></div>
-      <div class="step"><b>계약 · 선금</b><span>표준 계약서, 선금 50%</span></div>
-      <div class="step"><b>실측 · 설계</b><span>중간 보고 1회 이상</span></div>
-      <div class="step"><b>검수 · 잔금</b><span>약정 수정 횟수 내 수정</span></div>
-      <div class="step"><b>사후지원</b><span>납품 후 도면 오기 무상 수정</span></div>
+    <p class="sec-desc">설계 외주와 교육은 성격이 달라 진행 절차를 분리해 운영합니다. 두 경우 모두 범위와 일정을 문서로 확정한 뒤 시작합니다.</p>
+
+    <div class="proc-block">
+      <h3><span class="track-tag track-ar">외주</span>실측 · 설계 · 점검 외주</h3>
+      <div class="steps">
+        <div class="step"><b>상담</b><span>텍스트 기반 무료 15분</span></div>
+        <div class="step"><b>요구사항 정리</b><span>범위·제외 범위 1페이지 문서화</span></div>
+        <div class="step"><b>견적 · 일정 확정</b><span>고정가 견적, 유효기간 14일</span></div>
+        <div class="step"><b>계약 · 선금</b><span>표준 계약서, 선금 50%</span></div>
+        <div class="step"><b>실측 · 설계</b><span>중간 보고 1회 이상</span></div>
+        <div class="step"><b>검수 · 잔금</b><span>약정 수정 횟수 내 수정</span></div>
+        <div class="step"><b>사후지원</b><span>납품 후 도면 오기 무상 수정</span></div>
+      </div>
+    </div>
+
+    <div class="proc-block">
+      <h3><span class="track-tag track-ar">교육</span>공간 · 건축 강의</h3>
+      <div class="steps">
+        <div class="step"><b>상담</b><span>목표·배경 텍스트 상담 무료</span></div>
+        <div class="step"><b>수준 진단</b><span>15분 사전 진단으로 시작점 결정</span></div>
+        <div class="step"><b>커리큘럼 확정</b><span>비법노트 단위로 세션 구성</span></div>
+        <div class="step"><b>일정 · 결제</b><span>회당 또는 패키지 선결제</span></div>
+        <div class="step"><b>세션 진행</b><span>회당 2시간, 현장 동행은 출장비 별도</span></div>
+        <div class="step"><b>노트 제공</b><span>세션별 비법노트 + 체크리스트</span></div>
+        <div class="step"><b>사후 Q&amp;A</b><span>세션 후 1주 텍스트 질문 지원</span></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= Q&A ================= -->
-<section id="expert">
+<section class="alt" id="expert">
   <div class="wrap">
     <div class="eyebrow">Expert Interview</div>
     <h2>전문가에게 물었습니다</h2>
@@ -480,7 +590,7 @@
 </section>
 
 <!-- ================= FAQ ================= -->
-<section class="alt" id="faq">
+<section id="faq">
   <div class="wrap">
     <div class="eyebrow">FAQ</div>
     <h2>자주 묻는 질문</h2>
@@ -513,6 +623,45 @@
   </div>
 </section>
 
+<!-- ================= CONTRACT ================= -->
+<section class="alt" id="contract">
+  <div class="wrap">
+    <div class="eyebrow">Contract Builder</div>
+    <h2>계약서 자동작성</h2>
+    <p class="sec-desc">
+      진행이 결정되면 아래 항목을 채우고 원하는 양식을 누르세요. 입력값이 반영된 실내건축 설계
+      용역계약서가 새 창에 생성되며, 인쇄(PDF 저장)하거나 파일로 내려받아 검토 후 서명하시면 됩니다.
+      금액·날짜 같은 핵심 항목은 직접 기입한 값이 그대로 들어가고, 비워 두면 공란으로 출력되어 수기로 채울 수 있습니다.
+    </p>
+    <div class="contract-box">
+      <div class="form-grid">
+        <div><label for="cName">발주자 (상호 또는 성명)</label><input id="cName" placeholder="주식회사 OO / 홍길동"></div>
+        <div><label for="cRep">대표자</label><input id="cRep" placeholder="홍길동"></div>
+        <div><label for="cContact">연락처 (이메일·전화)</label><input id="cContact" placeholder="contact@example.com"></div>
+        <div><label for="cProject">프로젝트명 (공간·용도)</label><input id="cProject" placeholder="OO 카페 실내건축 설계"></div>
+        <div><label for="cAddress">현장 주소</label><input id="cAddress" placeholder="서울시 OO구 OO로 00"></div>
+        <div><label for="cArea">대상 면적 (평 또는 ㎡)</label><input id="cArea" placeholder="28평"></div>
+        <div><label for="cAmount">계약 금액 (원, VAT 별도)</label><input id="cAmount" inputmode="numeric" placeholder="1400000"></div>
+        <div><label for="cAdvance">선금 비율 (%)</label><input id="cAdvance" inputmode="numeric" value="50"></div>
+        <div><label for="cStart">실측(착수) 예정일</label><input id="cStart" type="date"></div>
+        <div><label for="cEnd">납품 예정일</label><input id="cEnd" type="date"></div>
+        <div><label for="cRevision">포함 수정 횟수</label><input id="cRevision" inputmode="numeric" value="2"></div>
+        <div class="full"><label for="cScope">용역 범위 요약</label><textarea id="cScope" rows="3" placeholder="예: 현장 실측, CAD 평면·입면 도면 1식, 3D 모델링, 디자인 컨셉 제안 (PACKAGE B 기준)"></textarea></div>
+        <div class="full"><label for="cSpecial">특약사항 (선택)</label><textarea id="cSpecial" rows="2" placeholder="예: 시공사 견적 검증 1회 포함"></textarea></div>
+      </div>
+      <div class="contract-actions">
+        <button class="btn btn-primary" type="button" onclick="buildContract('simple')">📄 심플 양식 생성</button>
+        <button class="btn btn-amber" type="button" onclick="buildContract('formal')">📑 정식 양식 생성</button>
+      </div>
+      <div class="contract-note">
+        심플 양식은 1페이지 핵심 조항(범위 · 금액 · 일정 · 수정 · 성과품 · 해지)으로 구성되고,
+        정식 양식은 검수 · 오기 수정 · 현장 협조 · 비밀유지 · 손해배상 · 분쟁해결까지 갖춘 표준 용역계약서입니다.
+        본 양식은 참고용 표준 양식이며, 서명 전 필요 시 법률 전문가의 검토를 권합니다.
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACT ================= -->
 <section class="contact" id="contact">
   <div class="wrap">
@@ -537,5 +686,133 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  "use strict";
+
+  function val(id) {
+    var el = document.getElementById(id);
+    return el && el.value ? el.value.trim() : "";
+  }
+  function orBlank(v) { return v || "（　　　　　　　　）"; }
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function fmtDate(raw) {
+    if (!raw) return "　　　　년　　월　　일";
+    var p = raw.split("-");
+    return p[0] + "년 " + Number(p[1]) + "월 " + Number(p[2]) + "일";
+  }
+  function parseAmount(raw) {
+    var digits = (raw || "").replace(/[^0-9]/g, "");
+    return digits ? Number(digits) : null;
+  }
+  function won(n) { return n.toLocaleString("ko-KR"); }
+  function art(head, text) {
+    return "<h2>" + head + "</h2><div class='c'>" + text + "</div>";
+  }
+
+  window.buildContract = function (kind) {
+    var client = orBlank(esc(val("cName")));
+    var rep = orBlank(esc(val("cRep")));
+    var contact = orBlank(esc(val("cContact")));
+    var project = orBlank(esc(val("cProject")));
+    var address = orBlank(esc(val("cAddress")));
+    var area = orBlank(esc(val("cArea")));
+    var scope = esc(val("cScope")) || "（용역 범위를 별지 또는 수기로 기재）";
+    var special = esc(val("cSpecial"));
+    var revision = val("cRevision") || "2";
+    var startD = fmtDate(val("cStart"));
+    var endD = fmtDate(val("cEnd"));
+    var amount = parseAmount(val("cAmount"));
+    var advPct = parseAmount(val("cAdvance"));
+    if (advPct === null || advPct < 0 || advPct > 100) advPct = 50;
+
+    var amountLine, advLine, restLine;
+    if (amount !== null) {
+      var adv = Math.round(amount * advPct / 100);
+      amountLine = "금 " + won(amount) + "원정 (₩" + won(amount) + ", VAT 별도)";
+      advLine = "선금(" + advPct + "%): 금 " + won(adv) + "원 — 계약 체결 시 지급";
+      restLine = "잔금(" + (100 - advPct) + "%): 금 " + won(amount - adv) + "원 — 검수 승인 후 7일 이내 지급";
+    } else {
+      amountLine = "금 　　　　　　　원정 (VAT 별도)";
+      advLine = "선금(" + advPct + "%): 계약 체결 시 지급";
+      restLine = "잔금(" + (100 - advPct) + "%): 검수 승인 후 7일 이내 지급";
+    }
+
+    var today = new Date();
+    var signDate = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월 " + today.getDate() + "일";
+    var title = kind === "simple" ? "실내건축 설계 용역 계약서 (심플)" : "실내건축 설계 용역 계약서";
+    var siteLine = "현장: " + address + " (대상 면적: " + area + ")";
+
+    var body = "";
+    if (kind === "simple") {
+      body +=
+        art("1. 프로젝트", "프로젝트명: " + project + "<br>" + siteLine + "<br>용역 범위: " + scope) +
+        art("2. 금액과 지급", amountLine + "<br>" + advLine + "<br>" + restLine) +
+        art("3. 일정", "실측(착수)일: " + startD + " / 납품 예정일: " + endD + "<br>발주자의 현장 출입 협조 지연 등 수급자 귀책이 아닌 사유로 지연된 기간만큼 일정은 순연된다.") +
+        art("4. 수정", "본 계약에는 수정 " + revision + "회가 포함된다. 초과 수정 및 범위 추가는 사전 협의 후 별도 정산한다. 납품 후 발견된 도면 표기 오류(오기)는 횟수와 무관하게 무상으로 수정한다.") +
+        art("5. 성과품과 권리", "성과품(CAD 도면 원본 포함)은 잔금 완납 시 발주자에게 제공되며, 발주자는 해당 현장의 시공·인허가·유지관리 목적으로 자유롭게 사용할 수 있다. 다른 현장에의 재사용은 사전 협의한다.") +
+        art("6. 해지와 환불", "착수 전 해지 시 전액 환불한다. 실측 착수 후에는 진행률을 공제하고 정산하며, 검수 승인 이후에는 환불하지 않는다.");
+      if (special) body += art("7. 특약사항", special);
+    } else {
+      body +=
+        art("제1조 (목적)", "본 계약은 발주자가 의뢰한 “" + project + "”(이하 “본 건 용역”)의 수행에 관하여 양 당사자의 권리와 의무를 정함을 목적으로 한다.") +
+        art("제2조 (용역의 범위 및 현장)", siteLine + "<br>본 건 용역의 범위는 다음과 같으며, 여기에 명시되지 않은 작업(시공, 감리, 인허가 대행 등)은 범위에 포함되지 않는다.<br>" + scope) +
+        art("제3조 (계약 기간)", "실측(착수)일: " + startD + "<br>납품 예정일: " + endD + "<br>발주자의 현장 출입 협조 지연, 자료 제공 지연, 의사결정 지연 등 수급자의 귀책이 아닌 사유로 지연된 기간만큼 일정은 자동 순연된다.") +
+        art("제4조 (계약 금액 및 지급 방법)", "계약 금액: " + amountLine + "<br>" + advLine + "<br>" + restLine + "<br>지급이 7일 이상 지연되는 경우 수급자는 작업을 중지할 수 있으며, 이로 인한 일정 지연은 수급자의 책임이 아니다.") +
+        art("제5조 (수정 및 범위 변경)", "본 계약에는 수정 " + revision + "회가 포함된다. 포함 횟수를 초과하는 수정, 또는 제2조의 범위를 벗어나는 추가 요청(면적 확대, 설계 방향 전면 변경 등)은 사전 협의 후 별도 견적으로 정산한다.") +
+        art("제6조 (검수)", "수급자가 성과품을 납품하면 발주자는 7일 이내에 검수 결과를 통지한다. 기간 내 통지가 없으면 검수를 승인한 것으로 본다. 검수 요청 사항은 제5조의 수정 횟수 내에서 처리한다.") +
+        art("제7조 (오기의 무상 수정)", "납품 후 발견된 도면 표기 오류(치수 오기, 표기 누락 등)는 제5조의 수정 횟수와 무관하게 무상으로 수정한다.") +
+        art("제8조 (성과품 및 권리)", "성과품은 CAD 도면 원본 파일을 포함하여 잔금 완납 시 발주자에게 제공된다. 발주자는 해당 현장의 시공·견적 비교·인허가·유지관리 목적으로 성과품을 자유롭게 사용할 수 있다. 해당 현장 외 다른 프로젝트에의 재사용은 사전 협의를 거친다.") +
+        art("제9조 (현장 협조 및 출장)", "발주자는 실측 및 점검에 필요한 현장 출입과 안전 조치를 협조한다. 계약 범위 외 추가 현장 방문 및 원거리 출장은 사전 안내 후 출장비를 별도 정산한다.") +
+        art("제10조 (비밀유지)", "양 당사자는 본 건 용역 수행 중 알게 된 상대방의 정보(현장 정보, 보안 사항 포함)를 제3자에게 누설하지 않는다. 본 조의 의무는 계약 종료 후 2년간 존속한다.") +
+        art("제11조 (계약의 해제·해지 및 정산)", "착수 전 해지 시 선금은 전액 환불한다. 실측 착수 후 발주자의 사정으로 해지하는 경우 진행률에 해당하는 금액을 공제하고 정산하며, 검수 승인 이후에는 환불하지 않는다. 일방이 계약을 중대하게 위반하고 7일 이내 시정하지 않으면 상대방은 계약을 해지할 수 있다.") +
+        art("제12조 (손해배상)", "각 당사자의 손해배상 책임은 고의 또는 중대한 과실이 없는 한 본 계약 금액을 한도로 한다. 수급자의 성과품은 설계 도서이며, 시공 품질 및 시공사의 이행에 대한 책임은 포함하지 않는다.") +
+        art("제13조 (분쟁의 해결)", "본 계약과 관련한 분쟁은 우선 상호 협의로 해결하며, 협의가 이루어지지 않을 경우 민사조정 또는 관할 법원의 판결에 따른다.");
+      if (special) body += art("제14조 (특약사항)", special);
+    }
+
+    var html =
+      "<!DOCTYPE html><html lang='ko'><head><meta charset='UTF-8'>" +
+      "<title>" + title + "</title><style>" +
+      "body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;color:#1f2430;line-height:1.7;max-width:760px;margin:0 auto;padding:40px 24px;}" +
+      "h1{font-size:22px;text-align:center;letter-spacing:0.1em;margin-bottom:28px;}" +
+      "h2{font-size:14px;margin:22px 0 6px;}" +
+      "p,div.c{font-size:13.5px;margin:0 0 4px;}" +
+      ".meta{border:1px solid #888;padding:14px 18px;font-size:13.5px;margin-bottom:20px;}" +
+      ".sign{margin-top:44px;font-size:13.5px;}" +
+      ".sign .row{display:flex;justify-content:space-between;gap:24px;margin-top:28px;}" +
+      ".sign .box{flex:1;}" +
+      ".toolbar{position:sticky;top:0;background:#14213d;color:#fff;padding:10px 16px;margin:-40px -24px 30px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}" +
+      ".toolbar button{font:inherit;font-weight:700;padding:8px 14px;border:none;border-radius:8px;cursor:pointer;background:#fca311;}" +
+      ".toolbar span{font-size:12.5px;opacity:0.85;}" +
+      "@media print{.toolbar{display:none;}}" +
+      "</style></head><body>" +
+      "<div class='toolbar'><button onclick='window.print()'>인쇄 · PDF로 저장</button><button onclick='dl()'>HTML 파일 다운로드</button><span>인쇄 대화상자에서 “PDF로 저장”을 선택하면 파일로 보관할 수 있습니다.</span></div>" +
+      "<h1>" + title + "</h1>" +
+      "<div class='meta'>" +
+      "발주자(갑): " + client + " (대표자: " + rep + " / 연락처: " + contact + ")<br>" +
+      "수급자(을): 필립 스튜디오 (PHILIP STUDIO)<br>" +
+      "프로젝트명: " + project + "<br>" + siteLine +
+      "</div>" +
+      body +
+      "<p style='margin-top:26px;'>위 계약의 성립을 증명하기 위하여 본 계약서 2부를 작성하고, 갑과 을이 각 1부씩 보관한다.</p>" +
+      "<div class='sign'><p style='text-align:center;'>" + signDate + "</p>" +
+      "<div class='row'>" +
+      "<div class='box'>발주자(갑)<br>상호: " + client + "<br>대표자: " + rep + " (인)</div>" +
+      "<div class='box'>수급자(을)<br>상호: 필립 스튜디오<br>대표자: 　　　　　　 (인)</div>" +
+      "</div></div>" +
+      "<scr" + "ipt>function dl(){var b=new Blob(['<!DOCTYPE html>'+document.documentElement.outerHTML],{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='" + title + ".html';a.click();}</scr" + "ipt>" +
+      "</body></html>";
+
+    var w = window.open("", "_blank");
+    if (!w) { alert("팝업이 차단되어 있습니다. 이 사이트의 팝업을 허용한 뒤 다시 눌러주세요."); return; }
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+  };
+})();
+</script>
 </body>
 </html>

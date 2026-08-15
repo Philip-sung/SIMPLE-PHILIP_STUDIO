@@ -72,6 +72,7 @@
   .btn {
     display: inline-block; font-weight: 700; font-size: 15px;
     padding: 13px 26px; border-radius: 12px; transition: transform .15s ease, box-shadow .15s ease;
+    border: none; cursor: pointer; font-family: inherit;
   }
   .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
   .btn-primary { background: var(--navy); color: #fff; }
@@ -227,6 +228,44 @@
   .track-it { background: #e8f0ff; color: #1d4fa1; }
   .track-ar { background: #eaf6ef; color: #1a7f5a; }
 
+  /* ===== notes library ===== */
+  .note-series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 38px; }
+  .note-series { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px 26px; }
+  .note-series .lv-tag {
+    display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--amber-deep); background: #fff7e8; border: 1px solid #f5d9a8; padding: 3px 10px; border-radius: 999px;
+  }
+  .note-series h3 { font-size: 17px; color: var(--navy); margin-top: 10px; }
+  .note-series p.desc { font-size: 13px; color: var(--ink-sub); margin-top: 6px; }
+  .note-series ol { margin-top: 14px; list-style: none; counter-reset: note; }
+  .note-series ol li { counter-increment: note; font-size: 13.5px; color: var(--ink); padding: 8px 0 8px 30px; position: relative; border-bottom: 1px dashed var(--line); }
+  .note-series ol li:last-child { border-bottom: none; }
+  .note-series ol li::before {
+    content: counter(note, decimal-leading-zero); position: absolute; left: 0; top: 9px;
+    font-size: 11.5px; font-weight: 800; color: var(--amber-deep);
+  }
+  .note-series ol li small { display: block; color: var(--ink-sub); font-size: 12px; font-weight: 400; }
+  .note-rule { margin-top: 22px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 16px 20px; font-size: 13.5px; color: var(--ink-sub); }
+
+  /* ===== process split ===== */
+  .proc-block { margin-top: 34px; }
+  .proc-block h3 { font-size: 17px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+  .proc-block h3 .track-tag { margin-bottom: 0; }
+  .proc-block .steps { margin-top: 16px; }
+
+  /* ===== contract generator ===== */
+  .contract-box { margin-top: 38px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .contract-box .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .contract-box label { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy-soft); margin-bottom: 5px; }
+  .contract-box input, .contract-box textarea {
+    width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px;
+    font: inherit; font-size: 14px; color: var(--ink); background: var(--bg-soft);
+  }
+  .contract-box input:focus, .contract-box textarea:focus { outline: 2px solid var(--amber); border-color: var(--amber); background: #fff; }
+  .contract-box .full { grid-column: 1 / -1; }
+  .contract-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
+  .contract-note { font-size: 12.5px; color: var(--ink-sub); margin-top: 14px; }
+
   @media (max-width: 640px) {
     .nav-links a:not(.nav-cta) { display: none; }
     section { padding: 54px 0; }
@@ -243,7 +282,9 @@
       <a href="#dev">웹·앱 개발</a>
       <a href="#ai">AI 도입</a>
       <a href="#lecture">AI·IT 강의</a>
+      <a href="#notes">비법노트</a>
       <a href="#process">진행 방식</a>
+      <a href="#contract">계약서</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#contact">문의하기</a>
     </nav>
@@ -253,7 +294,7 @@
 <!-- ================= HERO ================= -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="hero-badge">⚡ 시리즈C AI 스타트업 현직 풀스택 엔지니어</span>
+    <span class="hero-badge">⚡ 400억 투자유치 시리즈C AI 스타트업 현직 풀스택 엔지니어</span>
     <h1>AI 시대에도 프로그래밍의 본질은<br>여전히 <span class="hl">건재합니다.</span></h1>
     <p class="sub">
       400억 규모 투자유치 AI 스타트업에서 상업 서비스를 만들고 운영하는 풀스택 엔지니어가
@@ -265,10 +306,11 @@
       <a class="btn btn-ghost" href="#ai">AI 도입 진단</a>
     </div>
     <div class="hero-chips">
+      <span class="chip">400억 투자유치 AI 스타트업 · 상용 SaaS 풀스택</span>
+      <span class="chip">앱 3종 Product Lead (Obtopus · PigeonToday · M-Raum)</span>
+      <span class="chip">TypeScript · React · Node.js · Electron · Kubernetes</span>
+      <span class="chip">LLM 기능 상용 배포 · AI 에이전트 워크플로 상시 운용</span>
       <span class="chip">고려대학교 컴퓨터학과</span>
-      <span class="chip">앱 3종 Chief Lead (Obtopus · PigeonToday · M-Raum)</span>
-      <span class="chip">TypeScript · React · Electron</span>
-      <span class="chip">AI 에이전트 오케스트레이션 실무</span>
     </div>
   </div>
 </div>
@@ -277,9 +319,9 @@
 <div class="stats">
   <div class="wrap stats-grid">
     <div class="stat"><b>시리즈C 재직</b><span>400억 규모 투자유치 AI 스타트업 풀스택 엔지니어</span></div>
-    <div class="stat"><b>앱 3종 Chief Lead</b><span>Obtopus · PigeonToday · M-Raum 기획–개발 총괄</span></div>
-    <div class="stat"><b>AI 에이전트 실전</b><span>수백 건 규모 sub-agent 병렬 마이그레이션 지휘</span></div>
-    <div class="stat"><b>풀사이클 커버</b><span>기획–개발–배포–운영을 한 사람이 연결</span></div>
+    <div class="stat"><b>앱 3종 Product Lead</b><span>Obtopus · PigeonToday · M-Raum 기획–개발–배포–운영 총괄</span></div>
+    <div class="stat"><b>AI 프로덕션 실전</b><span>LLM 스트리밍·과금 연동을 상용 서비스에 탑재해 운영 중</span></div>
+    <div class="stat"><b>인프라 직접 운영</b><span>자체 Kubernetes 클러스터에 서비스 4종 배포·백업·TLS 관리</span></div>
   </div>
 </div>
 
@@ -356,12 +398,13 @@
       <div class="grow">
         <h3>기업용 <em>AI 도입 진단 &amp; 에이전트 구축</em></h3>
         <p>
-          업무 흐름을 분석해 AI가 실제로 돈이 되는 지점을 찾아드립니다. 진단 리포트와 도입 로드맵 제공,
-          이후 사내 문서 기반 검색·자동화 에이전트 구축까지. 수백 건 규모의 AI 에이전트 병렬 오케스트레이션을
-          실무에서 지휘한 경험으로 설계합니다.
+          팀 단위 업무 흐름을 분석해 AI가 실제로 시간과 돈을 아끼는 지점을 찾아드립니다. 진단 리포트와
+          도입 로드맵 제공, 이후 문서 기반 검색·반복 업무 자동화 에이전트 구축까지. LLM 기능을 결제 연동까지
+          붙여 상용 서비스에 배포·운영하고, 에이전트 워크플로를 매일 실무에 쓰는 엔지니어가 직접 진단합니다.
+          소규모 팀·중소기업의 실무 자동화에 특화되어 있습니다.
         </p>
       </div>
-      <div class="price-tag">진단 패키지 300만원 / 구축 별도 견적</div>
+      <div class="price-tag">진단 리포트 150만원~ / 에이전트 구축 300만원~</div>
     </div>
   </div>
 </section>
@@ -382,28 +425,28 @@
         <div class="head"><span class="lv">입문</span><h3>AI시대, IT 핵심 짚고가기</h3></div>
         <div class="body">
           <p>비전공자·창업 준비자를 위한 IT 전체 지도. 웹이 돌아가는 원리, 개발자와 일하는 법, 외주 견적 읽는 법까지.</p>
-          <div class="fee">1:1 회당(2h) 20만원 · 4회 패키지 72만원</div>
+          <div class="fee">1:1 회당(2h) 15만원 · 4회 패키지 59만원</div>
         </div>
       </div>
       <div class="class-card">
         <div class="head"><span class="lv">심화</span><h3>상업수준 운영을 위한 IT Deep Dive 세션</h3></div>
         <div class="body">
           <p>서비스를 "만드는 것"과 "운영하는 것"의 차이. 배포, 장애 대응, 데이터 관리 등 운영 실무의 핵심.</p>
-          <div class="fee">1:1 회당(2h) 20만원 · 커리큘럼 6회 구성</div>
+          <div class="fee">1:1 회당(2h) 15만원 · 6회 패키지 85만원</div>
         </div>
       </div>
       <div class="class-card">
         <div class="head"><span class="lv">원리</span><h3>원리부터 파악하는 AI</h3></div>
         <div class="body">
           <p>LLM이 왜 되는지, 어디서 틀리는지. 원리를 알아야 도구가 바뀌어도 흔들리지 않습니다.</p>
-          <div class="fee">1:1 회당(2h) 20만원</div>
+          <div class="fee">1:1 회당(2h) 15만원 · 4회 패키지 59만원</div>
         </div>
       </div>
       <div class="class-card">
         <div class="head"><span class="lv">실전</span><h3>당장활용! AI 실전세션</h3></div>
         <div class="body">
           <p>내 업무에 바로 붙이는 원포인트 실습. 문서 자동화, 리서치, 콘텐츠 제작 등 케이스 지참 환영.</p>
-          <div class="fee">1:1 회당(2h) 20만원 · 그룹(4인 이하) 인당 7만원</div>
+          <div class="fee">1:1 회당(2h) 15만원 · 그룹(4인 이하) 인당 5만원</div>
         </div>
       </div>
       <div class="class-card">
@@ -428,8 +471,62 @@
   </div>
 </section>
 
+<!-- ================= NOTES ================= -->
+<section id="notes">
+  <div class="wrap">
+    <span class="track-tag track-it">PLAYBOOK</span>
+    <div class="eyebrow">Playbook Library</div>
+    <h2>비법노트 라이브러리</h2>
+    <p class="sec-desc">
+      실무에서 검증한 내용만 노트 한 권 = 세션 한 번(2h) 분량으로 분절해 두었습니다.
+      수준 진단 후 필요한 노트부터 순서대로 진행하며, 수강한 세션의 노트는 교재로 제공됩니다.
+    </p>
+    <div class="note-series-grid">
+      <div class="note-series">
+        <span class="lv-tag">SERIES 1 · 입문</span>
+        <h3>IT 기초 지도 — 발주자의 방어 지식</h3>
+        <p class="desc">서비스를 발주하거나 운영해야 하는 비전공자가 당하지 않기 위한 최소 지식.</p>
+        <ol>
+          <li>웹이 돌아가는 원리<small>도메인 → 서버 → 화면까지, 클릭 한 번이 지나가는 길 전체 지도</small></li>
+          <li>외주 견적서 읽는 법<small>페이지·기능 단위 산정 구조, 싼 견적이 비싸지는 경로</small></li>
+          <li>개발자와 일하는 언어<small>요구사항 1페이지 문서화 — 범위와 제외 범위 쓰는 법</small></li>
+          <li>내 서비스의 데이터는 어디에 있나<small>DB·백업·계정 소유권, 업체가 사라져도 살아남는 준비</small></li>
+        </ol>
+      </div>
+      <div class="note-series">
+        <span class="lv-tag">SERIES 2 · 실전</span>
+        <h3>AI 실전 운용 — 도구가 바뀌어도 남는 사용법</h3>
+        <p class="desc">상용 서비스에 AI를 붙여 운영하며 굳어진, 그대로 따라 할 수 있는 운용 습관.</p>
+        <ol>
+          <li>지시를 문서로 만드는 법<small>일회성 프롬프트를 재사용 가능한 지시서로 승격시키기</small></li>
+          <li>AI에게 나를 학습시키는 법<small>규칙·용어사전·메모리로 내 기준을 이식하는 설계</small></li>
+          <li>반복 업무를 명령어로 압축하는 법<small>자주 하는 일을 커스텀 스킬 하나로 만드는 절차</small></li>
+          <li>AI 산출물 검수 체크리스트<small>그럴듯한 오답을 걸러내는 교차 검증 루틴</small></li>
+          <li>멀티에이전트 리서치 설계<small>회의론자 역할을 붙여 낙관 편향을 교정하는 조사법</small></li>
+        </ol>
+      </div>
+      <div class="note-series">
+        <span class="lv-tag">SERIES 3 · 심화</span>
+        <h3>상업 수준 개발 — 만드는 것과 운영하는 것 사이</h3>
+        <p class="desc">배포 이후에도 멈추지 않는 서비스를 위한 설계·운영 기준.</p>
+        <ol>
+          <li>타입 안전 원칙<small>런타임 검증으로 "돌긴 도는" 코드를 걷어내는 법</small></li>
+          <li>에러를 설계하는 법<small>도메인 에러 분류 — 사용자에게 보일 것과 숨길 것</small></li>
+          <li>상태관리 설계 기준<small>전역 상태 · 서버 상태 · 로컬 상태의 경계 긋기</small></li>
+          <li>배포와 운영 입문<small>컨테이너 배포, 도메인·TLS, 백업과 복구 리허설</small></li>
+          <li>장애 대응 런북 만들기<small>새벽 장애에도 순서대로 따라가면 되는 문서 체계</small></li>
+        </ol>
+      </div>
+    </div>
+    <div class="note-rule">
+      모든 노트는 직접 만들고 운영하는 서비스에서 검증한 내용으로 구성하며, 재직 기업의 내부 정보는 일절 포함하지 않습니다.
+      공개 자료를 인용할 때는 출처와 라이선스를 확인해 수록합니다.
+    </div>
+  </div>
+</section>
+
 <!-- ================= BENEFITS ================= -->
-<section id="benefit">
+<section class="alt" id="benefit">
   <div class="wrap">
     <div class="eyebrow">Membership &amp; Benefits</div>
     <h2>모든 고객에게 드리는 공통 혜택</h2>
@@ -443,25 +540,42 @@
 </section>
 
 <!-- ================= PROCESS ================= -->
-<section class="alt" id="process">
+<section id="process">
   <div class="wrap">
     <div class="eyebrow">Process</div>
     <h2>진행 방식</h2>
-    <p class="sec-desc">모든 프로젝트는 아래 7단계 표준 프로세스로 진행됩니다. 범위를 문서로 확정한 뒤 착수하므로 견적이 흔들리지 않습니다.</p>
-    <div class="steps">
-      <div class="step"><b>상담</b><span>텍스트 기반 무료 15분</span></div>
-      <div class="step"><b>요구사항 정리</b><span>범위·제외 범위 1페이지 문서화</span></div>
-      <div class="step"><b>견적 · 일정 확정</b><span>고정가 견적, 유효기간 14일</span></div>
-      <div class="step"><b>계약 · 선금</b><span>표준 계약서, 선금 50%</span></div>
-      <div class="step"><b>개발</b><span>중간 보고 1회 이상</span></div>
-      <div class="step"><b>검수 · 잔금</b><span>약정 수정 횟수 내 수정</span></div>
-      <div class="step"><b>사후지원</b><span>배포 후 30일 무상 버그 수정</span></div>
+    <p class="sec-desc">외주와 교육은 성격이 달라 진행 절차를 분리해 운영합니다. 두 경우 모두 범위와 일정을 문서로 확정한 뒤 시작합니다.</p>
+
+    <div class="proc-block">
+      <h3><span class="track-tag track-it">외주</span>웹 · 앱 개발 외주</h3>
+      <div class="steps">
+        <div class="step"><b>상담</b><span>텍스트 기반 무료 15분</span></div>
+        <div class="step"><b>요구사항 정리</b><span>범위·제외 범위 1페이지 문서화</span></div>
+        <div class="step"><b>견적 · 일정 확정</b><span>고정가 견적, 유효기간 14일</span></div>
+        <div class="step"><b>계약 · 선금</b><span>표준 계약서, 선금 50%</span></div>
+        <div class="step"><b>개발</b><span>중간 보고 1회 이상</span></div>
+        <div class="step"><b>검수 · 잔금</b><span>약정 수정 횟수 내 수정</span></div>
+        <div class="step"><b>사후지원</b><span>배포 후 30일 무상 버그 수정</span></div>
+      </div>
+    </div>
+
+    <div class="proc-block">
+      <h3><span class="track-tag track-it">교육</span>AI · IT 강의</h3>
+      <div class="steps">
+        <div class="step"><b>상담</b><span>목표·배경 텍스트 상담 무료</span></div>
+        <div class="step"><b>수준 진단</b><span>15분 사전 진단으로 시작점 결정</span></div>
+        <div class="step"><b>커리큘럼 확정</b><span>비법노트 단위로 세션 구성</span></div>
+        <div class="step"><b>일정 · 결제</b><span>회당 또는 패키지 선결제</span></div>
+        <div class="step"><b>세션 진행</b><span>회당 2시간, 실습 중심</span></div>
+        <div class="step"><b>노트 제공</b><span>세션별 비법노트 교재 제공</span></div>
+        <div class="step"><b>사후 Q&amp;A</b><span>세션 후 1주 텍스트 질문 지원</span></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= Q&A ================= -->
-<section id="expert">
+<section class="alt" id="expert">
   <div class="wrap">
     <div class="eyebrow">Expert Interview</div>
     <h2>전문가에게 물었습니다</h2>
@@ -485,8 +599,8 @@
         <div class="q">AI 강의가 넘쳐나는데, 무엇이 다른가요?</div>
         <div class="a">
           도구 사용법은 유튜브에 다 있습니다. 제가 다루는 것은 상업 서비스에 AI를 붙여 운영해 본 사람만 아는
-          "실패 지점"입니다. 수백 건 규모의 AI 에이전트 오케스트레이션을 실무로 지휘하며 얻은 기준을,
-          직접 만든 비법노트로 정리해 드립니다.
+          "실패 지점"입니다. LLM 기능을 결제 연동까지 붙여 상용 서비스에 배포·운영하고, 에이전트 워크플로를
+          매일 실무에 쓰면서 얻은 기준을 직접 만든 비법노트로 정리해 드립니다.
         </div>
       </div>
     </div>
@@ -494,7 +608,7 @@
 </section>
 
 <!-- ================= FAQ ================= -->
-<section class="alt" id="faq">
+<section id="faq">
   <div class="wrap">
     <div class="eyebrow">FAQ</div>
     <h2>자주 묻는 질문</h2>
@@ -521,8 +635,45 @@
       </details>
       <details>
         <summary>포트폴리오를 볼 수 있나요?</summary>
-        <div class="ans">상담 시 앱 3종과 웹 서비스 구축 사례를 공유드립니다. 고객사 보안 정책상 공개 범위가 제한되는 자료는 사례 요약으로 대체됩니다.</div>
+        <div class="ans">직접 기획·개발·운영하는 앱 3종(Obtopus · PigeonToday · M-Raum)과 기업 홈페이지 구축·운영 사례(건축사사무소 XPLUS, xplusinc.co.kr)를 상담 시 공유드립니다. 고객사 보안 정책상 공개 범위가 제한되는 자료는 사례 요약으로 대체됩니다.</div>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTRACT ================= -->
+<section class="alt" id="contract">
+  <div class="wrap">
+    <div class="eyebrow">Contract Builder</div>
+    <h2>계약서 자동작성</h2>
+    <p class="sec-desc">
+      진행이 결정되면 아래 항목을 채우고 원하는 양식을 누르세요. 입력값이 반영된 소프트웨어 개발
+      용역계약서가 새 창에 생성되며, 인쇄(PDF 저장)하거나 파일로 내려받아 검토 후 서명하시면 됩니다.
+      금액·날짜 같은 핵심 항목은 직접 기입한 값이 그대로 들어가고, 비워 두면 공란으로 출력되어 수기로 채울 수 있습니다.
+    </p>
+    <div class="contract-box">
+      <div class="form-grid">
+        <div><label for="cName">발주자 (상호 또는 성명)</label><input id="cName" placeholder="주식회사 OO / 홍길동"></div>
+        <div><label for="cRep">대표자</label><input id="cRep" placeholder="홍길동"></div>
+        <div><label for="cContact">연락처 (이메일·전화)</label><input id="cContact" placeholder="contact@example.com"></div>
+        <div><label for="cProject">프로젝트명</label><input id="cProject" placeholder="OO 서비스 랜딩 페이지 제작"></div>
+        <div><label for="cAmount">계약 금액 (원, VAT 별도)</label><input id="cAmount" inputmode="numeric" placeholder="2400000"></div>
+        <div><label for="cAdvance">선금 비율 (%)</label><input id="cAdvance" inputmode="numeric" value="50"></div>
+        <div><label for="cStart">착수(예정)일</label><input id="cStart" type="date"></div>
+        <div><label for="cEnd">납품(예정)일</label><input id="cEnd" type="date"></div>
+        <div><label for="cRevision">포함 수정 횟수</label><input id="cRevision" inputmode="numeric" value="2"></div>
+        <div class="full"><label for="cScope">작업 범위 요약</label><textarea id="cScope" rows="3" placeholder="예: 반응형 랜딩 페이지 1식 — 기획 시안 1종, 섹션 6개 이내, 기본 SEO 메타 세팅, 도메인 연결 가이드 포함"></textarea></div>
+        <div class="full"><label for="cSpecial">특약사항 (선택)</label><textarea id="cSpecial" rows="2" placeholder="예: 소스코드 저장소 이관 포함"></textarea></div>
+      </div>
+      <div class="contract-actions">
+        <button class="btn btn-primary" type="button" onclick="buildContract('simple')">📄 심플 양식 생성</button>
+        <button class="btn btn-amber" type="button" onclick="buildContract('formal')">📑 정식 양식 생성</button>
+      </div>
+      <div class="contract-note">
+        심플 양식은 1페이지 핵심 조항(범위 · 금액 · 일정 · 수정 · 권리 귀속 · 해지)으로 구성되고,
+        정식 양식은 검수 · 하자보수 · 비밀유지 · 지연 · 손해배상 · 분쟁해결까지 갖춘 표준 용역계약서입니다.
+        본 양식은 참고용 표준 양식이며, 서명 전 필요 시 법률 전문가의 검토를 권합니다.
+      </div>
     </div>
   </div>
 </section>
@@ -550,6 +701,131 @@
     <div>표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다. (내부 초안: 배포 전 연락처·가격 확정 필요)</div>
   </div>
 </footer>
+
+<script>
+(function () {
+  "use strict";
+
+  function val(id) {
+    var el = document.getElementById(id);
+    return el && el.value ? el.value.trim() : "";
+  }
+  function orBlank(v) { return v || "（　　　　　　　　）"; }
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function fmtDate(raw) {
+    if (!raw) return "　　　　년　　월　　일";
+    var p = raw.split("-");
+    return p[0] + "년 " + Number(p[1]) + "월 " + Number(p[2]) + "일";
+  }
+  function parseAmount(raw) {
+    var digits = (raw || "").replace(/[^0-9]/g, "");
+    return digits ? Number(digits) : null;
+  }
+  function won(n) { return n.toLocaleString("ko-KR"); }
+  function art(head, text) {
+    return "<h2>" + head + "</h2><div class='c'>" + text + "</div>";
+  }
+
+  window.buildContract = function (kind) {
+    var client = orBlank(esc(val("cName")));
+    var rep = orBlank(esc(val("cRep")));
+    var contact = orBlank(esc(val("cContact")));
+    var project = orBlank(esc(val("cProject")));
+    var scope = esc(val("cScope")) || "（작업 범위를 별지 또는 수기로 기재）";
+    var special = esc(val("cSpecial"));
+    var revision = val("cRevision") || "2";
+    var startD = fmtDate(val("cStart"));
+    var endD = fmtDate(val("cEnd"));
+    var amount = parseAmount(val("cAmount"));
+    var advPct = parseAmount(val("cAdvance"));
+    if (advPct === null || advPct < 0 || advPct > 100) advPct = 50;
+
+    var amountLine, advLine, restLine;
+    if (amount !== null) {
+      var adv = Math.round(amount * advPct / 100);
+      amountLine = "금 " + won(amount) + "원정 (₩" + won(amount) + ", VAT 별도)";
+      advLine = "선금(" + advPct + "%): 금 " + won(adv) + "원 — 계약 체결 시 지급";
+      restLine = "잔금(" + (100 - advPct) + "%): 금 " + won(amount - adv) + "원 — 검수 승인 후 7일 이내 지급";
+    } else {
+      amountLine = "금 　　　　　　　원정 (VAT 별도)";
+      advLine = "선금(" + advPct + "%): 계약 체결 시 지급";
+      restLine = "잔금(" + (100 - advPct) + "%): 검수 승인 후 7일 이내 지급";
+    }
+
+    var today = new Date();
+    var signDate = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월 " + today.getDate() + "일";
+    var title = kind === "simple" ? "소프트웨어 개발 용역 계약서 (심플)" : "소프트웨어 개발 용역 계약서";
+
+    var body = "";
+    if (kind === "simple") {
+      body +=
+        art("1. 프로젝트", "프로젝트명: " + project + "<br>작업 범위: " + scope) +
+        art("2. 금액과 지급", amountLine + "<br>" + advLine + "<br>" + restLine) +
+        art("3. 일정", "착수일: " + startD + " / 납품 예정일: " + endD + "<br>발주자의 자료 제공 지연 등 수급자 귀책이 아닌 사유로 지연된 기간만큼 일정은 순연된다.") +
+        art("4. 수정", "본 계약에는 수정 " + revision + "회가 포함된다. 초과 수정 및 범위 추가는 사전 협의 후 별도 정산한다.") +
+        art("5. 권리 귀속", "잔금 완납 시 산출물의 저작재산권은 발주자에게 귀속된다. 다만 수급자가 보유한 범용 모듈·개발 노하우는 수급자에게 유보된다.") +
+        art("6. 해지와 환불", "착수 전 해지 시 전액 환불한다. 착수 후에는 진행률을 공제하고 정산하며, 검수 승인 이후에는 환불하지 않는다.");
+      if (special) body += art("7. 특약사항", special);
+    } else {
+      body +=
+        art("제1조 (목적)", "본 계약은 발주자가 의뢰한 “" + project + "”(이하 “본 건 용역”)의 수행에 관하여 양 당사자의 권리와 의무를 정함을 목적으로 한다.") +
+        art("제2조 (용역의 범위)", "본 건 용역의 범위는 다음과 같으며, 여기에 명시되지 않은 작업은 범위에 포함되지 않는다.<br>" + scope) +
+        art("제3조 (계약 기간)", "착수일: " + startD + "<br>납품 예정일: " + endD + "<br>발주자의 자료 제공 지연, 피드백 지연 등 수급자의 귀책이 아닌 사유로 지연된 기간만큼 일정은 자동 순연된다.") +
+        art("제4조 (계약 금액 및 지급 방법)", "계약 금액: " + amountLine + "<br>" + advLine + "<br>" + restLine + "<br>지급이 7일 이상 지연되는 경우 수급자는 작업을 중지할 수 있으며, 이로 인한 일정 지연은 수급자의 책임이 아니다.") +
+        art("제5조 (수정 및 범위 변경)", "본 계약에는 수정 " + revision + "회가 포함된다. 포함 횟수를 초과하는 수정, 또는 제2조의 범위를 벗어나는 추가 요청은 사전 협의 후 별도 견적으로 정산한다.") +
+        art("제6조 (검수)", "수급자가 산출물을 납품하면 발주자는 7일 이내에 검수 결과를 통지한다. 기간 내 통지가 없으면 검수를 승인한 것으로 본다. 검수 요청 사항은 제5조의 수정 횟수 내에서 처리한다.") +
+        art("제7조 (지식재산권)", "잔금 완납 시 본 건 용역 산출물의 저작재산권은 발주자에게 귀속된다. 다만 수급자가 본 계약 이전부터 보유한 라이브러리·범용 모듈·개발 노하우에 대한 권리는 수급자에게 유보되며, 발주자는 산출물 이용에 필요한 범위에서 이를 사용할 수 있다.") +
+        art("제8조 (하자보수)", "검수 승인 후 30일 이내 발견된 프로그램 오류(버그)는 무상으로 수정한다. 발주자 또는 제3자의 수정·운영 환경 변경으로 발생한 문제는 제외한다.") +
+        art("제9조 (비밀유지)", "양 당사자는 본 건 용역 수행 중 알게 된 상대방의 영업상·기술상 비밀을 제3자에게 누설하지 않는다. 본 조의 의무는 계약 종료 후 2년간 존속한다.") +
+        art("제10조 (계약의 해제·해지 및 정산)", "착수 전 해지 시 선금은 전액 환불한다. 착수 후 발주자의 사정으로 해지하는 경우 진행률에 해당하는 금액을 공제하고 정산하며, 검수 승인 이후에는 환불하지 않는다. 일방이 계약을 중대하게 위반하고 7일 이내 시정하지 않으면 상대방은 계약을 해지할 수 있다.") +
+        art("제11조 (손해배상)", "각 당사자의 손해배상 책임은 고의 또는 중대한 과실이 없는 한 본 계약 금액을 한도로 한다.") +
+        art("제12조 (분쟁의 해결)", "본 계약과 관련한 분쟁은 우선 상호 협의로 해결하며, 협의가 이루어지지 않을 경우 민사조정 또는 관할 법원의 판결에 따른다.");
+      if (special) body += art("제13조 (특약사항)", special);
+    }
+
+    var html =
+      "<!DOCTYPE html><html lang='ko'><head><meta charset='UTF-8'>" +
+      "<title>" + title + "</title><style>" +
+      "body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;color:#1f2430;line-height:1.7;max-width:760px;margin:0 auto;padding:40px 24px;}" +
+      "h1{font-size:22px;text-align:center;letter-spacing:0.1em;margin-bottom:28px;}" +
+      "h2{font-size:14px;margin:22px 0 6px;}" +
+      "p,div.c{font-size:13.5px;margin:0 0 4px;}" +
+      ".meta{border:1px solid #888;padding:14px 18px;font-size:13.5px;margin-bottom:20px;}" +
+      ".sign{margin-top:44px;font-size:13.5px;}" +
+      ".sign .row{display:flex;justify-content:space-between;gap:24px;margin-top:28px;}" +
+      ".sign .box{flex:1;}" +
+      ".toolbar{position:sticky;top:0;background:#14213d;color:#fff;padding:10px 16px;margin:-40px -24px 30px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}" +
+      ".toolbar button{font:inherit;font-weight:700;padding:8px 14px;border:none;border-radius:8px;cursor:pointer;background:#fca311;}" +
+      ".toolbar span{font-size:12.5px;opacity:0.85;}" +
+      "@media print{.toolbar{display:none;}}" +
+      "</style></head><body>" +
+      "<div class='toolbar'><button onclick='window.print()'>인쇄 · PDF로 저장</button><button onclick='dl()'>HTML 파일 다운로드</button><span>인쇄 대화상자에서 “PDF로 저장”을 선택하면 파일로 보관할 수 있습니다.</span></div>" +
+      "<h1>" + title + "</h1>" +
+      "<div class='meta'>" +
+      "발주자(갑): " + client + " (대표자: " + rep + " / 연락처: " + contact + ")<br>" +
+      "수급자(을): 필립 스튜디오 (PHILIP STUDIO)<br>" +
+      "프로젝트명: " + project +
+      "</div>" +
+      body +
+      "<p style='margin-top:26px;'>위 계약의 성립을 증명하기 위하여 본 계약서 2부를 작성하고, 갑과 을이 각 1부씩 보관한다.</p>" +
+      "<div class='sign'><p style='text-align:center;'>" + signDate + "</p>" +
+      "<div class='row'>" +
+      "<div class='box'>발주자(갑)<br>상호: " + client + "<br>대표자: " + rep + " (인)</div>" +
+      "<div class='box'>수급자(을)<br>상호: 필립 스튜디오<br>대표자: 　　　　　　 (인)</div>" +
+      "</div></div>" +
+      "<scr" + "ipt>function dl(){var b=new Blob(['<!DOCTYPE html>'+document.documentElement.outerHTML],{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='" + title + ".html';a.click();}</scr" + "ipt>" +
+      "</body></html>";
+
+    var w = window.open("", "_blank");
+    if (!w) { alert("팝업이 차단되어 있습니다. 이 사이트의 팝업을 허용한 뒤 다시 눌러주세요."); return; }
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+  };
+})();
+</script>
 
 </body>
 </html>
