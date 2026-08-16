@@ -6,20 +6,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>필립 스튜디오 — 실내건축 설계 / 건축 강의</title>
 <style>
+  /* 건축 팔레트: 짙은 그린 #0A3711 + 금색 — 직각·얇은 엣지·미니멀 */
   :root {
-    --navy: #14213d;
-    --navy-soft: #2b3a5c;
-    --amber: #fca311;
-    --amber-deep: #e08900;
-    --ink: #1f2430;
-    --ink-sub: #5a6272;
-    --line: #e6e8ee;
+    --navy: #0A3711;       /* primary deep green */
+    --navy-soft: #1c5a2e;
+    --amber: #C9A227;      /* gold */
+    --amber-deep: #8F7118; /* 밝은 배경 위 금색 텍스트 */
+    --gold-bright: #D9B84D;/* 어두운 배경 위 금색 텍스트 */
+    --ink: #1c241d;
+    --ink-sub: #5c675e;
+    --line: #e3e8e2;
     --bg: #ffffff;
-    --bg-soft: #f6f7fa;
-    --bg-navy: #101a30;
-    --ok: #1a7f5a;
-    --radius: 14px;
-    --shadow: 0 6px 24px rgba(20, 33, 61, 0.08);
+    --bg-soft: #f5f8f4;
+    --bg-navy: #07270d;
+    --ok: #8F7118;
+    --radius: 0px;
+    --shadow: 0 10px 28px rgba(10, 55, 17, 0.10);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -46,48 +48,48 @@
   .brand em { color: var(--amber-deep); font-style: normal; }
   .nav-links { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
   .nav-links a {
-    font-size: 13.5px; color: var(--ink-sub); padding: 6px 10px; border-radius: 8px;
+    font-size: 13.5px; color: var(--ink-sub); padding: 6px 10px; border-radius: 0;
   }
   .nav-links a:hover { background: var(--bg-soft); color: var(--navy); }
   .nav-cta {
     background: var(--navy); color: #fff !important; font-weight: 700;
-    padding: 8px 16px !important; border-radius: 10px;
+    padding: 8px 16px !important; border-radius: 0;
   }
   .nav-cta:hover { background: var(--navy-soft) !important; }
 
   /* ===== hero ===== */
-  .hero { background: linear-gradient(180deg, #fdfbf6 0%, #ffffff 100%); padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
+  .hero { background: linear-gradient(180deg, #f7faf6 0%, #ffffff 100%); padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: #fff7e8; color: var(--amber-deep); border: 1px solid #f5d9a8;
-    font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
+    background: #fff; color: var(--amber-deep); border: 1px solid var(--amber);
+    font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 0; margin-bottom: 22px;
   }
   .hero h1 {
     font-size: clamp(28px, 4.6vw, 44px); line-height: 1.3; letter-spacing: -0.03em;
     color: var(--navy); font-weight: 800; max-width: 720px;
   }
-  .hero h1 .hl { box-shadow: inset 0 -0.45em 0 #ffe3ae; }
+  .hero h1 .hl { box-shadow: inset 0 -0.45em 0 #efe4bd; }
   .hero p.sub { margin-top: 18px; font-size: 17px; color: var(--ink-sub); max-width: 640px; }
   .hero-ctas { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
   .btn {
     display: inline-block; font-weight: 700; font-size: 15px;
-    padding: 13px 26px; border-radius: 12px; transition: transform .15s ease, box-shadow .15s ease;
+    padding: 13px 26px; border-radius: 0; transition: transform .15s ease, box-shadow .15s ease;
     border: none; cursor: pointer; font-family: inherit;
   }
   .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
   .btn-primary { background: var(--navy); color: #fff; }
-  .btn-amber { background: var(--amber); color: #3a2600; }
-  .btn-ghost { border: 1.5px solid var(--line); color: var(--navy); background: #fff; }
+  .btn-amber { background: var(--amber); color: var(--navy); }
+  .btn-ghost { border: 1px solid var(--navy); color: var(--navy); background: #fff; }
   .hero-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 34px; }
   .chip {
     font-size: 12.5px; font-weight: 600; color: var(--navy-soft);
-    background: #fff; border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px;
+    background: #fff; border: 1px solid var(--line); padding: 6px 12px; border-radius: 0;
   }
 
   /* ===== stats ===== */
   .stats { padding: 34px 0; border-bottom: 1px solid var(--line); background: var(--bg); }
   .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-  .stat { background: var(--bg-soft); border-radius: var(--radius); padding: 20px 22px; }
+  .stat { background: #fff; border: 1px solid var(--line); border-top: 2px solid var(--amber); padding: 20px 22px; }
   .stat b { display: block; font-size: 20px; color: var(--navy); letter-spacing: -0.02em; }
   .stat span { font-size: 13px; color: var(--ink-sub); }
 
@@ -99,6 +101,8 @@
     color: var(--amber-deep); text-transform: uppercase; margin-bottom: 10px;
   }
   h2 { font-size: clamp(24px, 3.2vw, 32px); color: var(--navy); letter-spacing: -0.02em; line-height: 1.35; }
+  /* 확장되는 직선 — 제목 아래 가는 금색 라인 */
+  section h2::after, .contact h2::after { content: ""; display: block; width: 52px; height: 2px; background: var(--amber); margin-top: 14px; }
   .sec-desc { margin-top: 12px; color: var(--ink-sub); max-width: 620px; font-size: 15.5px; }
 
   /* ===== pricing cards (크몽식) ===== */
@@ -109,8 +113,8 @@
   }
   .tier.featured { border-color: var(--amber); box-shadow: var(--shadow); }
   .tier .flag {
-    position: absolute; top: -12px; left: 24px; background: var(--amber); color: #3a2600;
-    font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px;
+    position: absolute; top: -12px; left: 24px; background: var(--amber); color: var(--navy);
+    font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 0;
   }
   .tier .grade { font-size: 12.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--ink-sub); }
   .tier h3 { font-size: 19px; color: var(--navy); margin-top: 6px; }
@@ -137,14 +141,14 @@
 
   /* AI consulting band */
   .band {
-    margin-top: 26px; background: var(--bg-navy); border-radius: var(--radius);
-    padding: 34px 32px; color: #eef1f8; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;
+    margin-top: 26px; background: var(--navy); border-radius: 0; border-left: 3px solid var(--amber);
+    padding: 34px 32px; color: #eef4ef; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;
   }
   .band .grow { flex: 1 1 380px; }
   .band h3 { font-size: 21px; color: #fff; }
-  .band h3 em { color: var(--amber); font-style: normal; }
-  .band p { margin-top: 10px; font-size: 14.5px; color: #b9c2d8; max-width: 560px; }
-  .band .price-tag { font-size: 15px; font-weight: 700; color: var(--amber); white-space: nowrap; }
+  .band h3 em { color: var(--gold-bright); font-style: normal; }
+  .band p { margin-top: 10px; font-size: 14.5px; color: #bfd0c1; max-width: 560px; }
+  .band .price-tag { font-size: 15px; font-weight: 700; color: var(--gold-bright); white-space: nowrap; }
 
   /* ===== class cards (탈잉식) ===== */
   .class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 38px; }
@@ -153,34 +157,38 @@
     overflow: hidden; display: flex; flex-direction: column;
   }
   .class-card .head {
-    padding: 18px 22px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+    padding: 18px 22px; background: var(--navy); border-bottom: 2px solid var(--amber);
     color: #fff;
   }
-  .class-card .head .lv { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--amber); }
-  .class-card .head h3 { font-size: 17px; margin-top: 4px; line-height: 1.4; }
+  .class-card .head .lv { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--gold-bright); }
+  /* 제목이 1줄이든 2줄이든 헤더 높이를 동일하게 고정 */
+  .class-card .head h3 { font-size: 17px; margin-top: 4px; line-height: 1.4; min-height: 2.8em; }
   .class-card .body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
   .class-card .body p { font-size: 13.5px; color: var(--ink-sub); flex: 1; }
   .class-card .fee { font-size: 14px; font-weight: 700; color: var(--navy); border-top: 1px solid var(--line); padding-top: 12px; }
   .fee-note {
-    margin-top: 22px; background: #fff7e8; border: 1px solid #f5d9a8; border-radius: var(--radius);
-    padding: 16px 20px; font-size: 13.5px; color: #6b4a00;
+    margin-top: 22px; background: #faf6e8; border: 1px solid #e0d194; border-radius: 0;
+    padding: 16px 20px; font-size: 13.5px; color: #6f5a12;
   }
 
   /* ===== process ===== */
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 38px; counter-reset: step; }
-  .step { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 20px 18px; }
+  /* 7단계를 데스크톱에서 항상 한 줄(세로로 긴 직사각형)로 배치 */
+  .steps { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 38px; counter-reset: step; }
+  .step {
+    background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+    padding: 18px 12px; display: flex; flex-direction: column;
+  }
   .step::before {
     counter-increment: step; content: counter(step, decimal-leading-zero);
-    display: block; font-size: 13px; font-weight: 800; color: var(--amber-deep); margin-bottom: 8px;
+    display: block; font-size: 12px; font-weight: 800; color: var(--amber-deep); margin-bottom: 8px;
   }
-  .step b { display: block; font-size: 15px; color: var(--navy); margin-bottom: 4px; }
-  .step span { font-size: 12.5px; color: var(--ink-sub); }
+  .step b { display: block; font-size: 13.5px; color: var(--navy); margin-bottom: 6px; letter-spacing: -0.02em; }
+  .step span { font-size: 12px; color: var(--ink-sub); line-height: 1.5; }
 
   /* ===== benefits ===== */
   .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 38px; }
-  .benefit { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px; }
-  .benefit .ico { font-size: 26px; }
-  .benefit b { display: block; margin-top: 10px; color: var(--navy); font-size: 16px; }
+  .benefit { background: #fff; border: 1px solid var(--line); border-top: 2px solid var(--navy); border-radius: 0; padding: 24px; }
+  .benefit b { display: block; color: var(--navy); font-size: 16px; }
   .benefit p { margin-top: 6px; font-size: 13.5px; color: var(--ink-sub); }
 
   /* ===== Q&A (숨고식) ===== */
@@ -194,7 +202,7 @@
   /* ===== FAQ ===== */
   .faq { margin-top: 38px; display: grid; gap: 10px; }
   details {
-    background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 0 22px;
+    background: #fff; border: 1px solid var(--line); border-radius: 0; padding: 0 22px;
   }
   details[open] { border-color: var(--navy-soft); }
   summary {
@@ -210,12 +218,13 @@
   .contact { background: var(--bg-navy); color: #eef1f8; }
   .contact h2 { color: #fff; }
   .contact .sec-desc { color: #b9c2d8; }
-  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 34px; }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 34px; max-width: 680px; }
+  .contact-card a { border-bottom: 1px solid rgba(255,255,255,0.25); }
   .contact-card {
     background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
     border-radius: var(--radius); padding: 22px 24px;
   }
-  .contact-card b { display: block; color: var(--amber); font-size: 13px; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .contact-card b { display: block; color: var(--gold-bright); font-size: 13px; letter-spacing: 0.05em; margin-bottom: 8px; }
   .contact-card span { font-size: 15px; }
   .placeholder { color: #8a94ad; font-style: italic; }
 
@@ -223,10 +232,10 @@
   footer .wrap { display: flex; flex-direction: column; gap: 6px; }
 
   .track-tag {
-    display: inline-block; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
+    display: inline-block; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 0; margin-bottom: 12px;
   }
   .track-it { background: #e8f0ff; color: #1d4fa1; }
-  .track-ar { background: #eaf6ef; color: #1a7f5a; }
+  .track-ar { background: #eef4ea; color: #0A3711; border: 1px solid #cfdccb; }
 
   /* ===== process split ===== */
   .proc-block { margin-top: 34px; }
@@ -239,13 +248,25 @@
   .contract-box .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
   .contract-box label { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy-soft); margin-bottom: 5px; }
   .contract-box input, .contract-box textarea, .contract-box select {
-    width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px;
+    width: 100%; border: 1px solid var(--line); border-radius: 0; padding: 10px 12px;
     font: inherit; font-size: 14px; color: var(--ink); background: var(--bg-soft);
   }
   .contract-box input:focus, .contract-box textarea:focus, .contract-box select:focus { outline: 2px solid var(--amber); border-color: var(--amber); background: #fff; }
   .contract-box .full { grid-column: 1 / -1; }
   .contract-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
   .contract-note { font-size: 12.5px; color: var(--ink-sub); margin-top: 14px; }
+
+  /* 폭이 좁아지면 진행 방식을 세로 1열로 (모바일에서 글자 깨짐 방지) */
+  @media (max-width: 1000px) {
+    .steps { grid-template-columns: 1fr; gap: 8px; margin-top: 26px; }
+    .step {
+      display: grid; grid-template-columns: auto 1fr; column-gap: 14px;
+      align-items: start; padding: 14px 18px;
+    }
+    .step::before { grid-row: 1 / span 2; margin-bottom: 0; font-size: 13px; line-height: 1.6; }
+    .step b { font-size: 15px; margin-bottom: 2px; }
+    .step span { font-size: 13px; }
+  }
 
   @media (max-width: 640px) {
     .nav-links a:not(.nav-cta) { display: none; }
@@ -274,7 +295,7 @@
 <!-- ================= HERO ================= -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="hero-badge">📐 5년제 건축학과 출신 실시설계 실무자</span>
+    <span class="hero-badge">5년제 건축학과 출신 실시설계 실무자</span>
     <h1>도면 없이 받은 견적은<br>애초에 <span class="hl">비교할 수 없습니다.</span></h1>
     <p class="sub">
       물류센터 실시설계부터 병원 인테리어까지 수행한 건축 실무자가 실측·도면·모델링·견적설계를 직접 진행합니다.
@@ -362,12 +383,12 @@
 
     <div class="wide-grid" id="care">
       <div class="wide">
-        <h3>🔍 정기점검 · 하자 진단 출장</h3>
+        <h3>정기점검 · 하자 진단 출장</h3>
         <p>육안 점검과 주요 하자부위 리포트, 보수 우선순위 제안. 연 단위 정기 계약 시 할인.</p>
         <div class="price-line">회당 30만원~</div>
       </div>
       <div class="wide">
-        <h3>📋 시공사 견적서 검증</h3>
+        <h3>시공사 견적서 검증</h3>
         <p>받아 둔 견적서를 물량 산출 기준으로 검토하고, 누락·중복·과다 계상 항목을 정리해 드립니다.</p>
         <div class="price-line">30만원~ · 도면 보유 시 기준</div>
       </div>
@@ -395,6 +416,7 @@
     <h2>공간 · 건축 강의</h2>
     <p class="sec-desc">
       내 공간을 남의 말에만 의존하지 않고 판단하기 위한 최소 지식을 다룹니다.
+      모든 세션은 기본적으로 오프라인 1:1 대면으로 진행하며,
       전 과정에 실무에서 쓰는 현장 체크리스트와 직접 제작한 비법노트가 교재로 제공됩니다.
     </p>
 
@@ -430,7 +452,7 @@
     </div>
 
     <div class="fee-note">
-      📒 모든 수강생에게 <b>실적용 직제작 비법노트</b>(교재)와 <b>현장 점검 체크리스트</b>가 제공됩니다.
+      모든 수강생에게 <b>실적용 직제작 비법노트</b>(교재)와 <b>현장 점검 체크리스트</b>가 제공됩니다.
     </div>
   </div>
 </section>
@@ -441,10 +463,10 @@
     <div class="eyebrow">Deliverables &amp; Benefits</div>
     <h2>모든 고객에게 드리는 공통 혜택</h2>
     <div class="benefit-grid">
-      <div class="benefit"><span class="ico">📐</span><b>CAD 도면 원본 제공</b><p>납품 도면은 원본 파일로 드립니다. 다음 시공에도 그대로 쓰입니다.</p></div>
-      <div class="benefit"><span class="ico">📋</span><b>현장 점검 체크리스트</b><p>실무에서 쓰는 하자·마감 점검 리스트를 함께 드립니다.</p></div>
-      <div class="benefit"><span class="ico">📒</span><b>실적용 직제작 비법노트</b><p>실무에서 검증한 내용만 담은 자체 제작 교재를 제공합니다.</p></div>
-      <div class="benefit"><span class="ico">🔧</span><b>납품 후 오기 수정</b><p>도면 납품 후 발견된 표기 오류는 무상으로 수정해 드립니다.</p></div>
+      <div class="benefit"><b>CAD 도면 원본 제공</b><p>납품 도면은 원본 파일로 드립니다. 다음 시공에도 그대로 쓰입니다.</p></div>
+      <div class="benefit"><b>현장 점검 체크리스트</b><p>실무에서 쓰는 하자·마감 점검 리스트를 함께 드립니다.</p></div>
+      <div class="benefit"><b>실적용 직제작 비법노트</b><p>실무에서 검증한 내용만 담은 자체 제작 교재를 제공합니다.</p></div>
+      <div class="benefit"><b>납품 후 오기 수정</b><p>도면 납품 후 발견된 표기 오류는 무상으로 수정해 드립니다.</p></div>
     </div>
   </div>
 </section>
@@ -583,8 +605,8 @@
         <div class="full"><label for="cSpecial">특약사항 (선택)</label><textarea id="cSpecial" rows="2" placeholder="예: 시공사 견적 검증 1회 포함"></textarea></div>
       </div>
       <div class="contract-actions">
-        <button class="btn btn-primary" type="button" onclick="buildContract('simple')">📄 간이 용역계약서 (A4 1장)</button>
-        <button class="btn btn-amber" type="button" onclick="buildContract('formal')">📑 표준 용역계약서 (전 22조)</button>
+        <button class="btn btn-primary" type="button" onclick="buildContract('simple')">간이 용역계약서 (A4 1장)</button>
+        <button class="btn btn-amber" type="button" onclick="buildContract('formal')">표준 용역계약서 (전 22조)</button>
       </div>
       <div class="contract-note">
         간이 양식은 현장 점검·견적 검증·강의의 단건 의뢰용으로 A4 1장에 들어오고, 표준 양식은 업무범위의 한계·
@@ -603,9 +625,8 @@
     <h2>공간을 시작해 볼까요?</h2>
     <p class="sec-desc">텍스트 상담은 무료입니다. 공간의 용도와 평수, 하고 싶은 것을 한 문단으로 보내주시면, 범위와 견적의 초안으로 답장드립니다.</p>
     <div class="contact-grid">
-      <div class="contact-card"><b>EMAIL</b><span class="placeholder">[개인 이메일 기입]</span></div>
-      <div class="contact-card"><b>오픈카톡</b><span class="placeholder">[오픈카톡 링크 기입]</span></div>
-      <div class="contact-card"><b>플랫폼</b><span class="placeholder">[숨고 · 탈잉 프로필 링크 기입]</span></div>
+      <div class="contact-card"><b>EMAIL</b><span><a href="mailto:spinnavor@naver.com">spinnavor@naver.com</a></span></div>
+      <div class="contact-card"><b>PHONE</b><span><a href="tel:+821056826129">010.5682.6129</a></span></div>
     </div>
     <div class="hero-ctas" style="margin-top:30px;">
       <a class="btn btn-amber" href="#top">서비스 다시 보기</a>
@@ -616,7 +637,7 @@
 <footer>
   <div class="wrap">
     <div>PHILIP STUDIO — Interior &amp; Architecture Design. 모든 작업은 표준 계약서 기반으로 진행됩니다.</div>
-    <div>표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다. (내부 초안: 배포 전 연락처·가격 확정 필요)</div>
+    <div>표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다.</div>
   </div>
 </footer>
 
@@ -758,8 +779,8 @@
       "body { font-family: 'Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',sans-serif;" +
       "font-size: 9.0pt; line-height: 1.36; color: #111; background: #f2f3f5; word-break: keep-all; }" +
       ".tools { max-width: 210mm; margin: 0 auto; padding: 12px 16px; font-size: 12px; color: #444;" +
-      "background: #eaf6ef; border-bottom: 1px solid #b9dcc7; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
-      ".tools button { font: inherit; font-weight: 700; padding: 7px 13px; border: none; border-radius: 7px; cursor: pointer; background: #fca311; }" +
+      "background: #eef4ea; border-bottom: 1px solid #cfdccb; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
+      ".tools button { font: inherit; font-weight: 700; padding: 7px 13px; border: none; border-radius: 0; cursor: pointer; background: #C9A227; color: #0A3711; }" +
       ".sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 11mm 13mm; background: #fff; box-shadow: 0 2px 14px rgba(0,0,0,.12); }" +
       "h1 { font-size: 15pt; text-align: center; letter-spacing: 0.32em; margin: 0 0 1.2mm; font-weight: 800; }" +
       ".subtitle { text-align: center; font-size: 9.4pt; color: #333; margin: 0 0 2.6mm; }" +
@@ -789,13 +810,13 @@
   function simpleCss() {
     return "@page { size: A4; margin: 11mm 13mm; }" +
       "* { box-sizing: border-box; } html, body { margin: 0; padding: 0; }" +
-      ":root { --accent: #14503a; --accent2: #1a7f5a; --ink: #1c2027; --sub: #6b7280; --line: #d9dde4; --soft: #f5f8f6; }" +
+      ":root { --accent: #0A3711; --accent2: #8F7118; --ink: #1c2027; --sub: #6b7280; --line: #dde3dc; --soft: #f5f8f4; }" +
       "body { font-family: 'Pretendard','Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',sans-serif;" +
       "font-size: 9.2pt; line-height: 1.42; color: var(--ink); background: #eef0f3; word-break: keep-all;" +
       "-webkit-print-color-adjust: exact; print-color-adjust: exact; }" +
       ".tools { max-width: 210mm; margin: 0 auto; padding: 11px 16px; font-size: 12px; color: #4b5563;" +
-      "background: #eaf6ef; border-bottom: 1px solid #b9dcc7; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
-      ".tools button { font: inherit; font-weight: 700; padding: 7px 13px; border: none; border-radius: 7px; cursor: pointer; background: #1a7f5a; color: #fff; }" +
+      "background: #eef4ea; border-bottom: 1px solid #cfdccb; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
+      ".tools button { font: inherit; font-weight: 700; padding: 7px 13px; border: none; border-radius: 0; cursor: pointer; background: #0A3711; color: #fff; }" +
       ".sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 11mm 13mm; background: #fff; box-shadow: 0 2px 14px rgba(0,0,0,.12); }" +
       ".brand { font-size: 8.4pt; font-weight: 800; letter-spacing: 0.22em; color: var(--accent2); margin-bottom: 2.5mm; }" +
       "h1 { font-size: 15pt; font-weight: 800; letter-spacing: -0.02em; color: var(--accent); margin: 0; }" +
@@ -803,7 +824,7 @@
       ".rule { height: 2.2pt; background: var(--accent); margin: 2.2mm 0 2.6mm; border-radius: 2pt; }" +
       ".sec { margin-bottom: 2.2mm; }" +
       ".sec > h2 { font-size: 8.6pt; font-weight: 800; letter-spacing: 0.14em; color: var(--accent); margin: 0 0 1.4mm; }" +
-      ".card { border: 0.7pt solid var(--line); border-radius: 2.6mm; padding: 2.0mm 3.0mm; background: var(--soft); }" +
+      ".card { border: 0.7pt solid var(--line); border-radius: 0; padding: 2.0mm 3.0mm; background: var(--soft); }" +
       ".grid { display: grid; grid-template-columns: 22mm 1fr; gap: 0.9mm 3.5mm; align-items: baseline; }" +
       ".grid.two { grid-template-columns: 22mm 1fr 16mm 1fr; }" +
       ".k { font-size: 8.8pt; font-weight: 700; color: var(--sub); } .v { min-height: 3.8mm; }" +
@@ -815,7 +836,7 @@
       "ol.terms { margin: 0; padding: 0; list-style: none; counter-reset: t; }" +
       "ol.terms li { counter-increment: t; position: relative; padding: 0 0 0 6.4mm; margin-bottom: 1.0mm; text-align: justify; }" +
       "ol.terms li::before { content: counter(t); position: absolute; left: 0; top: 0.2mm; width: 4.6mm; height: 4.6mm;" +
-      "border-radius: 50%; background: var(--accent); color: #fff; font-size: 7.2pt; font-weight: 800; text-align: center; line-height: 4.6mm; }" +
+      "border-radius: 0; background: var(--accent); color: #fff; font-size: 7.2pt; font-weight: 800; text-align: center; line-height: 4.6mm; }" +
       "ol.terms b { font-weight: 800; color: var(--accent); }" +
       ".datebox { text-align: center; font-size: 10pt; margin: 3mm 0 2.6mm; }" +
       ".signs { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }" +

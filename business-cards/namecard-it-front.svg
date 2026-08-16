@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PHILIP STUDIO 명함 · IT 트랙 · 앞면 (브랜드 면)
+     재단(트림) 사이즈: 85 x 55 mm / 작업 사이즈: 89 x 59 mm (사방 2mm 재단여유 포함)
+     용지 350gsm · 무광 코팅 · 직각 모서리 (재단은 직각, 형태 언어만 라운드)
+     단위: 1 user unit = 1 mm. 그라데이션·필터 없이 순수 단색 벡터 — Illustrator 편집 안전.
+     GUIDES 레이어는 인쇄 전 삭제. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="89mm" height="59mm" viewBox="0 0 89 59">
+  <title>PHILIP STUDIO — IT Card Front (Brand)</title>
+  <defs>
+    <clipPath id="emblemClip"><circle cx="18" cy="22" r="7"/></clipPath>
+    <clipPath id="orbClip"><circle cx="80" cy="50" r="18"/></clipPath>
+  </defs>
+
+  <!-- ===== BACKGROUND ===== -->
+  <g id="background">
+    <rect x="0" y="0" width="89" height="59" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ===== GEOMETRY : 겹쳐 이어지는 아치(짧은 변이 완전히 둥근 형태) ===== -->
+  <g id="geometry">
+    <!-- 우하단 대형 원 + 내부 아치군 (재단면 밖으로 흘러 나감) -->
+    <circle cx="80" cy="50" r="18" fill="#CEDEF2"/>
+    <g clip-path="url(#orbClip)">
+      <path d="M 62 59 L 62 51 A 14 14 0 0 1 90 51 L 90 59 Z" fill="#A0C4F2"/>
+      <path d="M 67 59 L 67 51 A 9 9 0 0 1 85 51 L 85 59 Z" fill="#6DA7F2"/>
+      <path d="M 71.5 59 L 71.5 51 A 4.5 4.5 0 0 1 80.5 51 L 80.5 59 Z" fill="#035AA6"/>
+    </g>
+
+    <!-- 하단 중앙 독립 아치 -->
+    <path d="M 49.5 59 L 49.5 54 A 5.5 5.5 0 0 1 60.5 54 L 60.5 59 Z" fill="#A0C4F2"/>
+    <path d="M 52.2 59 L 52.2 54 A 2.8 2.8 0 0 1 57.8 54 L 57.8 59 Z" fill="#035AA6"/>
+
+    <!-- 좌하단 아치 (좌측 재단면에서 잘려 이어짐) -->
+    <path d="M -8 59 L -8 54 A 8 8 0 0 1 8 54 L 8 59 Z" fill="#CEDEF2"/>
+    <path d="M -4 59 L -4 54 A 4 4 0 0 1 4 54 L 4 59 Z" fill="#A0C4F2"/>
+  </g>
+
+  <!-- ===== EMBLEM : 원 안의 동심 아치 (관문 · 신호의 중첩) ===== -->
+  <g id="emblem">
+    <g clip-path="url(#emblemClip)">
+      <path d="M 12.8 25.5 L 12.8 24 A 5.2 5.2 0 0 1 23.2 24 L 23.2 25.5 Z" fill="#6DA7F2"/>
+      <path d="M 14.7 25.5 L 14.7 24 A 3.3 3.3 0 0 1 21.3 24 L 21.3 25.5 Z" fill="#035AA6"/>
+      <path d="M 16.5 25.5 L 16.5 24 A 1.5 1.5 0 0 1 19.5 24 L 19.5 25.5 Z" fill="#023373"/>
+      <line x1="11" y1="25.5" x2="25" y2="25.5" stroke="#023373" stroke-width="0.3"/>
+    </g>
+    <circle cx="18" cy="22" r="7" fill="none" stroke="#023373" stroke-width="0.4"/>
+  </g>
+
+  <!-- ===== WORDMARK ===== -->
+  <g id="wordmark" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+    <text x="29" y="21.5" font-size="3.9" font-weight="700" letter-spacing="1.05" fill="#023373">PHILIP STUDIO</text>
+    <text x="29.5" y="26" font-size="1.8" font-weight="500" letter-spacing="0.6" fill="#035AA6">WEB · APP · AI ENGINEERING</text>
+  </g>
+
+  <!-- ===== GUIDES (인쇄 전 삭제) ===== -->
+  <g id="GUIDES-delete-before-print" fill="none" opacity="0.6">
+    <rect x="2" y="2" width="85" height="55" stroke="#FF00FF" stroke-width="0.1" stroke-dasharray="1.2 0.8"/>
+  </g>
+</svg>

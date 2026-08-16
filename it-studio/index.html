@@ -6,20 +6,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>필립 스튜디오 — 웹·앱 개발 / AI·IT 강의</title>
 <style>
+  /* IT 팔레트: #CEDEF2 #A0C4F2 #6DA7F2(main) #035AA6 #023373 — 메인이 연한 톤이라 강조는 남색 계열 */
   :root {
-    --navy: #14213d;
-    --navy-soft: #2b3a5c;
-    --amber: #fca311;
-    --amber-deep: #e08900;
-    --ink: #1f2430;
-    --ink-sub: #5a6272;
-    --line: #e6e8ee;
+    --navy: #023373;
+    --navy-soft: #035AA6;
+    --amber: #6DA7F2;      /* main */
+    --amber-deep: #035AA6; /* 밝은 배경 위 강조 텍스트 */
+    --sky: #A0C4F2;        /* 어두운 배경 위 강조 텍스트 */
+    --mist: #CEDEF2;       /* 가장 연한 톤 — 하이라이트/틴트 */
+    --ink: #1d2b3f;
+    --ink-sub: #5a6a80;
+    --line: #dbe6f5;
     --bg: #ffffff;
-    --bg-soft: #f6f7fa;
-    --bg-navy: #101a30;
-    --ok: #1a7f5a;
-    --radius: 14px;
-    --shadow: 0 6px 24px rgba(20, 33, 61, 0.08);
+    --bg-soft: #f3f7fd;
+    --bg-navy: #022a55;
+    --ok: #035AA6;
+    --radius: 26px;
+    --shadow: 0 14px 34px rgba(3, 90, 166, 0.13);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -46,38 +49,46 @@
   .brand em { color: var(--amber-deep); font-style: normal; }
   .nav-links { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
   .nav-links a {
-    font-size: 13.5px; color: var(--ink-sub); padding: 6px 10px; border-radius: 8px;
+    font-size: 13.5px; color: var(--ink-sub); padding: 6px 12px; border-radius: 999px;
   }
   .nav-links a:hover { background: var(--bg-soft); color: var(--navy); }
   .nav-cta {
     background: var(--navy); color: #fff !important; font-weight: 700;
-    padding: 8px 16px !important; border-radius: 10px;
+    padding: 8px 18px !important; border-radius: 999px;
   }
   .nav-cta:hover { background: var(--navy-soft) !important; }
 
   /* ===== hero ===== */
-  .hero { background: linear-gradient(180deg, #fdfbf6 0%, #ffffff 100%); padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
+  /* 리퀴드글라스 무드: 부드러운 블루 블롭 + 라이트 그라데이션 */
+  .hero {
+    background:
+      radial-gradient(620px 320px at 88% 8%, rgba(160, 196, 242, 0.38), transparent 70%),
+      radial-gradient(520px 280px at 8% 92%, rgba(206, 222, 242, 0.55), transparent 70%),
+      linear-gradient(180deg, #f4f8fe 0%, #ffffff 100%);
+    padding: 72px 0 56px; border-bottom: 1px solid var(--line);
+  }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: #fff7e8; color: var(--amber-deep); border: 1px solid #f5d9a8;
-    font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
+    background: rgba(255,255,255,0.65); color: var(--amber-deep); border: 1px solid var(--sky);
+    backdrop-filter: blur(6px);
+    font-size: 13px; font-weight: 700; padding: 6px 16px; border-radius: 999px; margin-bottom: 22px;
   }
   .hero h1 {
     font-size: clamp(28px, 4.6vw, 44px); line-height: 1.3; letter-spacing: -0.03em;
     color: var(--navy); font-weight: 800; max-width: 720px;
   }
-  .hero h1 .hl { box-shadow: inset 0 -0.45em 0 #ffe3ae; }
+  .hero h1 .hl { box-shadow: inset 0 -0.45em 0 var(--mist); }
   .hero p.sub { margin-top: 18px; font-size: 17px; color: var(--ink-sub); max-width: 640px; }
   .hero-ctas { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
   .btn {
     display: inline-block; font-weight: 700; font-size: 15px;
-    padding: 13px 26px; border-radius: 12px; transition: transform .15s ease, box-shadow .15s ease;
+    padding: 13px 28px; border-radius: 999px; transition: transform .15s ease, box-shadow .15s ease;
     border: none; cursor: pointer; font-family: inherit;
   }
   .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
   .btn-primary { background: var(--navy); color: #fff; }
-  .btn-amber { background: var(--amber); color: #3a2600; }
-  .btn-ghost { border: 1.5px solid var(--line); color: var(--navy); background: #fff; }
+  .btn-amber { background: var(--amber); color: var(--navy); }
+  .btn-ghost { border: 1.5px solid var(--sky); color: var(--navy); background: rgba(255,255,255,0.7); }
   .hero-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 34px; }
   .chip {
     font-size: 12.5px; font-weight: 600; color: var(--navy-soft);
@@ -109,8 +120,8 @@
   }
   .tier.featured { border-color: var(--amber); box-shadow: var(--shadow); }
   .tier .flag {
-    position: absolute; top: -12px; left: 24px; background: var(--amber); color: #3a2600;
-    font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px;
+    position: absolute; top: -12px; left: 24px; background: var(--amber); color: var(--navy);
+    font-size: 12px; font-weight: 800; padding: 4px 14px; border-radius: 999px;
   }
   .tier .grade { font-size: 12.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--ink-sub); }
   .tier h3 { font-size: 19px; color: var(--navy); margin-top: 6px; }
@@ -137,14 +148,14 @@
 
   /* AI consulting band */
   .band {
-    margin-top: 26px; background: var(--bg-navy); border-radius: var(--radius);
-    padding: 34px 32px; color: #eef1f8; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;
+    margin-top: 26px; background: linear-gradient(135deg, #023373 0%, #035AA6 100%); border-radius: var(--radius);
+    padding: 34px 32px; color: #eef4fc; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;
   }
   .band .grow { flex: 1 1 380px; }
   .band h3 { font-size: 21px; color: #fff; }
-  .band h3 em { color: var(--amber); font-style: normal; }
-  .band p { margin-top: 10px; font-size: 14.5px; color: #b9c2d8; max-width: 560px; }
-  .band .price-tag { font-size: 15px; font-weight: 700; color: var(--amber); white-space: nowrap; }
+  .band h3 em { color: var(--sky); font-style: normal; }
+  .band p { margin-top: 10px; font-size: 14.5px; color: #c3d6ef; max-width: 560px; }
+  .band .price-tag { font-size: 15px; font-weight: 700; color: var(--sky); white-space: nowrap; }
 
   /* ===== class cards (탈잉식) ===== */
   .class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 38px; }
@@ -156,31 +167,35 @@
     padding: 18px 22px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
     color: #fff;
   }
-  .class-card .head .lv { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--amber); }
-  .class-card .head h3 { font-size: 17px; margin-top: 4px; line-height: 1.4; }
+  .class-card .head .lv { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--sky); }
+  /* 제목이 1줄이든 2줄이든 헤더 높이를 동일하게 고정 */
+  .class-card .head h3 { font-size: 17px; margin-top: 4px; line-height: 1.4; min-height: 2.8em; }
   .class-card .body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
   .class-card .body p { font-size: 13.5px; color: var(--ink-sub); flex: 1; }
   .class-card .fee { font-size: 14px; font-weight: 700; color: var(--navy); border-top: 1px solid var(--line); padding-top: 12px; }
   .fee-note {
-    margin-top: 22px; background: #fff7e8; border: 1px solid #f5d9a8; border-radius: var(--radius);
-    padding: 16px 20px; font-size: 13.5px; color: #6b4a00;
+    margin-top: 22px; background: #e9f1fc; border: 1px solid var(--sky); border-radius: var(--radius);
+    padding: 16px 22px; font-size: 13.5px; color: #0d3f74;
   }
 
   /* ===== process ===== */
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 38px; counter-reset: step; }
-  .step { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 20px 18px; }
+  /* 7단계를 데스크톱에서 항상 한 줄(세로로 긴 직사각형)로 배치 */
+  .steps { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 38px; counter-reset: step; }
+  .step {
+    background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+    padding: 18px 12px; display: flex; flex-direction: column;
+  }
   .step::before {
     counter-increment: step; content: counter(step, decimal-leading-zero);
-    display: block; font-size: 13px; font-weight: 800; color: var(--amber-deep); margin-bottom: 8px;
+    display: block; font-size: 12px; font-weight: 800; color: var(--amber-deep); margin-bottom: 8px;
   }
-  .step b { display: block; font-size: 15px; color: var(--navy); margin-bottom: 4px; }
-  .step span { font-size: 12.5px; color: var(--ink-sub); }
+  .step b { display: block; font-size: 13.5px; color: var(--navy); margin-bottom: 6px; letter-spacing: -0.02em; }
+  .step span { font-size: 12px; color: var(--ink-sub); line-height: 1.5; }
 
   /* ===== benefits ===== */
   .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 38px; }
   .benefit { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px; }
-  .benefit .ico { font-size: 26px; }
-  .benefit b { display: block; margin-top: 10px; color: var(--navy); font-size: 16px; }
+  .benefit b { display: block; color: var(--navy); font-size: 16px; }
   .benefit p { margin-top: 6px; font-size: 13.5px; color: var(--ink-sub); }
 
   /* ===== Q&A (숨고식) ===== */
@@ -194,7 +209,7 @@
   /* ===== FAQ ===== */
   .faq { margin-top: 38px; display: grid; gap: 10px; }
   details {
-    background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 0 22px;
+    background: #fff; border: 1.5px solid var(--line); border-radius: 18px; padding: 0 22px;
   }
   details[open] { border-color: var(--navy-soft); }
   summary {
@@ -210,12 +225,13 @@
   .contact { background: var(--bg-navy); color: #eef1f8; }
   .contact h2 { color: #fff; }
   .contact .sec-desc { color: #b9c2d8; }
-  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 34px; }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 34px; max-width: 680px; }
+  .contact-card a { border-bottom: 1px solid rgba(255,255,255,0.25); }
   .contact-card {
     background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
     border-radius: var(--radius); padding: 22px 24px;
   }
-  .contact-card b { display: block; color: var(--amber); font-size: 13px; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .contact-card b { display: block; color: var(--sky); font-size: 13px; letter-spacing: 0.05em; margin-bottom: 8px; }
   .contact-card span { font-size: 15px; }
   .placeholder { color: #8a94ad; font-style: italic; }
 
@@ -225,7 +241,7 @@
   .track-tag {
     display: inline-block; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
   }
-  .track-it { background: #e8f0ff; color: #1d4fa1; }
+  .track-it { background: #e4eefc; color: #023373; }
   .track-ar { background: #eaf6ef; color: #1a7f5a; }
 
   /* ===== process split ===== */
@@ -239,13 +255,25 @@
   .contract-box .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
   .contract-box label { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy-soft); margin-bottom: 5px; }
   .contract-box input, .contract-box textarea, .contract-box select {
-    width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px;
+    width: 100%; border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 14px;
     font: inherit; font-size: 14px; color: var(--ink); background: var(--bg-soft);
   }
   .contract-box input:focus, .contract-box textarea:focus, .contract-box select:focus { outline: 2px solid var(--amber); border-color: var(--amber); background: #fff; }
   .contract-box .full { grid-column: 1 / -1; }
   .contract-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
   .contract-note { font-size: 12.5px; color: var(--ink-sub); margin-top: 14px; }
+
+  /* 폭이 좁아지면 진행 방식을 세로 1열로 (모바일에서 글자 깨짐 방지) */
+  @media (max-width: 1000px) {
+    .steps { grid-template-columns: 1fr; gap: 8px; margin-top: 26px; }
+    .step {
+      display: grid; grid-template-columns: auto 1fr; column-gap: 14px;
+      align-items: start; padding: 14px 18px;
+    }
+    .step::before { grid-row: 1 / span 2; margin-bottom: 0; font-size: 13px; line-height: 1.6; }
+    .step b { font-size: 15px; margin-bottom: 2px; }
+    .step span { font-size: 13px; }
+  }
 
   @media (max-width: 640px) {
     .nav-links a:not(.nav-cta) { display: none; }
@@ -274,7 +302,7 @@
 <!-- ================= HERO ================= -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="hero-badge">⚡ 400억 투자유치 시리즈C AI 스타트업 현직 풀스택 엔지니어</span>
+    <span class="hero-badge">400억 투자유치 시리즈C AI 스타트업 현직 풀스택 엔지니어</span>
     <h1>AI 시대에도 프로그래밍의 본질은<br>여전히 <span class="hl">건재합니다.</span></h1>
     <p class="sub">
       400억 규모 투자유치 AI 스타트업에서 상업 서비스를 만들고 운영하는 풀스택 엔지니어가
@@ -363,12 +391,12 @@
 
     <div class="wide-grid">
       <div class="wide">
-        <h3>🖥️ 설치형 애플리케이션 (Windows / macOS)</h3>
+        <h3>설치형 애플리케이션 (Windows / macOS)</h3>
         <p>Electron 기반 데스크톱 앱. 자동 업데이트, 설치 패키징까지 포함한 프로덕션 수준 구축.</p>
         <div class="price-line">1,000만원~ · 별도 견적</div>
       </div>
       <div class="wide">
-        <h3>🔧 유지보수 리테이너</h3>
+        <h3>유지보수 리테이너</h3>
         <p>월 4시간 내 버그 수정과 소규모 개선. 초과분은 시간 단위 정산. 납품 후 안정 운영을 책임집니다.</p>
         <div class="price-line">월 40만원~</div>
       </div>
@@ -397,7 +425,7 @@
     <h2>AI · IT 강의</h2>
     <p class="sec-desc">
       유행하는 도구 나열이 아니라, 상업 수준 서비스를 만들고 운영해 본 사람의 기준으로 원리부터 실전까지 다룹니다.
-      전 과정에 직접 제작한 실적용 비법노트가 교재로 제공됩니다.
+      모든 세션은 기본적으로 오프라인 1:1 대면으로 진행하며, 전 과정에 직접 제작한 실적용 비법노트가 교재로 제공됩니다.
     </p>
 
     <div class="class-grid">
@@ -446,7 +474,7 @@
     </div>
 
     <div class="fee-note">
-      📒 모든 수강생에게 <b>실적용 직제작 비법노트</b>(교재)와 <b>Obtopus · PigeonToday · M-Raum 멤버십</b>이 제공됩니다.
+      모든 수강생에게 <b>실적용 직제작 비법노트</b>(교재)와 <b>Obtopus · PigeonToday · M-Raum 멤버십</b>이 제공됩니다.
     </div>
   </div>
 </section>
@@ -457,10 +485,10 @@
     <div class="eyebrow">Membership &amp; Benefits</div>
     <h2>모든 고객에게 드리는 공통 혜택</h2>
     <div class="benefit-grid">
-      <div class="benefit"><span class="ico">📱</span><b>Obtopus Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
-      <div class="benefit"><span class="ico">🕊️</span><b>PigeonToday Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
-      <div class="benefit"><span class="ico">🏠</span><b>M-Raum Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
-      <div class="benefit"><span class="ico">📒</span><b>실적용 직제작 비법노트</b><p>실무에서 검증한 내용만 담은 자체 제작 교재를 제공합니다.</p></div>
+      <div class="benefit"><b>Obtopus Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
+      <div class="benefit"><b>PigeonToday Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
+      <div class="benefit"><b>M-Raum Membership</b><p>직접 개발·운영하는 앱의 멤버십을 제공합니다.</p></div>
+      <div class="benefit"><b>실적용 직제작 비법노트</b><p>실무에서 검증한 내용만 담은 자체 제작 교재를 제공합니다.</p></div>
     </div>
   </div>
 </section>
@@ -557,7 +585,7 @@
       </details>
       <details>
         <summary>강의는 어디서, 어떤 방식으로 진행되나요?</summary>
-        <div class="ans">기본은 온라인 1:1이며, 그룹(4인 이하)과 기업 출강도 가능합니다. 기업 출강은 사전 진단 후 커리큘럼을 설계해 제안드립니다.</div>
+        <div class="ans">기본은 오프라인 1:1 대면 세션입니다. 장소는 상담 시 협의해 정하며, 요청하시면 온라인으로도 진행합니다. 그룹(4인 이하)과 기업 출강도 가능하며, 기업 출강은 사전 진단 후 커리큘럼을 설계해 제안드립니다.</div>
       </details>
       <details>
         <summary>포트폴리오를 볼 수 있나요?</summary>
@@ -597,8 +625,8 @@
         <div class="full"><label for="cSpecial">특약사항 (선택)</label><textarea id="cSpecial" rows="2" placeholder="예: 소스코드 저장소 이관 포함"></textarea></div>
       </div>
       <div class="contract-actions">
-        <button class="btn btn-primary" type="button" onclick="buildContract('simple')">📄 간이 용역계약서 (A4 1장)</button>
-        <button class="btn btn-amber" type="button" onclick="buildContract('formal')">📑 표준 용역계약서 (전 24조)</button>
+        <button class="btn btn-primary" type="button" onclick="buildContract('simple')">간이 용역계약서 (A4 1장)</button>
+        <button class="btn btn-amber" type="button" onclick="buildContract('formal')">표준 용역계약서 (전 24조)</button>
       </div>
       <div class="contract-note">
         간이 양식은 강의·세션·소규모 작업의 단건 의뢰용으로 A4 1장에 들어오고, 표준 양식은 과업 확정·검수·
@@ -617,9 +645,8 @@
     <h2>프로젝트를 시작해 볼까요?</h2>
     <p class="sec-desc">텍스트 상담은 무료입니다. 만들고 싶은 것을 한 문단으로 보내주시면, 범위와 견적의 초안으로 답장드립니다.</p>
     <div class="contact-grid">
-      <div class="contact-card"><b>EMAIL</b><span class="placeholder">[개인 이메일 기입]</span></div>
-      <div class="contact-card"><b>오픈카톡</b><span class="placeholder">[오픈카톡 링크 기입]</span></div>
-      <div class="contact-card"><b>플랫폼</b><span class="placeholder">[크몽 · 탈잉 프로필 링크 기입]</span></div>
+      <div class="contact-card"><b>EMAIL</b><span><a href="mailto:spinnavor@naver.com">spinnavor@naver.com</a></span></div>
+      <div class="contact-card"><b>PHONE</b><span><a href="tel:+821056826129">010.5682.6129</a></span></div>
     </div>
     <div class="hero-ctas" style="margin-top:30px;">
       <a class="btn btn-amber" href="#top">서비스 다시 보기</a>
@@ -630,7 +657,7 @@
 <footer>
   <div class="wrap">
     <div>PHILIP STUDIO — Web · App · AI Engineering. 모든 작업은 표준 계약서 기반으로 진행됩니다.</div>
-    <div>표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다. (내부 초안: 배포 전 연락처·가격 확정 필요)</div>
+    <div>표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다.</div>
   </div>
 </footer>
 
@@ -770,8 +797,8 @@
       "body { font-family: 'Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',sans-serif;" +
       "font-size: 9.0pt; line-height: 1.36; color: #111; background: #f2f3f5; word-break: keep-all; }" +
       ".tools { max-width: 210mm; margin: 0 auto; padding: 12px 16px; font-size: 12px; color: #444;" +
-      "background: #fff8e1; border-bottom: 1px solid #e6d9a8; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
-      ".tools button { font: inherit; font-weight: 700; padding: 7px 13px; border: none; border-radius: 7px; cursor: pointer; background: #fca311; }" +
+      "background: #eaf2fd; border-bottom: 1px solid #a0c4f2; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
+      ".tools button { font: inherit; font-weight: 700; padding: 7px 15px; border: none; border-radius: 999px; cursor: pointer; background: #6DA7F2; color: #023373; }" +
       ".sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 11mm 13mm; background: #fff; box-shadow: 0 2px 14px rgba(0,0,0,.12); }" +
       "h1 { font-size: 15pt; text-align: center; letter-spacing: 0.32em; margin: 0 0 1.2mm; font-weight: 800; }" +
       ".subtitle { text-align: center; font-size: 9.4pt; color: #333; margin: 0 0 2.6mm; }" +
@@ -801,13 +828,13 @@
   function simpleCss() {
     return "@page { size: A4; margin: 11mm 13mm; }" +
       "* { box-sizing: border-box; } html, body { margin: 0; padding: 0; }" +
-      ":root { --accent: #14213d; --accent2: #e08900; --ink: #1c2027; --sub: #6b7280; --line: #d9dde4; --soft: #f6f7fa; }" +
+      ":root { --accent: #023373; --accent2: #035AA6; --ink: #1c2027; --sub: #6b7280; --line: #dbe6f5; --soft: #f3f7fd; }" +
       "body { font-family: 'Pretendard','Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',sans-serif;" +
       "font-size: 9.2pt; line-height: 1.42; color: var(--ink); background: #eef0f3; word-break: keep-all;" +
       "-webkit-print-color-adjust: exact; print-color-adjust: exact; }" +
       ".tools { max-width: 210mm; margin: 0 auto; padding: 11px 16px; font-size: 12px; color: #4b5563;" +
-      "background: #fff8e1; border-bottom: 1px solid #e6d9a8; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
-      ".tools button { font: inherit; font-weight: 700; padding: 7px 13px; border: none; border-radius: 7px; cursor: pointer; background: #fca311; }" +
+      "background: #eaf2fd; border-bottom: 1px solid #a0c4f2; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }" +
+      ".tools button { font: inherit; font-weight: 700; padding: 7px 15px; border: none; border-radius: 999px; cursor: pointer; background: #6DA7F2; color: #023373; }" +
       ".sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 11mm 13mm; background: #fff; box-shadow: 0 2px 14px rgba(0,0,0,.12); }" +
       ".brand { font-size: 8.4pt; font-weight: 800; letter-spacing: 0.22em; color: var(--accent2); margin-bottom: 2.5mm; }" +
       "h1 { font-size: 15pt; font-weight: 800; letter-spacing: -0.02em; color: var(--accent); margin: 0; }" +
@@ -857,7 +884,7 @@
     t += '<div class="sec"><h2>2. 용역 내용</h2><div class="card"><div class="grid">' +
       '<div class="k">용역명</div><div class="v">' + u(d.project, "wf") + '</div>' +
       '<div class="k">구분</div><div class="v">☐ 1:1 강의·세션 &nbsp; ☐ 그룹 강의 &nbsp; ☐ 소규모 개발·수정 &nbsp; ☐ 기술 자문 &nbsp; ☐ 기타 <span class="b w4">&nbsp;</span></div>' +
-      '<div class="k">진행 방식</div><div class="v">☐ 온라인 &nbsp; ☐ 방문 · 장소 <span class="b w14">&nbsp;</span></div>' +
+      '<div class="k">진행 방식</div><div class="v">☐ 오프라인(대면) · 장소 <span class="b w14">&nbsp;</span> &nbsp; ☐ 온라인</div>' +
       '<div class="k">회차 · 일정</div><div class="v">총 <span class="b w3">&nbsp;</span>회 · 회당 <span class="b w3">&nbsp;</span>시간 · 일정 ' +
         u(d.start ? d.start.y + "." + d.start.m + "." + d.start.d + (d.end ? " ~ " + d.end.y + "." + d.end.m + "." + d.end.d : "") : "", "w14") + '</div>' +
       '<div class="k">제공물</div><div class="v">' + u(d.scope, "wf") + '</div>' +

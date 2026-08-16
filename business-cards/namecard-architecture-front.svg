@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PHILIP STUDIO 명함 · 건축 트랙 · 앞면
+     재단(트림) 사이즈: 85 x 55 mm / 작업 사이즈: 89 x 59 mm (사방 2mm 재단여유 포함)
+     용지 350gsm · 무광 코팅 · 직각 모서리
+     단위: 1 user unit = 1 mm. GUIDES 레이어는 인쇄 전 삭제. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="89mm" height="59mm" viewBox="0 0 89 59">
+  <title>PHILIP STUDIO — Architecture Card Front</title>
+
+  <!-- ===== BACKGROUND (bleed 포함 전체) ===== -->
+  <g id="background">
+    <rect x="0" y="0" width="89" height="59" fill="#0A3711"/>
+  </g>
+
+  <!-- ===== FRAME &amp; EXTENDING LINES (얇은 금색 엣지 + 프레임을 넘어 확장되는 직선) ===== -->
+  <g id="frame" stroke="#C9A227" fill="none">
+    <!-- 본 프레임: 얇은 엣지의 사각형 -->
+    <rect x="10" y="10" width="69" height="39" stroke-width="0.3"/>
+    <!-- 프레임 변을 재단면 밖까지 연장한 직선 (확장되는 직선 모티프) -->
+    <line x1="0"  y1="10" x2="89" y2="10" stroke-width="0.15" opacity="0.45"/>
+    <line x1="0"  y1="49" x2="89" y2="49" stroke-width="0.15" opacity="0.45"/>
+    <line x1="10" y1="0"  x2="10" y2="59" stroke-width="0.15" opacity="0.45"/>
+    <line x1="79" y1="0"  x2="79" y2="59" stroke-width="0.15" opacity="0.45"/>
+  </g>
+
+  <!-- ===== TEXT ===== -->
+  <g id="text" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+    <text x="44.5" y="28.2" text-anchor="middle" font-size="5.6" font-weight="700"
+          letter-spacing="1.9" fill="#C9A227">PHILIP STUDIO</text>
+    <!-- 타이틀 아래 확장 라인 -->
+    <line x1="32.5" y1="32.4" x2="56.5" y2="32.4" stroke="#C9A227" stroke-width="0.25"/>
+    <text x="44.5" y="37.6" text-anchor="middle" font-size="2.3" font-weight="500"
+          letter-spacing="1.5" fill="#D9B84D">INTERIOR · ARCHITECTURE</text>
+  </g>
+
+  <!-- ===== GUIDES (인쇄 전 삭제) ===== -->
+  <g id="GUIDES-delete-before-print" fill="none" opacity="0.6">
+    <rect x="2" y="2" width="85" height="55" stroke="#FF00FF" stroke-width="0.1" stroke-dasharray="1.2 0.8"/>
+  </g>
+</svg>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PHILIP STUDIO 명함 · 건축 트랙 · 뒷면
+     재단(트림) 사이즈: 85 x 55 mm / 작업 사이즈: 89 x 59 mm (사방 2mm 재단여유 포함)
+     단위: 1 user unit = 1 mm. GUIDES 레이어는 인쇄 전 삭제. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="89mm" height="59mm" viewBox="0 0 89 59">
+  <title>PHILIP STUDIO — Architecture Card Back</title>
+
+  <!-- ===== BACKGROUND ===== -->
+  <g id="background">
+    <rect x="0" y="0" width="89" height="59" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ===== LINES (왼쪽 재단면부터 확장되는 금색 직선 + 그린 포인트) ===== -->
+  <g id="lines">
+    <line x1="0" y1="17.5" x2="52" y2="17.5" stroke="#C9A227" stroke-width="0.3"/>
+    <rect x="75" y="10" width="4" height="4" fill="#0A3711"/>
+  </g>
+
+  <!-- ===== TEXT ===== -->
+  <g id="text" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+    <!-- 브랜드 -->
+    <text x="10" y="14.2" font-size="2.4" font-weight="700" letter-spacing="1.6" fill="#8F7118">PHILIP STUDIO</text>
+
+    <!-- 이름 / 직능 -->
+    <text x="10" y="26.4" font-size="5.0" font-weight="700" fill="#0A3711">성필</text>
+    <text x="21.5" y="26.4" font-size="2.5" font-weight="500" fill="#5c675e">Philip Sung</text>
+    <text x="10" y="31.4" font-size="2.5" font-weight="500" fill="#0A3711">실내건축 · 인테리어 설계 / 공간 · 건축 강의</text>
+
+    <!-- 연락처 -->
+    <g font-size="2.4" fill="#1c241d">
+      <text x="10" y="39.4"><tspan font-weight="700" fill="#8F7118">M</tspan><tspan dx="2.2">010.5682.6129</tspan></text>
+      <text x="10" y="43.6"><tspan font-weight="700" fill="#8F7118">E</tspan><tspan dx="2.7">spinnavor@naver.com</tspan></text>
+      <text x="10" y="47.8"><tspan font-weight="700" fill="#8F7118">W</tspan><tspan dx="1.8">philip-studio.cloud/architecture-studio</tspan></text>
+    </g>
+  </g>
+
+  <!-- ===== GUIDES (인쇄 전 삭제) ===== -->
+  <g id="GUIDES-delete-before-print" fill="none" opacity="0.6">
+    <rect x="2" y="2" width="85" height="55" stroke="#FF00FF" stroke-width="0.1" stroke-dasharray="1.2 0.8"/>
+  </g>
+</svg>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PHILIP STUDIO 명함 · IT 트랙 · 뒷면 (정보 면)
+     재단(트림) 사이즈: 85 x 55 mm / 작업 사이즈: 89 x 59 mm (사방 2mm 재단여유 포함)
+     단위: 1 user unit = 1 mm. 아이콘은 벡터 패스(이모지 아님).
+     GUIDES 레이어는 인쇄 전 삭제. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="89mm" height="59mm" viewBox="0 0 89 59">
+  <title>PHILIP STUDIO — IT Card Back (Contact)</title>
+
+  <!-- ===== BACKGROUND ===== -->
+  <g id="background">
+    <rect x="0" y="0" width="89" height="59" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ===== GEOMETRY : 우하단 동심 아치군 + 좌하단 아치 ===== -->
+  <g id="geometry">
+    <path d="M 55 59 L 55 50 A 21 21 0 0 1 97 50 L 97 59 Z" fill="#CEDEF2"/>
+    <path d="M 60.5 59 L 60.5 50 A 15.5 15.5 0 0 1 91.5 50 L 91.5 59 Z" fill="#A0C4F2"/>
+    <path d="M 66 59 L 66 50 A 10 10 0 0 1 86 50 L 86 59 Z" fill="#6DA7F2"/>
+    <path d="M 71 59 L 71 50 A 5 5 0 0 1 81 50 L 81 59 Z" fill="#035AA6"/>
+
+    <path d="M -9 59 L -9 53 A 9 9 0 0 1 9 53 L 9 59 Z" fill="#A0C4F2"/>
+    <path d="M -4.5 59 L -4.5 53 A 4.5 4.5 0 0 1 4.5 53 L 4.5 59 Z" fill="#6DA7F2"/>
+  </g>
+
+  <!-- ===== TEXT ===== -->
+  <g id="text" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+    <!-- 이름 -->
+    <text x="10" y="17" font-size="5.4" font-weight="700" fill="#023373">성필</text>
+    <text x="22.5" y="17" font-size="2.6" font-weight="500" fill="#5a6a80">Philip Sung</text>
+
+    <!-- 직능 + 구분선 -->
+    <text x="10" y="22" font-size="2.4" font-weight="500" fill="#5a6a80">웹 · 앱 개발 / 기업 AI 도입 / AI · IT 강의</text>
+    <line x1="10" y1="24.4" x2="52" y2="24.4" stroke="#A0C4F2" stroke-width="0.25"/>
+
+    <!-- 연락처 -->
+    <g font-size="2.6" fill="#1d2b3f">
+      <text x="14.4" y="31">010.5682.6129</text>
+      <text x="14.4" y="35.4">spinnavor@naver.com</text>
+      <text x="14.4" y="39.8">philip-studio.cloud/it-studio</text>
+    </g>
+  </g>
+
+  <!-- ===== ICONS (24x24 좌표계를 0.1083배 축소 = 2.6mm) ===== -->
+  <g id="icons" fill="none" stroke="#035AA6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- phone -->
+    <g transform="translate(10,28.8) scale(0.10833)">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </g>
+    <!-- mail -->
+    <g transform="translate(10,33.2) scale(0.10833)">
+      <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+      <path d="M22 6l-10 7L2 6"/>
+    </g>
+    <!-- globe -->
+    <g transform="translate(10,37.6) scale(0.10833)">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </g>
+  </g>
+
+  <!-- ===== GUIDES (인쇄 전 삭제) ===== -->
+  <g id="GUIDES-delete-before-print" fill="none" opacity="0.6">
+    <rect x="2" y="2" width="85" height="55" stroke="#FF00FF" stroke-width="0.1" stroke-dasharray="1.2 0.8"/>
+  </g>
+</svg>
