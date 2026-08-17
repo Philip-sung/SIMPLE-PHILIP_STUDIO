@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<!-- sub-route: /interior/diagnosis  (IT·AI 트랙 페이지와 상호 링크·언급 없음) -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사전진단 — 필립 스튜디오 공간 · 건축</title>
+<meta name="description" content="5분 사전진단으로 공간·건축 4개 영역 점수와 추천 강의·추천 서비스를 바로 확인합니다.">
+<style>
+  /* 건축 팔레트: 짙은 그린 #0A3711 + 금색 — 직각·얇은 엣지·미니멀 */
+  :root {
+    --navy: #0A3711;
+    --navy-soft: #1c5a2e;
+    --amber: #C9A227;
+    --amber-deep: #8F7118;
+    --gold-bright: #D9B84D;
+    --ink: #1c241d;
+    --ink-sub: #5c675e;
+    --ink-mute: #8d998e;
+    --line: #e3e8e2;
+    --bg: #ffffff;
+    --bg-soft: #f5f8f4;
+    --bg-navy: #07270d;
+    --shadow: 0 10px 28px rgba(10, 55, 17, 0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    color: var(--ink); background: var(--bg); line-height: 1.65; word-break: keep-all;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; gap: 16px; height: 60px; }
+  .brand { font-weight: 800; font-size: 17px; color: var(--navy); letter-spacing: -0.02em; }
+  .brand em { color: var(--amber-deep); font-style: normal; }
+  .nav .back { margin-left: auto; font-size: 13.5px; color: var(--ink-sub); padding: 6px 14px; border: 1px solid var(--line); }
+  .nav .back:hover { background: var(--bg-soft); color: var(--navy); }
+
+  .intro { background: linear-gradient(180deg, var(--bg-soft) 0%, #ffffff 100%); padding: 54px 0 44px; border-bottom: 1px solid var(--line); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px; background: #fff;
+    color: var(--amber-deep); border: 1px solid var(--amber); font-size: 13px; font-weight: 700;
+    padding: 6px 14px; margin-bottom: 18px;
+  }
+  h1 { font-size: clamp(26px, 4.2vw, 38px); line-height: 1.3; letter-spacing: -0.03em; color: var(--navy); font-weight: 800; }
+  .intro p { margin-top: 16px; font-size: 16px; color: var(--ink-sub); max-width: 640px; }
+  .intro ul { margin-top: 20px; list-style: none; display: grid; gap: 7px; max-width: 640px; }
+  .intro ul li { font-size: 14.5px; color: var(--ink); padding-left: 22px; position: relative; }
+  .intro ul li::before { content: "✓"; position: absolute; left: 0; color: var(--amber-deep); font-weight: 800; }
+
+  main { padding: 48px 0 20px; }
+  .card { background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--navy); padding: 28px; margin-bottom: 20px; }
+  .card > h2 {
+    font-size: 19px; color: var(--navy); letter-spacing: -0.02em;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 20px;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .card > h2 small { font-size: 13px; font-weight: 600; color: var(--ink-sub); }
+  .fgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  label.k { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy-soft); margin-bottom: 5px; }
+  input[type="text"], textarea, select {
+    width: 100%; border: 1px solid var(--line); border-radius: 0; padding: 10px 12px;
+    font: inherit; font-size: 14px; color: var(--ink); background: var(--bg-soft);
+  }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--amber); border-color: var(--amber); background: #fff; }
+  .hint { font-size: 12.5px; color: var(--ink-sub); margin-top: 8px; }
+
+  /* ===== 문항 ===== */
+  .axis-block { margin-bottom: 26px; }
+  .axis-block:last-child { margin-bottom: 0; }
+  .axis-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .axis-head b { font-size: 15.5px; color: var(--navy); }
+  .axis-head span { font-size: 13px; color: var(--ink-sub); }
+  .q { border-top: 1px solid var(--line); padding: 14px 0 4px; }
+  .q.miss { background: #fdf6f3; padding: 14px 12px 4px; }
+  .q .qt { font-size: 14.5px; margin-bottom: 10px; }
+  .q .qt i { font-style: normal; color: var(--ink-mute); font-weight: 700; margin-right: 7px; }
+  .opts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .opts label {
+    display: block; text-align: center; font-size: 13px; cursor: pointer;
+    border: 1px solid var(--line); padding: 9px 6px; background: var(--bg-soft);
+    color: var(--ink-sub); transition: background .12s ease, border-color .12s ease, color .12s ease;
+  }
+  .opts label:hover { border-color: var(--amber); }
+  .opts input { position: absolute; opacity: 0; pointer-events: none; }
+  .opts label:focus-within { outline: 2px solid var(--amber); outline-offset: 1px; }
+  .opts label.on { background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 700; }
+  .opts label b { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; opacity: 0.7; }
+
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+  .btn {
+    display: inline-block; font-weight: 700; font-size: 15px; padding: 13px 26px; border-radius: 0;
+    border: none; cursor: pointer; font-family: inherit; transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-amber { background: var(--amber); color: var(--navy); }
+  .btn-ghost { border: 1px solid var(--navy); color: var(--navy); background: #fff; }
+  .btn-sm { font-size: 13.5px; padding: 9px 18px; }
+  .warn { font-size: 13.5px; color: #a8442c; font-weight: 700; }
+
+  /* ===== 결과 ===== */
+  #result { display: none; }
+  #result.on { display: block; }
+  .hero-score { display: flex; gap: 26px; flex-wrap: wrap; align-items: center; }
+  .hero-num { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; color: var(--navy); line-height: 1; }
+  .hero-num small { font-size: 22px; font-weight: 700; color: var(--ink-sub); }
+  .hero-meta { flex: 1 1 320px; }
+  .lvtag {
+    display: inline-block; background: var(--navy); color: #fff; font-size: 13px; font-weight: 800;
+    letter-spacing: 0.04em; padding: 6px 14px; margin-bottom: 10px; border-bottom: 2px solid var(--amber);
+  }
+  .hero-meta p { font-size: 14.5px; color: var(--ink-sub); }
+
+  .chart-wrap { margin-top: 8px; overflow-x: auto; }
+  .chart-wrap svg { display: block; min-width: 560px; }
+  .chart-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .chart-sub { font-size: 12.5px; color: var(--ink-sub); margin: 2px 0 12px; }
+
+  table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 18px; }
+  table.tbl th, table.tbl td { border-bottom: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+  table.tbl thead th { background: var(--bg-soft); color: var(--navy); font-size: 12.5px; }
+  table.tbl td.n, table.tbl th.n { text-align: right; width: 88px; font-variant-numeric: tabular-nums; }
+  table.tbl tbody tr:last-child td { border-bottom: none; }
+
+  .rec { display: grid; gap: 14px; margin-top: 4px; }
+  .rec-item { border: 1px solid var(--line); border-left: 3px solid var(--line); padding: 18px 20px; background: #fff; }
+  .rec-item.top { border-left-color: var(--amber); box-shadow: var(--shadow); }
+  .rec-item .rank { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--amber-deep); }
+  .rec-item h3 { font-size: 17px; color: var(--navy); margin-top: 3px; }
+  .rec-item .why { font-size: 13.5px; color: var(--ink-sub); margin-top: 8px; }
+  .rec-item .fee { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+
+  .send-note { background: #faf6e8; border: 1px solid #e0d194; padding: 16px 20px; font-size: 13.5px; color: #6f5a12; margin-top: 18px; }
+  textarea#payload { margin-top: 12px; font-family: ui-monospace, Consolas, monospace; font-size: 12px; line-height: 1.5; min-height: 190px; }
+
+  footer { padding: 30px 0 44px; background: var(--bg-navy); color: #6f7a94; font-size: 12.5px; margin-top: 40px; }
+  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+  footer a { border-bottom: 1px solid rgba(255,255,255,0.16); }
+  .bizinfo { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .bizinfo span { white-space: nowrap; }
+  .bizinfo span b { font-weight: 700; color: #8b9789; margin-right: 5px; }
+
+  @media (max-width: 640px) {
+    .opts { grid-template-columns: repeat(2, 1fr); }
+    .card { padding: 22px 18px; }
+    .hero-num { font-size: 52px; }
+  }
+  @media print {
+    header, .intro, #formCard, .actions, .send-note, footer { display: none !important; }
+    body { background: #fff; }
+    .card { border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="../">PHILIP<em>&nbsp;STUDIO</em></a>
+    <a class="back" href="../">&larr; 서비스 페이지로</a>
+  </div>
+</header>
+
+<div class="intro">
+  <div class="wrap">
+    <span class="badge">무료 · 5분 · 결과 즉시 확인</span>
+    <h1>공간 · 건축 사전진단</h1>
+    <p>
+      "내 공간을 스스로 판단할 수 있는 상태"까지 무엇이 비어 있는지를 먼저 봅니다.
+      12개 문항에 답하시면 4개 영역 점수와 시작 레벨, 추천 강의, 그리고 현재 단계에 맞는 추천 서비스가 이 화면에 바로 나옵니다.
+    </p>
+    <ul>
+      <li>제출과 동시에 그래프와 추천이 화면에 표시됩니다 — 기다림 없음</li>
+      <li>결과는 마지막 버튼으로 담당자(성필)에게 그대로 전송할 수 있습니다</li>
+      <li>정답을 맞히는 시험이 아닙니다. 모르는 항목이 많을수록 진단이 정확해집니다</li>
+    </ul>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="card" id="formCard">
+    <h2>1. 기본 정보 <small>연락처는 결과 회신에만 사용합니다</small></h2>
+    <div class="fgrid">
+      <div><label class="k" for="pName">이름 또는 호칭</label><input type="text" id="pName" placeholder="홍길동 / 김대표"></div>
+      <div><label class="k" for="pContact">연락처 (전자우편 또는 전화)</label><input type="text" id="pContact" placeholder="contact@example.com"></div>
+      <div>
+        <label class="k" for="pRole">현재 위치</label>
+        <select id="pRole">
+          <option value="집을 고치려는 개인">집을 고치려는 개인</option>
+          <option value="매장 · 사무실 창업 준비자">매장 · 사무실 창업 준비자</option>
+          <option value="건물주 · 임대인">건물주 · 임대인</option>
+          <option value="시설 · 총무 담당자">시설 · 총무 담당자</option>
+          <option value="셀프 시공에 관심 있는 분">셀프 시공에 관심 있는 분</option>
+          <option value="건축 · 인테리어 입문자">건축 · 인테리어 입문자</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+      <div>
+        <label class="k" for="pStage">프로젝트 단계</label>
+        <select id="pStage">
+          <option value="아직 검토만 하는 단계">아직 검토만 하는 단계</option>
+          <option value="시공사 견적을 비교하는 중">시공사 견적을 비교하는 중</option>
+          <option value="디자인 방향을 정하는 중">디자인 방향을 정하는 중</option>
+          <option value="시공 발주를 앞둔 상태">시공 발주를 앞둔 상태</option>
+          <option value="시공이 진행되는 중">시공이 진행되는 중</option>
+          <option value="준공 후 운영 · 관리 중">준공 후 운영 · 관리 중</option>
+          <option value="특정 프로젝트 없이 학습 목적">특정 프로젝트 없이 학습 목적</option>
+        </select>
+      </div>
+      <div><label class="k" for="pArea">대상 공간 · 면적 (선택)</label><input type="text" id="pArea" placeholder="예: 상가 1층 카페 28평"></div>
+      <div><label class="k" for="pBudget">예상 예산 (선택)</label><input type="text" id="pBudget" placeholder="예: 공사비 5천만원 내외"></div>
+      <div class="full">
+        <label class="k" for="pNote">가장 걱정되는 것 (한두 문장)</label>
+        <textarea id="pNote" rows="3" placeholder="예: 견적서를 세 곳에서 받았는데 금액 차이가 두 배입니다. 무엇이 다른 건지 모르겠습니다."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="qCard">
+    <h2>2. 수준 문항 <small>12문항 · 가장 가까운 것 하나만</small></h2>
+    <div id="qHost"></div>
+    <noscript><p class="warn">이 진단은 브라우저에서 계산합니다. 자바스크립트를 허용해 주세요.</p></noscript>
+  </div>
+
+  <div class="card">
+    <div class="actions">
+      <button class="btn btn-primary" type="button" id="btnSubmit">결과 보기</button>
+      <button class="btn btn-ghost btn-sm" type="button" id="btnReset">전부 지우기</button>
+      <span id="msg" class="warn"></span>
+    </div>
+    <p class="hint">입력값은 이 브라우저 안에서만 계산되며, 전송 버튼을 누르지 않으면 어디에도 저장·발송되지 않습니다.</p>
+  </div>
+
+  <!-- ================= 결과 ================= -->
+  <div id="result">
+    <div class="card">
+      <h2>진단 결과 <small id="stamp"></small></h2>
+      <div class="hero-score">
+        <div><div class="hero-num" id="totalNum">0<small>%</small></div></div>
+        <div class="hero-meta">
+          <span class="lvtag" id="lvTag">LV.1 입문</span>
+          <p id="lvDesc"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chart-title">영역별 이해도</div>
+      <div class="chart-sub">낮은 영역이 위로 옵니다. 진한 막대가 이번에 먼저 채울 영역입니다. (0~100)</div>
+      <div class="chart-wrap" id="chartHost"></div>
+      <table class="tbl">
+        <caption style="text-align:left;font-size:12.5px;color:#5c675e;padding:6px 0;">같은 값의 표 보기</caption>
+        <thead><tr><th>영역</th><th class="n">점수</th><th>판정</th></tr></thead>
+        <tbody id="tblBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>추천 강의 <small>지금 상태에서 효과가 가장 큰 순서</small></h2>
+      <div class="rec" id="recHost"></div>
+    </div>
+
+    <div class="card">
+      <h2>추천 서비스 <small>프로젝트 단계에 맞춘 제안</small></h2>
+      <div class="rec" id="svcHost"></div>
+    </div>
+
+    <div class="card">
+      <h2>결과 보내기 <small>담당자(성필)에게 답변과 점수를 그대로 전달합니다</small></h2>
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="btnMail">메일로 보내기</button>
+        <button class="btn btn-amber btn-sm" type="button" id="btnCopy">전체 복사</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="btnPrint">인쇄 · PDF 저장</button>
+        <span id="msg2" class="hint" style="margin:0;"></span>
+      </div>
+      <div class="send-note">
+        메일 버튼을 누르면 기본 메일 프로그램이 열리고, 아래 내용이 이미 채워진 상태로 <b>spinnavor@naver.com</b> 앞으로 준비됩니다.
+        메일 앱이 열리지 않는 환경이라면 <b>전체 복사</b>를 눌러 카카오톡·문자로 붙여 넣어 주세요.
+      </div>
+      <textarea id="payload" readonly></textarea>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>PHILIP STUDIO — Interior &amp; Architecture Design. 진단 결과는 상담·커리큘럼 설계 목적으로만 사용합니다.</div>
+    <div class="bizinfo">
+      <span><b>상호</b>카르쉬 (PHILIP STUDIO)</span>
+      <span><b>대표자</b>성필</span>
+      <span><b>사업자등록번호</b>432-18-02438</span>
+      <span><b>사업장 주소</b>서울특별시 성북구 보문로 136-4, B01호</span>
+      <span><b>전화</b><a href="tel:+821056826129">010.5682.6129</a></span>
+      <span><b>전자우편</b><a href="mailto:spinnavor@naver.com">spinnavor@naver.com</a></span>
+    </div>
+    <div>&copy; 2026 카르쉬 (PHILIP STUDIO). All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   공간 · 건축 사전진단 — 채점 · 그래프 · 추천 · 전송
+   외부 라이브러리 없음. 모든 계산은 이 브라우저 안에서 끝난다.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var MAIL_TO = "spinnavor@naver.com";
+
+  /* 색: 건축 팔레트의 단일 색상 계열. 값이 아니라 "우선 보완 영역"만 강조한다. */
+  var C_EMPH = "#0A3711";
+  var C_BASE = "#c3d6c1";
+  var C_GRID = "#e3e8e2";
+  var C_TEXT = "#1c241d";
+  var C_SUB  = "#5c675e";
+
+  var AXES = [
+    { key: "draw", name: "도면 이해", hint: "평면·입면·치수를 읽고 쓰는 힘" },
+    { key: "tool", name: "공간 · 도구", hint: "3D로 직접 검토해 보는 능력" },
+    { key: "cost", name: "견적 · 계약", hint: "물량과 조항으로 방어하는 힘" },
+    { key: "site", name: "시공 · 하자", hint: "현장에서 판단하는 기준" }
+  ];
+
+  var QUESTIONS = [
+    { axis: "draw", q: "평면도에서 벽 두께, 문 열림 방향, 치수선을 읽을 수 있습니다." },
+    { axis: "draw", q: "입면도·전개도를 평면도와 서로 대응시켜 볼 수 있습니다." },
+    { axis: "draw", q: "원하는 변경을 도면 위에 표시해 시공사에 전달해 본 적이 있습니다." },
+    { axis: "tool", q: "스케치업 등으로 간단한 공간을 직접 만들어 본 적이 있습니다." },
+    { axis: "tool", q: "가구 배치를 바꿔 보며 동선과 여유 치수를 검토해 본 적이 있습니다." },
+    { axis: "tool", q: "마감재·색·조명을 조합해 컨셉 이미지로 정리해 본 적이 있습니다." },
+    { axis: "cost", q: "시공 견적서의 항목이 어떤 공정을 뜻하는지 구분할 수 있습니다." },
+    { axis: "cost", q: "총액이 아니라 항목별 수량(물량)을 기준으로 견적을 비교해 본 적이 있습니다." },
+    { axis: "cost", q: "계약서에서 과업 범위·추가공사·하자보수 조항을 확인해 본 적이 있습니다." },
+    { axis: "site", q: "공정 순서(철거 → 설비 → 목공 → 마감)를 대략 알고 있습니다." },
+    { axis: "site", q: "누수·결로·크랙처럼 하자가 잘 생기는 자리를 알고 있습니다." },
+    { axis: "site", q: "준공 시 무엇을 확인해야 하는지 점검 목록을 갖고 있습니다." }
+  ];
+
+  var SCALE = [
+    { v: 0, top: "0", label: "전혀 모른다" },
+    { v: 1, top: "1", label: "들어봤다" },
+    { v: 2, top: "2", label: "설명할 수 있다" },
+    { v: 3, top: "3", label: "직접 해봤다" }
+  ];
+
+  var COURSES = {
+    a1: { name: "기초 스케치업 / 웹툴 강의", lv: "LV.1 입문", fee: "1:1 회당(2h) 15만원 · 4회 패키지 59만원" },
+    a2: { name: "도면 읽고쓰기 기초", lv: "LV.2 실무", fee: "1:1 회당(2h) 15만원 · 4회 패키지 59만원" },
+    a3: { name: "시공관리 포인트 집중세션", lv: "LV.3 심화", fee: "1:1 회당(2h) 15만원 · 현장 동행 시 출장비 별도" },
+    a4: { name: "셀프 시공 코칭 (맞춤 설계)", lv: "맞춤", fee: "진단 후 견적 · 현장 동행 시 출장비 별도" }
+  };
+
+  /* 프로젝트 단계 → 추천 서비스 */
+  var SERVICES = {
+    pkgA: { name: "PACKAGE A — 실측 + 도면", fee: "45만원~ / 30평 이하 기준" },
+    pkgB: { name: "PACKAGE B — 실측 + 도면 + 모델링 + 컨셉", fee: "140만원~ / 규모별 견적" },
+    pkgC: { name: "PACKAGE C — 풀 패키지 (실시도면 + 견적설계)", fee: "350만원~ / 규모별 견적" },
+    audit: { name: "시공사 견적서 검증", fee: "30만원~ / 도면 보유 시 기준" },
+    check: { name: "정기점검 · 하자 진단 출장", fee: "회당 30만원~ / 연 계약 시 할인" },
+    care: { name: "연간 시설관리 자문", fee: "회당 30만원~ / 연 계약 시 할인" }
+  };
+
+  var STAGE_MAP = {
+    "아직 검토만 하는 단계": [
+      { id: "pkgA", why: "먼저 치수가 확정된 도면 한 벌을 갖는 것이 모든 판단의 출발점입니다. 비용도 가장 낮습니다." }
+    ],
+    "시공사 견적을 비교하는 중": [
+      { id: "audit", why: "지금 받은 견적서의 누락·중복·과다 계상을 항목 단위로 짚어 드립니다. 가장 빠르게 돈이 되는 단계입니다." },
+      { id: "pkgA", why: "도면이 없으면 업체마다 서로 다른 것을 견적합니다. 비교의 기준선을 먼저 만드는 편이 안전합니다." }
+    ],
+    "디자인 방향을 정하는 중": [
+      { id: "pkgB", why: "3D 모델링과 컨셉 보드로 시공 전에 방향을 확정합니다. 공사 중 변경이 가장 비싼 변경입니다." }
+    ],
+    "시공 발주를 앞둔 상태": [
+      { id: "pkgC", why: "실시도면과 물량 산출까지 갖추면 발주 조건이 고정됩니다. 분쟁의 근거 문서가 여기서 만들어집니다." },
+      { id: "audit", why: "발주 직전 견적 교차검증으로 계약 금액의 근거를 확인합니다." }
+    ],
+    "시공이 진행되는 중": [
+      { id: "check", why: "진행 중 현장은 확인 시점을 놓치면 되돌릴 수 없습니다. 주요 공정 전환점에서 점검이 필요합니다." }
+    ],
+    "준공 후 운영 · 관리 중": [
+      { id: "check", why: "하자는 커지기 전에 잡는 것이 가장 싼 유지관리입니다. 보수 우선순위를 정리해 드립니다." },
+      { id: "care", why: "건물 단위로 관리하신다면 연 단위 점검·예산 배분 설계가 비용을 가장 크게 줄입니다." }
+    ],
+    "특정 프로젝트 없이 학습 목적": []
+  };
+
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+  function renderQuestions() {
+    var host = document.getElementById("qHost");
+    var html = "";
+    AXES.forEach(function (ax) {
+      html += '<div class="axis-block">';
+      html += '<div class="axis-head"><b>' + esc(ax.name) + '</b><span>' + esc(ax.hint) + '</span></div>';
+      QUESTIONS.forEach(function (item, i) {
+        if (item.axis !== ax.key) return;
+        html += '<div class="q" id="q' + i + '"><div class="qt"><i>Q' + (i + 1) + '</i>' + esc(item.q) + '</div><div class="opts">';
+        SCALE.forEach(function (s) {
+          html += '<label data-q="' + i + '" data-v="' + s.v + '">' +
+                  '<input type="radio" name="q' + i + '" value="' + s.v + '">' +
+                  '<b>' + s.top + '</b>' + esc(s.label) + '</label>';
+        });
+        html += '</div></div>';
+      });
+      html += '</div>';
+    });
+    host.innerHTML = html;
+
+    host.addEventListener("click", function (e) {
+      var lab = e.target.closest ? e.target.closest("label[data-q]") : null;
+      if (!lab) return;
+      var qi = lab.getAttribute("data-q");
+      Array.prototype.forEach.call(host.querySelectorAll('label[data-q="' + qi + '"]'), function (l) { l.classList.remove("on"); });
+      lab.classList.add("on");
+      var input = lab.querySelector("input");
+      if (input) input.checked = true;
+      var qb = document.getElementById("q" + qi);
+      if (qb) qb.classList.remove("miss");
+    });
+
+    /* 키보드(화살표)로 라디오를 옮길 때도 선택 표시가 따라가게 한다 */
+    host.addEventListener("change", function (e) {
+      var inp = e.target;
+      if (!inp || inp.type !== "radio") return;
+      var qi = inp.name.replace("q", "");
+      Array.prototype.forEach.call(host.querySelectorAll('label[data-q="' + qi + '"]'), function (l) {
+        if (l.querySelector("input") === inp) l.classList.add("on");
+        else l.classList.remove("on");
+      });
+      var qb = document.getElementById("q" + qi);
+      if (qb) qb.classList.remove("miss");
+    });
+  }
+
+  function answers() {
+    return QUESTIONS.map(function (item, i) {
+      var el = document.querySelector('input[name="q' + i + '"]:checked');
+      return el ? Number(el.value) : null;
+    });
+  }
+
+  function score(ans) {
+    var per = {};
+    AXES.forEach(function (ax) {
+      var idx = [];
+      QUESTIONS.forEach(function (item, i) { if (item.axis === ax.key) idx.push(i); });
+      var sum = 0;
+      idx.forEach(function (i) { sum += ans[i]; });
+      per[ax.key] = Math.round((sum / (idx.length * 3)) * 100);
+    });
+    var vals = AXES.map(function (ax) { return per[ax.key]; });
+    var total = Math.round(vals.reduce(function (a, b) { return a + b; }, 0) / vals.length);
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+    return { per: per, total: total, spread: max - min };
+  }
+
+  function grade(v) {
+    if (v < 25) return "이제 시작";
+    if (v < 50) return "기초 단계";
+    if (v < 75) return "판단 가능";
+    return "숙련";
+  }
+
+  function levelOf(total) {
+    if (total < 35) return { tag: "LV.1 입문", desc: "용어와 도구를 먼저 손에 붙이는 단계입니다. 내 공간을 직접 그려 보는 것이 가장 빠른 출발점입니다." };
+    if (total < 65) return { tag: "LV.2 실무", desc: "도면과 견적을 읽을 수 있는 상태로 넘어가는 구간입니다. 여기서 시공사와 대화의 주도권이 바뀝니다." };
+    return { tag: "LV.3 심화", desc: "읽고 판단하는 것은 되는 상태입니다. 남는 과제는 현장입니다 — 공정 관리와 하자 취약부위로 넘어갈 시점입니다." };
+  }
+
+  function barPath(x, y, w, h, r) {
+    if (w < r * 2) r = Math.max(0, w / 2);
+    return "M" + x + "," + y +
+           "H" + (x + w - r) + "A" + r + "," + r + " 0 0 1 " + (x + w) + "," + (y + r) +
+           "V" + (y + h - r) + "A" + r + "," + r + " 0 0 1 " + (x + w - r) + "," + (y + h) +
+           "H" + x + "Z";
+  }
+
+  function drawChart(sc) {
+    var rows = AXES.map(function (ax) { return { name: ax.name, v: sc.per[ax.key] }; });
+    rows.sort(function (a, b) { return a.v - b.v; });
+
+    var W = 640, padL = 120, padR = 56, padT = 10, padB = 34, rowH = 46, barH = 22;
+    var H = padT + rows.length * rowH + padB;
+    var plotW = W - padL - padR;
+    var s = [];
+
+    s.push('<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" role="img" aria-label="영역별 이해도 막대그래프">');
+
+    [0, 25, 50, 75, 100].forEach(function (t) {
+      var x = padL + plotW * (t / 100);
+      s.push('<line x1="' + x + '" y1="' + padT + '" x2="' + x + '" y2="' + (H - padB) + '" stroke="' + C_GRID + '" stroke-width="1"/>');
+      s.push('<text x="' + x + '" y="' + (H - padB + 18) + '" font-size="11" fill="' + C_SUB + '" text-anchor="middle">' + t + '</text>');
+    });
+
+    rows.forEach(function (r, i) {
+      var y = padT + i * rowH + (rowH - barH) / 2;
+      var w = Math.max(2, plotW * (r.v / 100));
+      var emph = (i === 0);
+      s.push('<g><title>' + esc(r.name) + ': ' + r.v + '점 (' + grade(r.v) + ')</title>');
+      s.push('<text x="' + (padL - 12) + '" y="' + (y + barH / 2 + 4) + '" font-size="13" font-weight="' + (emph ? 700 : 400) + '" fill="' + (emph ? C_TEXT : C_SUB) + '" text-anchor="end">' + esc(r.name) + '</text>');
+      s.push('<path d="' + barPath(padL, y, w, barH, 4) + '" fill="' + (emph ? C_EMPH : C_BASE) + '"/>');
+      s.push('<text x="' + (padL + w + 10) + '" y="' + (y + barH / 2 + 4) + '" font-size="13" font-weight="700" fill="' + C_TEXT + '">' + r.v + '</text>');
+      s.push('</g>');
+    });
+
+    s.push('<line x1="' + padL + '" y1="' + padT + '" x2="' + padL + '" y2="' + (H - padB) + '" stroke="#c3d6c1" stroke-width="1"/>');
+    s.push('</svg>');
+    document.getElementById("chartHost").innerHTML = s.join("");
+
+    var tb = "";
+    rows.forEach(function (r) {
+      tb += '<tr><td>' + esc(r.name) + '</td><td class="n">' + r.v + '</td><td>' + grade(r.v) + '</td></tr>';
+    });
+    document.getElementById("tblBody").innerHTML = tb;
+    return rows;
+  }
+
+  function recommend(sc, meta) {
+    var per = sc.per, out = [];
+    function add(id, why) {
+      for (var i = 0; i < out.length; i++) { if (out[i].id === id) return; }
+      out.push({ id: id, why: why });
+    }
+
+    var order = AXES.slice().sort(function (a, b) { return per[a.key] - per[b.key]; });
+    var low = order[0];
+
+    if (low.key === "tool") add("a1", "가장 낮은 영역이 “공간 · 도구”(" + per.tool + "점)입니다. 직접 그려 보는 경험이 도면 이해로 이어집니다.");
+    if (low.key === "draw") add("a2", "가장 낮은 영역이 “도면 이해”(" + per.draw + "점)입니다. 도면을 읽고 쓸 수 있으면 시공사와의 대화가 근본적으로 달라집니다.");
+    if (low.key === "cost") add("a2", "가장 낮은 영역이 “견적 · 계약”(" + per.cost + "점)입니다. 견적은 결국 도면 언어로 쓰여 있어, 도면 읽기부터 잡는 것이 정석입니다.");
+    if (low.key === "site") add("a3", "가장 낮은 영역이 “시공 · 하자”(" + per.site + "점)입니다. 현장에서 무엇을 언제 봐야 하는지가 이 세션의 핵심입니다.");
+
+    if (per.draw < 40) add("a2", "도면 이해가 " + per.draw + "점입니다. 여기가 채워지지 않으면 다른 지식이 실제 판단으로 연결되지 않습니다.");
+    if (per.tool < 40) add("a1", "공간 · 도구가 " + per.tool + "점입니다. 손으로 한 번 만들어 보면 도면이 훨씬 빨리 읽힙니다.");
+    if (per.draw >= 50 && per.site < 60) add("a3", "도면은 읽을 수 있으나 현장 판단(" + per.site + "점)이 비어 있습니다. 시공관리 포인트가 다음 단계입니다.");
+    if (sc.spread >= 40) add("a4", "영역 간 격차가 " + sc.spread + "점으로 큽니다. 정해진 커리큘럼보다 맞춤 설계가 시간을 아낍니다.");
+    if (meta.stage === "시공이 진행되는 중") add("a3", "이미 시공이 진행 중입니다. 지금 필요한 것은 학습보다 현장 점검 기준입니다.");
+    if (meta.role === "셀프 시공에 관심 있는 분") add("a4", "직접 손대실 계획이라면 범위를 함께 정하고 단계별로 점검하는 코칭이 안전합니다.");
+
+    add("a2", "공간을 스스로 판단하기 위한 기본 과정입니다.");
+    return out.slice(0, 3);
+  }
+
+  function renderRec(recs) {
+    var html = "";
+    recs.forEach(function (r, i) {
+      var c = COURSES[r.id];
+      html += '<div class="rec-item' + (i === 0 ? " top" : "") + '">' +
+              '<div class="rank">' + (i === 0 ? "1순위 · 여기서 시작" : (i + 1) + "순위") + ' &nbsp;·&nbsp; ' + esc(c.lv) + '</div>' +
+              '<h3>' + esc(c.name) + '</h3>' +
+              '<div class="why">' + esc(r.why) + '</div>' +
+              '<div class="fee">' + esc(c.fee) + '</div>' +
+              '</div>';
+    });
+    document.getElementById("recHost").innerHTML = html;
+  }
+
+  function svcFor(meta, sc) {
+    var list = (STAGE_MAP[meta.stage] || []).slice();
+    if (!list.length) {
+      list.push({ id: "pkgA", why: "특정 프로젝트가 없다면 서비스보다 강의가 우선입니다. 실제 공간이 생겼을 때 가장 먼저 필요한 것이 이 항목입니다." });
+    }
+    if (sc.per.cost < 40 && meta.stage.indexOf("견적") < 0) {
+      var has = false;
+      list.forEach(function (x) { if (x.id === "audit") has = true; });
+      if (!has) list.push({ id: "audit", why: "견적 · 계약 점수가 " + sc.per.cost + "점입니다. 견적서를 받는 시점에 검증을 한 번 거치는 편이 안전합니다." });
+    }
+    return list.slice(0, 3);
+  }
+
+  function renderSvc(list) {
+    var html = "";
+    list.forEach(function (r, i) {
+      var s = SERVICES[r.id];
+      html += '<div class="rec-item' + (i === 0 ? " top" : "") + '">' +
+              '<div class="rank">' + (i === 0 ? "지금 단계에 맞는 제안" : "함께 검토할 항목") + '</div>' +
+              '<h3>' + esc(s.name) + '</h3>' +
+              '<div class="why">' + esc(r.why) + '</div>' +
+              '<div class="fee">' + esc(s.fee) + '</div>' +
+              '</div>';
+    });
+    document.getElementById("svcHost").innerHTML = html;
+  }
+
+  function axisName(key) {
+    for (var i = 0; i < AXES.length; i++) { if (AXES[i].key === key) return AXES[i].name; }
+    return key;
+  }
+
+  function buildPayload(meta, sc, rows, recs, svcs, ans) {
+    var L = [];
+    L.push("[PHILIP STUDIO] 공간·건축 사전진단 결과");
+    L.push("작성 시각: " + meta.when);
+    L.push("");
+    L.push("== 응답자 ==");
+    L.push("이름/호칭: " + (meta.name || "(미기재)"));
+    L.push("연락처: " + (meta.contact || "(미기재)"));
+    L.push("현재 위치: " + meta.role);
+    L.push("프로젝트 단계: " + meta.stage);
+    L.push("대상 공간 · 면적: " + (meta.area || "(미기재)"));
+    L.push("예상 예산: " + (meta.budget || "(미기재)"));
+    L.push("가장 걱정되는 것: " + (meta.note || "(미기재)"));
+    L.push("");
+    L.push("== 점수 ==");
+    L.push("종합: " + sc.total + " / 100  (" + meta.level + ")");
+    rows.forEach(function (r) { L.push("- " + r.name + ": " + r.v + " (" + grade(r.v) + ")"); });
+    L.push("영역 간 격차: " + sc.spread);
+    L.push("");
+    L.push("== 추천 강의 ==");
+    recs.forEach(function (r, i) {
+      L.push((i + 1) + ") " + COURSES[r.id].name + " [" + COURSES[r.id].lv + "]");
+      L.push("   근거: " + r.why);
+    });
+    L.push("");
+    L.push("== 추천 서비스 ==");
+    svcs.forEach(function (r, i) {
+      L.push((i + 1) + ") " + SERVICES[r.id].name + " — " + SERVICES[r.id].fee);
+      L.push("   근거: " + r.why);
+    });
+    L.push("");
+    L.push("== 문항별 응답 (0 전혀 모른다 / 1 들어봤다 / 2 설명할 수 있다 / 3 직접 해봤다) ==");
+    QUESTIONS.forEach(function (item, i) {
+      L.push("Q" + (i + 1) + " [" + axisName(item.axis) + "] " + item.q);
+      L.push("   → " + ans[i] + " (" + SCALE[ans[i]].label + ")");
+    });
+    return L.join("\n");
+  }
+
+  function stampNow() {
+    var d = new Date();
+    function p(n) { return (n < 10 ? "0" : "") + n; }
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+  }
+
+  function submit() {
+    var ans = answers();
+    var missing = [];
+    ans.forEach(function (v, i) { if (v === null) missing.push(i); });
+    var msg = document.getElementById("msg");
+
+    if (missing.length) {
+      msg.textContent = "아직 " + missing.length + "개 문항이 비어 있습니다.";
+      missing.forEach(function (i) {
+        var el = document.getElementById("q" + i);
+        if (el) el.classList.add("miss");
+      });
+      var first = document.getElementById("q" + missing[0]);
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    msg.textContent = "";
+
+    var sc = score(ans);
+    var lv = levelOf(sc.total);
+    var meta = {
+      name: document.getElementById("pName").value.trim(),
+      contact: document.getElementById("pContact").value.trim(),
+      role: document.getElementById("pRole").value,
+      stage: document.getElementById("pStage").value,
+      area: document.getElementById("pArea").value.trim(),
+      budget: document.getElementById("pBudget").value.trim(),
+      note: document.getElementById("pNote").value.trim(),
+      level: lv.tag,
+      when: stampNow()
+    };
+
+    document.getElementById("totalNum").innerHTML = sc.total + '<small>%</small>';
+    document.getElementById("lvTag").textContent = lv.tag;
+    document.getElementById("lvDesc").textContent = lv.desc;
+    document.getElementById("stamp").textContent = meta.when + " 기준";
+
+    var rows = drawChart(sc);
+    var recs = recommend(sc, meta);
+    renderRec(recs);
+    var svcs = svcFor(meta, sc);
+    renderSvc(svcs);
+
+    var text = buildPayload(meta, sc, rows, recs, svcs, ans);
+    document.getElementById("payload").value = text;
+    window.__payload = text;
+    window.__mailSubject = "[사전진단] " + (meta.name || "이름미기재") + " · 공간·건축 · 종합 " + sc.total + "점 (" + lv.tag + ")";
+
+    var res = document.getElementById("result");
+    res.classList.add("on");
+    res.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function bind() {
+    document.getElementById("btnSubmit").addEventListener("click", submit);
+
+    document.getElementById("btnReset").addEventListener("click", function () {
+      Array.prototype.forEach.call(document.querySelectorAll('#qHost input[type="radio"]'), function (r) { r.checked = false; });
+      Array.prototype.forEach.call(document.querySelectorAll("#qHost label.on"), function (l) { l.classList.remove("on"); });
+      Array.prototype.forEach.call(document.querySelectorAll("#qHost .q.miss"), function (q) { q.classList.remove("miss"); });
+      ["pName", "pContact", "pArea", "pBudget", "pNote"].forEach(function (id) { document.getElementById(id).value = ""; });
+      document.getElementById("result").classList.remove("on");
+      document.getElementById("msg").textContent = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.getElementById("btnMail").addEventListener("click", function () {
+      var href = "mailto:" + MAIL_TO +
+                 "?subject=" + encodeURIComponent(window.__mailSubject || "[사전진단] 공간·건축") +
+                 "&body=" + encodeURIComponent(window.__payload || "");
+      window.location.href = href;
+      document.getElementById("msg2").textContent = "메일 앱이 열리지 않으면 [전체 복사]를 사용해 주세요.";
+    });
+
+    document.getElementById("btnCopy").addEventListener("click", function () {
+      var ta = document.getElementById("payload");
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      if (!ok && navigator.clipboard) {
+        navigator.clipboard.writeText(ta.value).then(function () {
+          document.getElementById("msg2").textContent = "복사했습니다.";
+        });
+        return;
+      }
+      document.getElementById("msg2").textContent = ok ? "복사했습니다." : "복사에 실패했습니다. 아래 칸을 직접 선택해 주세요.";
+    });
+
+    document.getElementById("btnPrint").addEventListener("click", function () { window.print(); });
+  }
+
+  renderQuestions();
+  bind();
+})();
+</script>
+
+</body>
+</html>

@@ -63,6 +63,12 @@
     border-top:0.3mm solid var(--line); font-size:7.5pt; color:var(--sub);
   }
   .pf b{ color:var(--c4); font-weight:700; }
+  /* 최하단 사업자정보 (마지막 장) */
+  .bizline{
+    margin-top:auto; padding-top:2.5mm; border-top:0.3mm solid var(--line);
+    font-size:7.2pt; line-height:1.55; color:var(--sub);
+  }
+  .bizline b{ color:#33415c; font-weight:700; }
 
   /* ===== 공통 컴포넌트 ===== */
   .grid{ display:grid; gap:5mm; }
@@ -438,42 +444,42 @@
   <div class="body" style="gap:4mm;">
     <div class="grid g3" style="flex:1 1 auto; min-height:0; gap:4mm;">
       <div class="card" style="padding:4.5mm 5.5mm;">
-        <div class="lv">LEVEL 01 · 입문</div>
+        <div class="lv">LV.1 입문 · IT 전반</div>
         <h3 style="font-size:10.5pt;">AI시대, IT 핵심 짚고가기</h3>
         <div class="who">비전공자 · 창업 준비자</div>
         <p>웹이 돌아가는 원리, 개발자와 일하는 법, 외주 견적을 읽는 법까지. IT 전체 지도를 먼저 그립니다.</p>
         <div class="fee">회당(2h) 15만원 · 4회 패키지 59만원</div>
       </div>
       <div class="card" style="padding:4.5mm 5.5mm;">
-        <div class="lv">LEVEL 02 · 심화</div>
-        <h3 style="font-size:10.5pt;">상업수준 운영을 위한 IT Deep Dive</h3>
-        <div class="who">서비스를 운영하게 된 사람</div>
-        <p>만드는 것과 운영하는 것의 차이. 배포, 장애 대응, 데이터 관리 등 운영 실무의 핵심을 다룹니다.</p>
-        <div class="fee">회당(2h) 15만원 · 6회 패키지 85만원</div>
-      </div>
-      <div class="card" style="padding:4.5mm 5.5mm;">
-        <div class="lv">LEVEL 03 · 원리</div>
-        <h3 style="font-size:10.5pt;">원리부터 파악하는 AI</h3>
-        <div class="who">도구가 바뀌어도 흔들리지 않으려는 사람</div>
-        <p>LLM이 왜 되는지, 어디서 틀리는지. 원리를 알아야 도구가 바뀌어도 기준이 남습니다.</p>
-        <div class="fee">회당(2h) 15만원 · 4회 패키지 59만원</div>
-      </div>
-      <div class="card" style="padding:4.5mm 5.5mm;">
-        <div class="lv">LEVEL 04 · 실전</div>
+        <div class="lv">LV.1 입문 · AI 실습</div>
         <h3 style="font-size:10.5pt;">당장활용! AI 실전세션</h3>
         <div class="who">내 업무에 바로 붙이려는 사람</div>
         <p>문서 자동화, 리서치, 콘텐츠 제작 등 원포인트 실습. 실제 업무 케이스를 지참하시면 그걸로 진행합니다.</p>
         <div class="fee">회당(2h) 15만원 · 그룹(4인 이하) 인당 5만원</div>
       </div>
       <div class="card" style="padding:4.5mm 5.5mm;">
-        <div class="lv">LEVEL 05 · 맞춤형</div>
+        <div class="lv">LV.2 실무 · AI 원리</div>
+        <h3 style="font-size:10.5pt;">원리부터 파악하는 AI</h3>
+        <div class="who">도구는 써 봤으나 기준이 없는 사람</div>
+        <p>LLM이 왜 되는지, 어디서 틀리는지. 원리를 알아야 도구가 바뀌어도 기준이 남습니다.</p>
+        <div class="fee">회당(2h) 15만원 · 4회 패키지 59만원</div>
+      </div>
+      <div class="card" style="padding:4.5mm 5.5mm;">
+        <div class="lv" style="color:var(--c3);">LV.3 심화 · 운영</div>
+        <h3 style="font-size:10.5pt;">상업수준 운영을 위한 IT Deep Dive</h3>
+        <div class="who">서비스를 운영하게 된 사람</div>
+        <p>만드는 것과 운영하는 것의 차이. 배포, 장애 대응, 데이터 관리 등 운영 실무의 핵심을 다룹니다.</p>
+        <div class="fee">회당(2h) 15만원 · 6회 패키지 85만원</div>
+      </div>
+      <div class="card" style="padding:4.5mm 5.5mm;">
+        <div class="lv">맞춤 설계 · AI</div>
         <h3 style="font-size:10.5pt;">AI 레벨업 세션</h3>
         <div class="who">팀 단위 도입 교육 · 개인 맞춤</div>
-        <p>현재 수준을 진단한 뒤 커리큘럼을 설계하는 과정. 팀의 업무에 맞춰 사례를 바꿔 구성합니다.</p>
+        <p>사전진단 결과에 맞춰 LV.1~3의 내용을 섞어 커리큘럼을 설계합니다. 팀의 업무에 맞춰 사례를 바꿔 구성합니다.</p>
         <div class="fee">진단 후 견적 · 기업 출강 시간당 25만원~</div>
       </div>
       <div class="card" style="padding:4.5mm 5.5mm;">
-        <div class="lv">LEVEL 06 · 맞춤형</div>
+        <div class="lv">맞춤 설계 · IT</div>
         <h3 style="font-size:10.5pt;">IT 레벨업 세션</h3>
         <div class="who">개발 입문부터 아키텍처 리뷰까지</div>
         <p>목표에 맞춰 설계하는 IT 역량 강화 과정. 현재 코드베이스를 가져오시면 그것을 교재로 씁니다.</p>
@@ -559,6 +565,12 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="bizline">
+    <b>사업자정보</b> &nbsp; 상호 카르쉬 (PHILIP STUDIO) &nbsp;·&nbsp; 대표자 성필 &nbsp;·&nbsp;
+    사업자등록번호 432-18-02438 &nbsp;·&nbsp; 사업장 주소 서울특별시 성북구 보문로 136-4, B01호 &nbsp;·&nbsp;
+    전화 010.5682.6129 &nbsp;·&nbsp; 전자우편 spinnavor@naver.com
   </div>
 
   <footer class="pf">

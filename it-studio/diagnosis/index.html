@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<!-- sub-route: /it/diagnosis  (건축 트랙 페이지와 상호 링크·언급 없음) -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사전진단 — 필립 스튜디오 AI · IT 강의</title>
+<meta name="description" content="5분 사전진단으로 AI·IT 4개 영역 점수와 추천 강의를 바로 확인합니다.">
+<style>
+  /* IT 팔레트: #CEDEF2 #A0C4F2 #6DA7F2(main) #035AA6 #023373 */
+  :root {
+    --navy: #023373;
+    --navy-soft: #035AA6;
+    --amber: #6DA7F2;
+    --amber-deep: #035AA6;
+    --sky: #A0C4F2;
+    --mist: #CEDEF2;
+    --ink: #1d2b3f;
+    --ink-sub: #5a6a80;
+    --ink-mute: #8a97ab;
+    --line: #dbe6f5;
+    --bg: #ffffff;
+    --bg-soft: #f3f7fd;
+    --bg-navy: #022a55;
+    --radius: 26px;
+    --shadow: 0 14px 34px rgba(3, 90, 166, 0.13);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    color: var(--ink); background: var(--bg); line-height: 1.65; word-break: keep-all;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; gap: 16px; height: 60px; }
+  .brand { font-weight: 800; font-size: 17px; color: var(--navy); letter-spacing: -0.02em; }
+  .brand em { color: var(--amber-deep); font-style: normal; }
+  .nav .back { margin-left: auto; font-size: 13.5px; color: var(--ink-sub); padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); }
+  .nav .back:hover { background: var(--bg-soft); color: var(--navy); }
+
+  .intro {
+    background:
+      radial-gradient(620px 320px at 88% 8%, rgba(160, 196, 242, 0.38), transparent 70%),
+      linear-gradient(180deg, #f4f8fe 0%, #ffffff 100%);
+    padding: 54px 0 44px; border-bottom: 1px solid var(--line);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.7);
+    color: var(--amber-deep); border: 1px solid var(--sky); font-size: 13px; font-weight: 700;
+    padding: 6px 16px; border-radius: 999px; margin-bottom: 18px;
+  }
+  h1 { font-size: clamp(26px, 4.2vw, 38px); line-height: 1.3; letter-spacing: -0.03em; color: var(--navy); font-weight: 800; }
+  .intro p { margin-top: 16px; font-size: 16px; color: var(--ink-sub); max-width: 640px; }
+  .intro ul { margin-top: 20px; list-style: none; display: grid; gap: 7px; max-width: 640px; }
+  .intro ul li { font-size: 14.5px; color: var(--ink); padding-left: 22px; position: relative; }
+  .intro ul li::before { content: "✓"; position: absolute; left: 0; color: var(--amber-deep); font-weight: 800; }
+
+  main { padding: 48px 0 20px; }
+  .card { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+  .card > h2 {
+    font-size: 19px; color: var(--navy); letter-spacing: -0.02em;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 20px;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .card > h2 small { font-size: 13px; font-weight: 600; color: var(--ink-sub); }
+  .fgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  label.k { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy-soft); margin-bottom: 5px; }
+  input[type="text"], input[type="email"], textarea, select {
+    width: 100%; border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 14px;
+    font: inherit; font-size: 14px; color: var(--ink); background: var(--bg-soft);
+  }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--amber); border-color: var(--amber); background: #fff; }
+  .hint { font-size: 12.5px; color: var(--ink-sub); margin-top: 8px; }
+
+  /* ===== 문항 ===== */
+  .axis-block { margin-bottom: 26px; }
+  .axis-block:last-child { margin-bottom: 0; }
+  .axis-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .axis-head b { font-size: 15.5px; color: var(--navy); }
+  .axis-head span { font-size: 13px; color: var(--ink-sub); }
+  .q { border-top: 1px solid var(--line); padding: 14px 0 4px; }
+  .q.miss { background: #fff6f4; border-radius: 12px; padding: 14px 12px 4px; }
+  .q .qt { font-size: 14.5px; margin-bottom: 10px; }
+  .q .qt i { font-style: normal; color: var(--ink-mute); font-weight: 700; margin-right: 7px; }
+  .opts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .opts label {
+    display: block; text-align: center; font-size: 13px; cursor: pointer;
+    border: 1.5px solid var(--line); border-radius: 12px; padding: 9px 6px; background: var(--bg-soft);
+    color: var(--ink-sub); transition: background .12s ease, border-color .12s ease, color .12s ease;
+  }
+  .opts label:hover { border-color: var(--sky); }
+  .opts input { position: absolute; opacity: 0; pointer-events: none; }
+  .opts label:focus-within { outline: 2px solid var(--amber); outline-offset: 1px; }
+  .opts label.on { background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 700; }
+  .opts label b { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; opacity: 0.7; }
+
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+  .btn {
+    display: inline-block; font-weight: 700; font-size: 15px; padding: 13px 28px; border-radius: 999px;
+    border: none; cursor: pointer; font-family: inherit; transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-amber { background: var(--amber); color: var(--navy); }
+  .btn-ghost { border: 1.5px solid var(--sky); color: var(--navy); background: #fff; }
+  .btn-sm { font-size: 13.5px; padding: 9px 18px; }
+  .warn { font-size: 13.5px; color: #b4462f; font-weight: 700; }
+
+  /* ===== 결과 ===== */
+  #result { display: none; }
+  #result.on { display: block; }
+  .hero-score { display: flex; gap: 26px; flex-wrap: wrap; align-items: center; }
+  .hero-num { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; color: var(--navy); line-height: 1; }
+  .hero-num small { font-size: 22px; font-weight: 700; color: var(--ink-sub); }
+  .hero-meta { flex: 1 1 320px; }
+  .lvtag {
+    display: inline-block; background: var(--navy); color: #fff; font-size: 13px; font-weight: 800;
+    letter-spacing: 0.04em; padding: 6px 16px; border-radius: 999px; margin-bottom: 10px;
+  }
+  .hero-meta p { font-size: 14.5px; color: var(--ink-sub); }
+
+  .chart-wrap { margin-top: 8px; overflow-x: auto; }
+  .chart-wrap svg { display: block; min-width: 560px; }
+  .chart-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .chart-sub { font-size: 12.5px; color: var(--ink-sub); margin: 2px 0 12px; }
+
+  table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 18px; }
+  table.tbl th, table.tbl td { border-bottom: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+  table.tbl thead th { background: var(--bg-soft); color: var(--navy); font-size: 12.5px; }
+  table.tbl td.n, table.tbl th.n { text-align: right; width: 88px; font-variant-numeric: tabular-nums; }
+  table.tbl tbody tr:last-child td { border-bottom: none; }
+
+  .rec { display: grid; gap: 14px; margin-top: 4px; }
+  .rec-item { border: 1.5px solid var(--line); border-radius: 18px; padding: 18px 20px; background: #fff; }
+  .rec-item.top { border-color: var(--amber); box-shadow: var(--shadow); }
+  .rec-item .rank { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--amber-deep); }
+  .rec-item h3 { font-size: 17px; color: var(--navy); margin-top: 3px; }
+  .rec-item .why { font-size: 13.5px; color: var(--ink-sub); margin-top: 8px; }
+  .rec-item .fee { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+
+  .send-note { background: #e9f1fc; border: 1px solid var(--sky); border-radius: 18px; padding: 16px 20px; font-size: 13.5px; color: #0d3f74; margin-top: 18px; }
+  textarea#payload { margin-top: 12px; font-family: ui-monospace, Consolas, monospace; font-size: 12px; line-height: 1.5; min-height: 190px; }
+
+  footer { padding: 30px 0 44px; background: var(--bg-navy); color: #6f7a94; font-size: 12.5px; margin-top: 40px; }
+  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+  footer a { border-bottom: 1px solid rgba(255,255,255,0.16); }
+  .bizinfo { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .bizinfo span { white-space: nowrap; }
+  .bizinfo span b { font-weight: 700; color: #8d9ab4; margin-right: 5px; }
+
+  @media (max-width: 640px) {
+    .opts { grid-template-columns: repeat(2, 1fr); }
+    .card { padding: 22px 18px; }
+    .hero-num { font-size: 52px; }
+  }
+  @media print {
+    header, .intro, #formCard, .actions, .send-note, footer { display: none !important; }
+    body { background: #fff; }
+    .card { border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="../">PHILIP<em>&nbsp;STUDIO</em></a>
+    <a class="back" href="../">&larr; 서비스 페이지로</a>
+  </div>
+</header>
+
+<div class="intro">
+  <div class="wrap">
+    <span class="badge">무료 · 5분 · 결과 즉시 확인</span>
+    <h1>AI · IT 사전진단</h1>
+    <p>
+      강의를 어느 레벨부터 시작해야 하는지는 취향이 아니라 현재 상태로 정해집니다.
+      12개 문항에 답하시면 4개 영역 점수와 시작 레벨, 추천 강의가 이 화면에 바로 나옵니다.
+    </p>
+    <ul>
+      <li>제출과 동시에 그래프와 추천 강의가 화면에 표시됩니다 — 기다림 없음</li>
+      <li>결과는 마지막 버튼으로 담당자(성필)에게 그대로 전송할 수 있습니다</li>
+      <li>정답을 맞히는 시험이 아닙니다. 모르는 항목이 많을수록 진단이 정확해집니다</li>
+    </ul>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="card" id="formCard">
+    <h2>1. 기본 정보 <small>연락처는 결과 회신에만 사용합니다</small></h2>
+    <div class="fgrid">
+      <div><label class="k" for="pName">이름 또는 호칭</label><input type="text" id="pName" placeholder="홍길동 / 김대표"></div>
+      <div><label class="k" for="pContact">연락처 (전자우편 또는 전화)</label><input type="text" id="pContact" placeholder="contact@example.com"></div>
+      <div>
+        <label class="k" for="pRole">현재 위치</label>
+        <select id="pRole">
+          <option value="비전공 창업 준비자">비전공 창업 준비자</option>
+          <option value="기획자 · PM · 운영">기획자 · PM · 운영</option>
+          <option value="디자이너 · 마케터">디자이너 · 마케터</option>
+          <option value="개발 입문 (독학 중)">개발 입문 (독학 중)</option>
+          <option value="현업 개발자">현업 개발자</option>
+          <option value="사업체 대표 · 관리자">사업체 대표 · 관리자</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+      <div>
+        <label class="k" for="pGoal">가장 급한 목적</label>
+        <select id="pGoal">
+          <option value="AI를 내 업무에 붙이고 싶다">AI를 내 업무에 붙이고 싶다</option>
+          <option value="웹·앱 서비스를 만들고 싶다">웹·앱 서비스를 만들고 싶다</option>
+          <option value="개발 외주를 제대로 발주하고 싶다">개발 외주를 제대로 발주하고 싶다</option>
+          <option value="이미 있는 서비스를 안정적으로 운영하고 싶다">이미 있는 서비스를 안정적으로 운영하고 싶다</option>
+          <option value="팀 전체의 AI·IT 역량을 올리고 싶다">팀 전체의 AI·IT 역량을 올리고 싶다</option>
+          <option value="진로 · 커리어 전환">진로 · 커리어 전환</option>
+        </select>
+      </div>
+      <div class="full">
+        <label class="k" for="pNote">해결하고 싶은 문제 (한두 문장)</label>
+        <textarea id="pNote" rows="3" placeholder="예: 매주 반복하는 보고서 작업을 AI로 줄이고 싶은데, 어디서부터 손대야 할지 모르겠습니다."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="qCard">
+    <h2>2. 수준 문항 <small>12문항 · 가장 가까운 것 하나만</small></h2>
+    <div id="qHost"></div>
+    <noscript><p class="warn">이 진단은 브라우저에서 계산합니다. 자바스크립트를 허용해 주세요.</p></noscript>
+  </div>
+
+  <div class="card">
+    <div class="actions">
+      <button class="btn btn-primary" type="button" id="btnSubmit">결과 보기</button>
+      <button class="btn btn-ghost btn-sm" type="button" id="btnReset">전부 지우기</button>
+      <span id="msg" class="warn"></span>
+    </div>
+    <p class="hint">입력값은 이 브라우저 안에서만 계산되며, 전송 버튼을 누르지 않으면 어디에도 저장·발송되지 않습니다.</p>
+  </div>
+
+  <!-- ================= 결과 ================= -->
+  <div id="result">
+    <div class="card">
+      <h2>진단 결과 <small id="stamp"></small></h2>
+      <div class="hero-score">
+        <div><div class="hero-num" id="totalNum">0<small>%</small></div></div>
+        <div class="hero-meta">
+          <span class="lvtag" id="lvTag">LV.1 입문</span>
+          <p id="lvDesc"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chart-title">영역별 이해도</div>
+      <div class="chart-sub">낮은 영역이 위로 옵니다. 진한 막대가 이번에 먼저 채울 영역입니다. (0~100)</div>
+      <div class="chart-wrap" id="chartHost"></div>
+      <table class="tbl">
+        <caption style="text-align:left;font-size:12.5px;color:#5a6a80;padding:6px 0;">같은 값의 표 보기</caption>
+        <thead><tr><th>영역</th><th class="n">점수</th><th>판정</th></tr></thead>
+        <tbody id="tblBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>추천 강의 <small>지금 상태에서 효과가 가장 큰 순서</small></h2>
+      <div class="rec" id="recHost"></div>
+    </div>
+
+    <div class="card">
+      <h2>결과 보내기 <small>담당자(성필)에게 답변과 점수를 그대로 전달합니다</small></h2>
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="btnMail">메일로 보내기</button>
+        <button class="btn btn-amber btn-sm" type="button" id="btnCopy">전체 복사</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="btnPrint">인쇄 · PDF 저장</button>
+        <span id="msg2" class="hint" style="margin:0;"></span>
+      </div>
+      <div class="send-note">
+        메일 버튼을 누르면 기본 메일 프로그램이 열리고, 아래 내용이 이미 채워진 상태로 <b>spinnavor@naver.com</b> 앞으로 준비됩니다.
+        메일 앱이 열리지 않는 환경이라면 <b>전체 복사</b>를 눌러 카카오톡·문자로 붙여 넣어 주세요.
+      </div>
+      <textarea id="payload" readonly></textarea>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>PHILIP STUDIO — Web · App · AI Engineering. 진단 결과는 상담·커리큘럼 설계 목적으로만 사용합니다.</div>
+    <div class="bizinfo">
+      <span><b>상호</b>카르쉬 (PHILIP STUDIO)</span>
+      <span><b>대표자</b>성필</span>
+      <span><b>사업자등록번호</b>432-18-02438</span>
+      <span><b>사업장 주소</b>서울특별시 성북구 보문로 136-4, B01호</span>
+      <span><b>전화</b><a href="tel:+821056826129">010.5682.6129</a></span>
+      <span><b>전자우편</b><a href="mailto:spinnavor@naver.com">spinnavor@naver.com</a></span>
+    </div>
+    <div>&copy; 2026 카르쉬 (PHILIP STUDIO). All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   AI · IT 사전진단 — 채점 · 그래프 · 추천 · 전송
+   외부 라이브러리 없음. 모든 계산은 이 브라우저 안에서 끝난다.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var MAIL_TO = "spinnavor@naver.com";
+
+  /* 색: IT 팔레트의 단일 색상 계열(sequential). 값이 아니라 "우선 보완 영역"만 강조한다. */
+  var C_EMPH = "#035AA6";   /* 강조 막대 */
+  var C_BASE = "#A0C4F2";   /* 나머지 막대 */
+  var C_GRID = "#dbe6f5";
+  var C_TEXT = "#1d2b3f";
+  var C_SUB  = "#5a6a80";
+
+  var AXES = [
+    { key: "basic", name: "IT 기초 구조", hint: "웹·서버·데이터가 맞물리는 방식" },
+    { key: "work",  name: "개발 협업 · 발주", hint: "요구사항·견적·일정을 다루는 힘" },
+    { key: "ai",    name: "AI 활용", hint: "도구를 실제 업무에 붙이는 능력" },
+    { key: "ops",   name: "운영 · 배포", hint: "상용 서비스를 지키는 관점" }
+  ];
+
+  var QUESTIONS = [
+    { axis: "basic", q: "브라우저에 주소를 입력한 뒤 화면이 뜨기까지 무슨 일이 일어나는지 설명할 수 있습니다." },
+    { axis: "basic", q: "프론트엔드와 백엔드, 데이터베이스가 각각 무엇을 담당하는지 구분할 수 있습니다." },
+    { axis: "basic", q: "API가 무엇이고, 서비스끼리 데이터를 주고받는 방식을 설명할 수 있습니다." },
+    { axis: "work",  q: "만들고 싶은 것을 화면 단위·기능 단위로 쪼개 문서로 정리해 본 적이 있습니다." },
+    { axis: "work",  q: "개발 견적서를 보고 어떤 항목이 과다·누락인지 판단할 수 있습니다." },
+    { axis: "work",  q: "개발자와 일정·범위를 합의하고 변경 요청을 처리해 본 경험이 있습니다." },
+    { axis: "ai",    q: "ChatGPT·Claude 같은 도구를 주 3회 이상 실제 업무에 쓰고 있습니다." },
+    { axis: "ai",    q: "원하는 결과가 나오도록 지시문(프롬프트)을 구조적으로 다듬을 수 있습니다." },
+    { axis: "ai",    q: "AI가 틀린 답을 하는 이유와 그것을 걸러내는 방법을 설명할 수 있습니다." },
+    { axis: "ops",   q: "만든 것을 실제 도메인에 올려 남이 접속하게 해 본 경험이 있습니다." },
+    { axis: "ops",   q: "서비스가 멈췄을 때 무엇부터 확인해야 하는지 알고 있습니다." },
+    { axis: "ops",   q: "사용자 데이터의 백업·보안·개인정보 처리를 고려해 본 적이 있습니다." }
+  ];
+
+  var SCALE = [
+    { v: 0, top: "0", label: "전혀 모른다" },
+    { v: 1, top: "1", label: "들어봤다" },
+    { v: 2, top: "2", label: "설명할 수 있다" },
+    { v: 3, top: "3", label: "직접 해봤다" }
+  ];
+
+  var COURSES = {
+    c1: { name: "AI시대, IT 핵심 짚고가기", lv: "LV.1 입문", fee: "1:1 회당(2h) 15만원 · 4회 패키지 59만원" },
+    c2: { name: "당장활용! AI 실전세션", lv: "LV.1 입문", fee: "1:1 회당(2h) 15만원 · 그룹(4인 이하) 인당 5만원" },
+    c3: { name: "원리부터 파악하는 AI", lv: "LV.2 실무", fee: "1:1 회당(2h) 15만원 · 4회 패키지 59만원" },
+    c4: { name: "상업수준 운영을 위한 IT Deep Dive 세션", lv: "LV.3 심화", fee: "1:1 회당(2h) 15만원 · 6회 패키지 85만원" },
+    c5: { name: "AI 레벨업 세션 (맞춤 설계)", lv: "맞춤", fee: "진단 후 견적 · 기업 출강 시간당 25만원~" },
+    c6: { name: "IT 레벨업 세션 (맞춤 설계)", lv: "맞춤", fee: "진단 후 견적 · 기업 출강 시간당 25만원~" }
+  };
+
+  /* ---------- 문항 렌더 ---------- */
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+  function renderQuestions() {
+    var host = document.getElementById("qHost");
+    var html = "";
+    AXES.forEach(function (ax) {
+      html += '<div class="axis-block">';
+      html += '<div class="axis-head"><b>' + esc(ax.name) + '</b><span>' + esc(ax.hint) + '</span></div>';
+      QUESTIONS.forEach(function (item, i) {
+        if (item.axis !== ax.key) return;
+        html += '<div class="q" id="q' + i + '"><div class="qt"><i>Q' + (i + 1) + '</i>' + esc(item.q) + '</div><div class="opts">';
+        SCALE.forEach(function (s) {
+          html += '<label data-q="' + i + '" data-v="' + s.v + '">' +
+                  '<input type="radio" name="q' + i + '" value="' + s.v + '">' +
+                  '<b>' + s.top + '</b>' + esc(s.label) + '</label>';
+        });
+        html += '</div></div>';
+      });
+      html += '</div>';
+    });
+    host.innerHTML = html;
+
+    host.addEventListener("click", function (e) {
+      var lab = e.target.closest ? e.target.closest("label[data-q]") : null;
+      if (!lab) return;
+      var qi = lab.getAttribute("data-q");
+      Array.prototype.forEach.call(host.querySelectorAll('label[data-q="' + qi + '"]'), function (l) { l.classList.remove("on"); });
+      lab.classList.add("on");
+      var input = lab.querySelector("input");
+      if (input) input.checked = true;
+      var qb = document.getElementById("q" + qi);
+      if (qb) qb.classList.remove("miss");
+    });
+
+    /* 키보드(화살표)로 라디오를 옮길 때도 선택 표시가 따라가게 한다 */
+    host.addEventListener("change", function (e) {
+      var inp = e.target;
+      if (!inp || inp.type !== "radio") return;
+      var qi = inp.name.replace("q", "");
+      Array.prototype.forEach.call(host.querySelectorAll('label[data-q="' + qi + '"]'), function (l) {
+        if (l.querySelector("input") === inp) l.classList.add("on");
+        else l.classList.remove("on");
+      });
+      var qb = document.getElementById("q" + qi);
+      if (qb) qb.classList.remove("miss");
+    });
+  }
+
+  function answers() {
+    return QUESTIONS.map(function (item, i) {
+      var el = document.querySelector('input[name="q' + i + '"]:checked');
+      return el ? Number(el.value) : null;
+    });
+  }
+
+  /* ---------- 채점 ---------- */
+  function score(ans) {
+    var per = {};
+    AXES.forEach(function (ax) {
+      var idx = [];
+      QUESTIONS.forEach(function (item, i) { if (item.axis === ax.key) idx.push(i); });
+      var sum = 0;
+      idx.forEach(function (i) { sum += ans[i]; });
+      per[ax.key] = Math.round((sum / (idx.length * 3)) * 100);
+    });
+    var vals = AXES.map(function (ax) { return per[ax.key]; });
+    var total = Math.round(vals.reduce(function (a, b) { return a + b; }, 0) / vals.length);
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+    return { per: per, total: total, spread: max - min };
+  }
+
+  function grade(v) {
+    if (v < 25) return "이제 시작";
+    if (v < 50) return "기초 단계";
+    if (v < 75) return "실무 가능";
+    return "숙련";
+  }
+
+  function levelOf(total) {
+    if (total < 35) return { tag: "LV.1 입문", desc: "용어와 전체 지도를 먼저 세우는 단계입니다. 도구 사용법보다 “무엇이 무엇인지”를 정리하면 이후 학습 속도가 크게 달라집니다." };
+    if (total < 65) return { tag: "LV.2 실무", desc: "쓸 수는 있지만 왜 되는지가 비어 있는 구간입니다. 원리와 판단 기준을 채우면 도구가 바뀌어도 흔들리지 않습니다." };
+    return { tag: "LV.3 심화", desc: "만드는 것은 되는 상태입니다. 남는 과제는 운영입니다 — 배포, 장애 대응, 데이터 관리로 넘어갈 시점입니다." };
+  }
+
+  /* ---------- 그래프 (수평 막대 · 단일 계열 · 낮은 값 우선) ---------- */
+  function barPath(x, y, w, h, r) {
+    if (w < r * 2) r = Math.max(0, w / 2);
+    return "M" + x + "," + y +
+           "H" + (x + w - r) + "A" + r + "," + r + " 0 0 1 " + (x + w) + "," + (y + r) +
+           "V" + (y + h - r) + "A" + r + "," + r + " 0 0 1 " + (x + w - r) + "," + (y + h) +
+           "H" + x + "Z";
+  }
+
+  function drawChart(sc) {
+    var rows = AXES.map(function (ax) { return { name: ax.name, v: sc.per[ax.key] }; });
+    rows.sort(function (a, b) { return a.v - b.v; });
+
+    var W = 640, padL = 128, padR = 56, padT = 10, padB = 34, rowH = 46, barH = 22;
+    var H = padT + rows.length * rowH + padB;
+    var plotW = W - padL - padR;
+    var s = [];
+
+    s.push('<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" role="img" aria-label="영역별 이해도 막대그래프">');
+
+    /* 격자: 실선 hairline, 배경으로 물러남 */
+    [0, 25, 50, 75, 100].forEach(function (t) {
+      var x = padL + plotW * (t / 100);
+      s.push('<line x1="' + x + '" y1="' + padT + '" x2="' + x + '" y2="' + (H - padB) + '" stroke="' + C_GRID + '" stroke-width="1"/>');
+      s.push('<text x="' + x + '" y="' + (H - padB + 18) + '" font-size="11" fill="' + C_SUB + '" text-anchor="middle">' + t + '</text>');
+    });
+
+    rows.forEach(function (r, i) {
+      var y = padT + i * rowH + (rowH - barH) / 2;
+      var w = Math.max(2, plotW * (r.v / 100));
+      var emph = (i === 0);
+      s.push('<g><title>' + esc(r.name) + ': ' + r.v + '점 (' + grade(r.v) + ')</title>');
+      s.push('<text x="' + (padL - 12) + '" y="' + (y + barH / 2 + 4) + '" font-size="13" font-weight="' + (emph ? 700 : 400) + '" fill="' + (emph ? C_TEXT : C_SUB) + '" text-anchor="end">' + esc(r.name) + '</text>');
+      s.push('<path d="' + barPath(padL, y, w, barH, 4) + '" fill="' + (emph ? C_EMPH : C_BASE) + '"/>');
+      s.push('<text x="' + (padL + w + 10) + '" y="' + (y + barH / 2 + 4) + '" font-size="13" font-weight="700" fill="' + C_TEXT + '">' + r.v + '</text>');
+      s.push('</g>');
+    });
+
+    /* 기준선(0)은 실선으로 한 번 더 */
+    s.push('<line x1="' + padL + '" y1="' + padT + '" x2="' + padL + '" y2="' + (H - padB) + '" stroke="#b9cfec" stroke-width="1"/>');
+    s.push('</svg>');
+    document.getElementById("chartHost").innerHTML = s.join("");
+
+    var tb = "";
+    rows.forEach(function (r) {
+      tb += '<tr><td>' + esc(r.name) + '</td><td class="n">' + r.v + '</td><td>' + grade(r.v) + '</td></tr>';
+    });
+    document.getElementById("tblBody").innerHTML = tb;
+    return rows;
+  }
+
+  /* ---------- 추천 ---------- */
+  function recommend(sc, meta) {
+    var per = sc.per, out = [];
+    function add(id, why) {
+      for (var i = 0; i < out.length; i++) { if (out[i].id === id) return; }
+      out.push({ id: id, why: why });
+    }
+
+    var order = AXES.slice().sort(function (a, b) { return per[a.key] - per[b.key]; });
+    var low = order[0];
+
+    if (low.key === "basic") add("c1", "가장 낮은 영역이 “IT 기초 구조”(" + per.basic + "점)입니다. 전체 지도를 먼저 세워야 나머지 학습이 얹힙니다.");
+    if (low.key === "work") add("c6", "가장 낮은 영역이 “개발 협업 · 발주”(" + per.work + "점)입니다. 요구사항·견적·범위 관리를 목표에 맞춰 집중 설계합니다.");
+    if (low.key === "ai") add("c2", "가장 낮은 영역이 “AI 활용”(" + per.ai + "점)입니다. 원리보다 먼저, 실제 업무 한 건을 도구로 끝내 보는 것이 빠릅니다.");
+    if (low.key === "ops") add("c4", "가장 낮은 영역이 “운영 · 배포”(" + per.ops + "점)입니다. 만든 뒤에 무너지는 구간을 다루는 세션이 필요합니다.");
+
+    if (per.ai >= 50 && per.ai < 85) add("c3", "AI 활용이 " + per.ai + "점 — 쓰고는 있으나 왜 되는지가 비어 있는 전형적인 구간입니다. 원리를 채울 때 효과가 가장 큽니다.");
+    if (per.basic < 40) add("c1", "IT 기초 구조가 " + per.basic + "점이므로, 용어 정리를 먼저 하면 다른 세션의 흡수율이 올라갑니다.");
+    if (per.ops >= 40 && per.total >= 55) add("c4", "만드는 단계는 지났습니다. 배포·장애 대응·데이터 관리로 넘어갈 시점입니다.");
+    if (per.ai < 40) add("c2", "AI 활용이 " + per.ai + "점입니다. 손에 붙는 원포인트 실습부터 시작하는 편이 좋습니다.");
+
+    if (sc.spread >= 40) add("c5", "영역 간 격차가 " + sc.spread + "점으로 큽니다. 정해진 커리큘럼보다 맞춤 설계가 시간을 아낍니다.");
+    if (meta.goal.indexOf("팀") === 0 || meta.goal.indexOf("팀 전체") >= 0) add("c5", "팀 단위 목표를 선택하셨습니다. 구성원 수준이 섞여 있으면 맞춤 설계가 전제입니다.");
+    if (meta.goal.indexOf("외주") >= 0) add("c1", "“외주를 제대로 발주하고 싶다”를 목표로 두셨습니다. 견적서를 읽는 법이 이 과정에 포함됩니다.");
+
+    add("c1", "시작점을 넓게 잡고 싶을 때의 기본 과정입니다.");
+    return out.slice(0, 3);
+  }
+
+  function renderRec(recs) {
+    var html = "";
+    recs.forEach(function (r, i) {
+      var c = COURSES[r.id];
+      html += '<div class="rec-item' + (i === 0 ? " top" : "") + '">' +
+              '<div class="rank">' + (i === 0 ? "1순위 · 여기서 시작" : (i + 1) + "순위") + ' &nbsp;·&nbsp; ' + esc(c.lv) + '</div>' +
+              '<h3>' + esc(c.name) + '</h3>' +
+              '<div class="why">' + esc(r.why) + '</div>' +
+              '<div class="fee">' + esc(c.fee) + '</div>' +
+              '</div>';
+    });
+    document.getElementById("recHost").innerHTML = html;
+  }
+
+  /* ---------- 전송용 본문 ---------- */
+  function buildPayload(meta, sc, rows, recs, ans) {
+    var L = [];
+    L.push("[PHILIP STUDIO] AI·IT 사전진단 결과");
+    L.push("작성 시각: " + meta.when);
+    L.push("");
+    L.push("== 응답자 ==");
+    L.push("이름/호칭: " + (meta.name || "(미기재)"));
+    L.push("연락처: " + (meta.contact || "(미기재)"));
+    L.push("현재 위치: " + meta.role);
+    L.push("가장 급한 목적: " + meta.goal);
+    L.push("해결하고 싶은 문제: " + (meta.note || "(미기재)"));
+    L.push("");
+    L.push("== 점수 ==");
+    L.push("종합: " + sc.total + " / 100  (" + meta.level + ")");
+    rows.forEach(function (r) { L.push("- " + r.name + ": " + r.v + " (" + grade(r.v) + ")"); });
+    L.push("영역 간 격차: " + sc.spread);
+    L.push("");
+    L.push("== 추천 강의 ==");
+    recs.forEach(function (r, i) {
+      L.push((i + 1) + ") " + COURSES[r.id].name + " [" + COURSES[r.id].lv + "]");
+      L.push("   근거: " + r.why);
+    });
+    L.push("");
+    L.push("== 문항별 응답 (0 전혀 모른다 / 1 들어봤다 / 2 설명할 수 있다 / 3 직접 해봤다) ==");
+    QUESTIONS.forEach(function (item, i) {
+      L.push("Q" + (i + 1) + " [" + axisName(item.axis) + "] " + item.q);
+      L.push("   → " + ans[i] + " (" + SCALE[ans[i]].label + ")");
+    });
+    return L.join("\n");
+  }
+
+  function axisName(key) {
+    for (var i = 0; i < AXES.length; i++) { if (AXES[i].key === key) return AXES[i].name; }
+    return key;
+  }
+
+  function stampNow() {
+    var d = new Date();
+    function p(n) { return (n < 10 ? "0" : "") + n; }
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+  }
+
+  /* ---------- 제출 ---------- */
+  function submit() {
+    var ans = answers();
+    var missing = [];
+    ans.forEach(function (v, i) { if (v === null) missing.push(i); });
+    var msg = document.getElementById("msg");
+
+    if (missing.length) {
+      msg.textContent = "아직 " + missing.length + "개 문항이 비어 있습니다.";
+      missing.forEach(function (i) {
+        var el = document.getElementById("q" + i);
+        if (el) el.classList.add("miss");
+      });
+      var first = document.getElementById("q" + missing[0]);
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    msg.textContent = "";
+
+    var sc = score(ans);
+    var lv = levelOf(sc.total);
+    var meta = {
+      name: document.getElementById("pName").value.trim(),
+      contact: document.getElementById("pContact").value.trim(),
+      role: document.getElementById("pRole").value,
+      goal: document.getElementById("pGoal").value,
+      note: document.getElementById("pNote").value.trim(),
+      level: lv.tag,
+      when: stampNow()
+    };
+
+    document.getElementById("totalNum").innerHTML = sc.total + '<small>%</small>';
+    document.getElementById("lvTag").textContent = lv.tag;
+    document.getElementById("lvDesc").textContent = lv.desc;
+    document.getElementById("stamp").textContent = meta.when + " 기준";
+
+    var rows = drawChart(sc);
+    var recs = recommend(sc, meta);
+    renderRec(recs);
+
+    var text = buildPayload(meta, sc, rows, recs, ans);
+    document.getElementById("payload").value = text;
+    window.__payload = text;
+    window.__mailSubject = "[사전진단] " + (meta.name || "이름미기재") + " · AI·IT · 종합 " + sc.total + "점 (" + lv.tag + ")";
+
+    var res = document.getElementById("result");
+    res.classList.add("on");
+    res.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  /* ---------- 버튼 ---------- */
+  function bind() {
+    document.getElementById("btnSubmit").addEventListener("click", submit);
+
+    document.getElementById("btnReset").addEventListener("click", function () {
+      Array.prototype.forEach.call(document.querySelectorAll('#qHost input[type="radio"]'), function (r) { r.checked = false; });
+      Array.prototype.forEach.call(document.querySelectorAll("#qHost label.on"), function (l) { l.classList.remove("on"); });
+      Array.prototype.forEach.call(document.querySelectorAll("#qHost .q.miss"), function (q) { q.classList.remove("miss"); });
+      ["pName", "pContact", "pNote"].forEach(function (id) { document.getElementById(id).value = ""; });
+      document.getElementById("result").classList.remove("on");
+      document.getElementById("msg").textContent = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.getElementById("btnMail").addEventListener("click", function () {
+      var href = "mailto:" + MAIL_TO +
+                 "?subject=" + encodeURIComponent(window.__mailSubject || "[사전진단] AI·IT") +
+                 "&body=" + encodeURIComponent(window.__payload || "");
+      window.location.href = href;
+      document.getElementById("msg2").textContent = "메일 앱이 열리지 않으면 [전체 복사]를 사용해 주세요.";
+    });
+
+    document.getElementById("btnCopy").addEventListener("click", function () {
+      var ta = document.getElementById("payload");
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      if (!ok && navigator.clipboard) {
+        navigator.clipboard.writeText(ta.value).then(function () {
+          document.getElementById("msg2").textContent = "복사했습니다.";
+        });
+        return;
+      }
+      document.getElementById("msg2").textContent = ok ? "복사했습니다." : "복사에 실패했습니다. 아래 칸을 직접 선택해 주세요.";
+    });
+
+    document.getElementById("btnPrint").addEventListener("click", function () { window.print(); });
+  }
+
+  renderQuestions();
+  bind();
+})();
+</script>
+
+</body>
+</html>

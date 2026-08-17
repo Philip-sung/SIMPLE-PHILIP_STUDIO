@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<!-- sub-route: /interior/catalog  (IT·AI 트랙 페이지와 상호 링크·언급 없음) -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서비스 카탈로그 — 필립 스튜디오 실내건축 · 건축</title>
+<meta name="description" content="실측·도면·모델링·견적설계, 점검·견적검증, 건축 강의의 전체 상품 목록 — 범위·산출물·기간·가격을 한 장에 정리한 카탈로그.">
+<style>
+  :root {
+    --navy: #0A3711; --navy-soft: #1c5a2e; --amber: #C9A227; --amber-deep: #8F7118;
+    --gold-bright: #D9B84D; --ink: #1c241d; --ink-sub: #5c675e; --ink-mute: #8d998e;
+    --line: #e3e8e2; --bg: #ffffff; --bg-soft: #f5f8f4; --bg-navy: #07270d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    color: var(--ink); background: var(--bg); line-height: 1.62; word-break: keep-all;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; gap: 12px; height: 60px; flex-wrap: wrap; }
+  .brand { font-weight: 800; font-size: 17px; color: var(--navy); letter-spacing: -0.02em; }
+  .brand em { color: var(--amber-deep); font-style: normal; }
+  .nav .sp { margin-left: auto; }
+  .nav a.lnk, .nav button.lnk {
+    font: inherit; font-size: 13.5px; color: var(--ink-sub); padding: 6px 14px;
+    border: 1px solid var(--line); background: #fff; cursor: pointer;
+  }
+  .nav a.lnk:hover, .nav button.lnk:hover { background: var(--bg-soft); color: var(--navy); }
+
+  .top { background: linear-gradient(180deg, var(--bg-soft) 0%, #ffffff 100%); padding: 48px 0 38px; border-bottom: 1px solid var(--line); }
+  .badge {
+    display: inline-block; background: #fff; color: var(--amber-deep); border: 1px solid var(--amber);
+    font-size: 12.5px; font-weight: 700; padding: 5px 14px; margin-bottom: 16px;
+  }
+  h1 { font-size: clamp(26px, 4.2vw, 36px); line-height: 1.28; letter-spacing: -0.03em; color: var(--navy); font-weight: 800; }
+  .top p { margin-top: 14px; font-size: 15.5px; color: var(--ink-sub); max-width: 680px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .toc a { font-size: 13px; font-weight: 700; color: var(--navy); background: #fff; border: 1px solid var(--line); padding: 7px 14px; }
+  .toc a:hover { border-color: var(--amber); }
+
+  main { padding: 44px 0 10px; }
+  .grp { margin-bottom: 46px; }
+  .grp > .gh { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-bottom: 12px; border-bottom: 2px solid var(--navy); }
+  .grp > .gh h2 { font-size: 21px; color: var(--navy); letter-spacing: -0.02em; }
+  .grp > .gh span { font-size: 13px; color: var(--ink-sub); }
+  .grp > .gh .no { font-size: 12px; font-weight: 800; letter-spacing: 0.1em; color: var(--amber-deep); }
+
+  .item { border-bottom: 1px solid var(--line); padding: 22px 0; display: grid; grid-template-columns: 1fr 250px; gap: 20px; }
+  .item:last-child { border-bottom: none; }
+  .item h3 { font-size: 17px; color: var(--navy); letter-spacing: -0.02em; }
+  .item .lv { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; color: var(--amber-deep); background: var(--bg-soft); border: 1px solid var(--line); padding: 2px 9px; margin-bottom: 6px; }
+  .item .sum { font-size: 14px; color: var(--ink-sub); margin-top: 6px; }
+  .rows { margin-top: 12px; display: grid; gap: 5px; }
+  .rows div { display: grid; grid-template-columns: 74px 1fr; gap: 10px; font-size: 13.5px; }
+  .rows div b { font-weight: 700; color: var(--ink-mute); font-size: 12.5px; }
+  .price { background: var(--bg-soft); border: 1px solid var(--line); border-top: 2px solid var(--navy); padding: 16px 18px; align-self: start; }
+  .price .big { font-size: 20px; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+  .price .sub { font-size: 12.5px; color: var(--ink-sub); margin-top: 4px; }
+  .price ul { list-style: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cfdccb; display: grid; gap: 4px; }
+  .price ul li { font-size: 12.5px; color: var(--ink-sub); padding-left: 14px; position: relative; }
+  .price ul li::before { content: "·"; position: absolute; left: 3px; font-weight: 800; color: var(--amber-deep); }
+
+  .note { background: #faf6e8; border: 1px solid #e0d194; padding: 18px 22px; font-size: 13.5px; color: #6f5a12; margin-top: 22px; }
+  .note b { font-weight: 800; }
+  .terms { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 24px; }
+  .term { background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--amber); padding: 18px 20px; }
+  .term b { display: block; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; color: var(--amber-deep); margin-bottom: 8px; }
+  .term p { font-size: 13.5px; color: var(--ink-sub); }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .btn { display: inline-block; font-weight: 700; font-size: 15px; padding: 13px 26px; border-radius: 0; border: none; cursor: pointer; font-family: inherit; }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-amber { background: var(--amber); color: var(--navy); }
+  .btn-ghost { border: 1px solid var(--navy); color: var(--navy); background: #fff; }
+
+  footer { padding: 30px 0 44px; background: var(--bg-navy); color: #6f7a94; font-size: 12.5px; margin-top: 44px; }
+  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+  footer a { border-bottom: 1px solid rgba(255,255,255,0.16); }
+  .bizinfo { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .bizinfo span { white-space: nowrap; }
+  .bizinfo span b { font-weight: 700; color: #8b9789; margin-right: 5px; }
+
+  @media (max-width: 720px) {
+    .item { grid-template-columns: 1fr; }
+    .price { order: -1; }
+  }
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    header, .toc, .cta, footer { display: none !important; }
+    body { font-size: 10pt; }
+    .top { padding: 0 0 10mm; background: none; border-bottom: 1.5pt solid #0A3711; }
+    .wrap { max-width: none; padding: 0; }
+    main { padding: 8mm 0 0; }
+    .grp { margin-bottom: 8mm; page-break-inside: avoid; }
+    .item { page-break-inside: avoid; }
+    .price { background: none; border: 0.8pt solid #999; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="../">PHILIP<em>&nbsp;STUDIO</em></a>
+    <span class="sp"></span>
+    <a class="lnk" href="../diagnosis/">사전진단</a>
+    <button class="lnk" type="button" onclick="window.print()">인쇄 · PDF 저장</button>
+    <a class="lnk" href="../">&larr; 서비스 페이지로</a>
+  </div>
+</header>
+
+<div class="top">
+  <div class="wrap">
+    <span class="badge">2026년 기준 · 직거래 기준가</span>
+    <h1>서비스 카탈로그 — 실측 · 설계 · 점검 · 교육</h1>
+    <p>
+      제공하는 모든 상품을 한 장에 모았습니다. 각 항목의 <b>범위 · 산출물 · 기간 · 가격</b>을 같은 형식으로 적었으므로,
+      필요한 것만 골라 상담 시 항목 번호로 말씀하시면 됩니다. 표기 가격은 <b>기준 시작가</b>이며,
+      면적과 요구 범위가 확정된 뒤 고정가 견적으로 확정됩니다.
+    </p>
+    <div class="toc">
+      <a href="#g1">A. 설계 패키지</a>
+      <a href="#g2">B. 점검 · 검증 · 자문</a>
+      <a href="#g3">C. 공간 · 건축 강의</a>
+      <a href="#g4">D. 공통 제공물</a>
+      <a href="#g5">E. 거래 조건</a>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- ============ A. 설계 ============ -->
+  <section class="grp" id="g1">
+    <div class="gh"><span class="no">GROUP A</span><h2>설계 패키지</h2><span>범위 확정 후 고정가 · 선금 50% · 검수 후 잔금</span></div>
+
+    <div class="item">
+      <div>
+        <span class="lv">A-1 · PACKAGE A</span>
+        <h3>실측 + 도면</h3>
+        <p class="sum">시공사 견적을 비교할 기준선을 만드는 최소 구성. 치수가 확정된 도면 한 벌을 갖게 됩니다.</p>
+        <div class="rows">
+          <div><b>범위</b><span>현장 실측(반나절), 현황·계획 평면도 작성, 치수 기준 정리</span></div>
+          <div><b>산출물</b><span>실측 야장, CAD 평면도(DWG·PDF), 현장 점검 체크리스트</span></div>
+          <div><b>기준</b><span>전용 30평 이하 · 초과 시 면적별 가산</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">45만원~</div><div class="sub">부가세 별도 · 30평 이하 기준</div>
+        <ul><li>납품 후 표기 오류 무상 수정</li><li>도면 원본 파일 제공</li></ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div>
+        <span class="lv">A-2 · PACKAGE B</span>
+        <h3>실측 + 도면 + 모델링 + 컨셉</h3>
+        <p class="sum">디자인 방향까지 시공 전에 확정합니다. 공사 중 변경이 가장 비싼 변경이기 때문입니다.</p>
+        <div class="rows">
+          <div><b>범위</b><span>PACKAGE A 전체 + 3D 모델링, 디자인 컨셉 제안, 자재·무드 방향 제시</span></div>
+          <div><b>산출물</b><span>A 산출물 + 3D 모델(SKP), 렌더 뷰 3컷 이상, 컨셉 보드, 자재·마감 리스트</span></div>
+          <div><b>기준</b><span>규모별 견적 · 수정 2회 포함</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">140만원~</div><div class="sub">부가세 별도 · 규모별 견적</div>
+        <ul><li>수정 2회 포함</li><li>원본 파일 일체 제공</li></ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div>
+        <span class="lv">A-3 · PACKAGE C</span>
+        <h3>풀 패키지 (실시도면 + 견적설계)</h3>
+        <p class="sum">시공 발주까지 가는 프로젝트용. 항목별 물량 근거가 붙어 총액 견적을 검증할 수 있습니다.</p>
+        <div class="rows">
+          <div><b>범위</b><span>PACKAGE B 전체 + 실시도면 작성, 견적설계(물량 산출), 시공사 견적 검증 지원</span></div>
+          <div><b>산출물</b><span>B 산출물 + 실시도면 일체, 천장도·조명 계획, 물량 산출서, 견적 검증 리포트 1회</span></div>
+          <div><b>기준</b><span>규모별 별도 견적 · 수정 2회 포함</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">350만원~</div><div class="sub">부가세 별도 · 규모별 견적</div>
+        <ul><li>시공 발주 조건 고정</li><li>분쟁 근거 문서 확보</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ B. 점검 ============ -->
+  <section class="grp" id="g2">
+    <div class="gh"><span class="no">GROUP B</span><h2>점검 · 검증 · 자문</h2><span>반복 수요 상품 · 연 단위 계약 시 할인</span></div>
+
+    <div class="item">
+      <div>
+        <span class="lv">B-1</span>
+        <h3>정기점검 · 하자 진단 출장</h3>
+        <p class="sum">하자는 커지기 전에 잡는 것이 가장 싼 유지관리입니다. 보수 우선순위까지 정리해 드립니다.</p>
+        <div class="rows">
+          <div><b>범위</b><span>육안 점검, 주요 하자부위 확인, 보수 우선순위 제안</span></div>
+          <div><b>산출물</b><span>점검 리포트(사진 포함), 보수 우선순위 표</span></div>
+          <div><b>기준</b><span>회당 · 원거리 현장은 출장비 별도</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">회당 30만원~</div><div class="sub">부가세 별도</div>
+        <ul><li>연 단위 정기 계약 시 할인</li></ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div>
+        <span class="lv">B-2</span>
+        <h3>시공사 견적서 검증</h3>
+        <p class="sum">받아 둔 견적서를 물량 산출 기준으로 뜯어봅니다. 가장 빠르게 비용이 회수되는 항목입니다.</p>
+        <div class="rows">
+          <div><b>범위</b><span>항목별 수량·단가 검토, 누락·중복·과다 계상 정리, 질의 문항 작성</span></div>
+          <div><b>산출물</b><span>검증 리포트, 시공사 질의서 초안</span></div>
+          <div><b>기준</b><span>도면 보유 시 기준 · 도면 없으면 PACKAGE A 선행 권장</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">30만원~</div><div class="sub">부가세 별도</div>
+        <ul><li>업체 3곳 비교까지 동일 가격</li></ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div>
+        <span class="lv">B-3</span>
+        <h3>연간 시설관리 자문 (건물주 · 임대인)</h3>
+        <p class="sum">건축문화상 수상 건물의 시설관리를 맡아 온 기준으로 건물 상태를 정기 점검하고 예산을 배분합니다.</p>
+        <div class="rows">
+          <div><b>범위</b><span>정기 순회점검, 보수 우선순위 설계, 연간 예산 배분안, 업체 선정 자문</span></div>
+          <div><b>산출물</b><span>회차별 점검 리포트, 연간 관리 계획서</span></div>
+          <div><b>기준</b><span>연 단위 계약 · 방문 횟수 협의</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">회당 30만원~</div><div class="sub">연 계약 시 할인</div>
+        <ul><li>건물 규모별 협의</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ C. 강의 ============ -->
+  <section class="grp" id="g3">
+    <div class="gh"><span class="no">GROUP C</span><h2>공간 · 건축 강의</h2><span>난이도 축: LV.1 입문 → LV.2 실무 → LV.3 심화 → 맞춤 설계</span></div>
+
+    <div class="item">
+      <div>
+        <span class="lv">C-1 · LV.1 입문</span>
+        <h3>기초 스케치업 / 웹툴 강의</h3>
+        <p class="sum">내 공간을 직접 그려보는 3D 입문. 사전 지식이 전혀 없어도 시작합니다.</p>
+        <div class="rows">
+          <div><b>다루는 것</b><span>스케치업 기본, 설치 없이 쓰는 무료 웹툴, 치수 감각 만들기</span></div>
+          <div><b>산출물</b><span>비법노트(교재) + 본인 공간 3D 파일</span></div>
+          <div><b>형식</b><span>오프라인 1:1 대면 · 회당 2시간 (온라인 가능)</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">15만원 / 회</div><div class="sub">4회 패키지 59만원</div>
+        <ul><li>세션 후 1주 텍스트 Q&amp;A</li></ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div>
+        <span class="lv">C-2 · LV.2 실무</span>
+        <h3>도면 읽고쓰기 기초</h3>
+        <p class="sum">시공사와 대화의 주도권이 바뀌는 지점입니다. 원하는 것을 도면 언어로 전달합니다.</p>
+        <div class="rows">
+          <div><b>다루는 것</b><span>평면도·입면도·상세도 읽기, 치수·기호 체계, 변경 요청을 도면으로 쓰는 법</span></div>
+          <div><b>산출물</b><span>비법노트(도면편) + 실제 도면 판독 실습 자료</span></div>
+          <div><b>형식</b><span>오프라인 1:1 대면 · 회당 2시간</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">15만원 / 회</div><div class="sub">4회 패키지 59만원</div>
+        <ul><li>보유 도면 지참 환영</li></ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div>
+        <span class="lv">C-3 · LV.3 심화</span>
+        <h3>시공관리 포인트 집중세션</h3>
+        <p class="sum">도면을 읽을 수 있는 사람이 현장에서 당하지 않기 위한 판단 기준을 다룹니다.</p>
+        <div class="rows">
+          <div><b>다루는 것</b><span>구조안전 셀프진단, 공정별 확인 시점, 주요 하자부위, 준공 검사 항목</span></div>
+          <div><b>산출물</b><span>비법노트(시공편) + 현장 점검 체크리스트</span></div>
+          <div><b>형식</b><span>오프라인 1:1 대면 · 회당 2시간 · 현장 동행 가능</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">15만원 / 회</div><div class="sub">현장 동행 시 출장비 별도</div>
+        <ul><li>LV.2 수준 이해 권장</li></ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div>
+        <span class="lv">C-4 · 맞춤 설계</span>
+        <h3>셀프 시공 코칭</h3>
+        <p class="sum">직접 손대려는 범위를 함께 정하고 단계별로 점검합니다. 어디까지 직접 하고 어디부터 맡길지가 핵심입니다.</p>
+        <div class="rows">
+          <div><b>다루는 것</b><span>작업 범위 결정, 자재·공구 선정, 단계별 검수 기준, 위험 작업 판별</span></div>
+          <div><b>산출물</b><span>작업 계획표 + 단계별 점검 기준</span></div>
+          <div><b>형식</b><span>1:1 · 현장 동행 병행</span></div>
+        </div>
+      </div>
+      <div class="price"><div class="big">진단 후 견적</div><div class="sub">현장 동행 시 출장비 별도</div>
+        <ul><li>사전진단(무료) 선행</li></ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>어느 레벨부터 시작할지 모르겠다면</b> — <a href="../diagnosis/" style="border-bottom:1px solid #b39a2f;font-weight:800;">5분 무료 사전진단</a>에서
+      4개 영역 점수와 추천 강의·추천 서비스를 먼저 확인하실 수 있습니다.
+    </div>
+  </section>
+
+  <!-- ============ D. 공통 제공물 ============ -->
+  <section class="grp" id="g4">
+    <div class="gh"><span class="no">GROUP D</span><h2>모든 고객 공통 제공물</h2><span>상품 종류와 무관하게 제공</span></div>
+    <div class="terms">
+      <div class="term"><b>CAD 도면 원본</b><p>납품 도면은 원본 파일(DWG·PDF)로 드립니다. 다음 시공에도 그대로 쓰입니다.</p></div>
+      <div class="term"><b>현장 점검 체크리스트</b><p>실무에서 쓰는 하자·마감 점검 리스트를 함께 드립니다.</p></div>
+      <div class="term"><b>실적용 직제작 비법노트</b><p>실무에서 검증한 내용만 담은 자체 제작 교재를 제공합니다.</p></div>
+      <div class="term"><b>납품 후 오기 무상 수정</b><p>도면 납품 후 발견된 표기 오류는 수정 횟수와 무관하게 무상으로 고쳐 드립니다.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ E. 거래 조건 ============ -->
+  <section class="grp" id="g5">
+    <div class="gh"><span class="no">GROUP E</span><h2>거래 조건</h2><span>모든 건은 표준 용역계약서 기반</span></div>
+    <div class="terms">
+      <div class="term"><b>견적</b><p>면적과 요구 범위에 난이도와 요구사항 명확도를 반영해 고정가로 제시합니다. 요구사항 정리서 확정 후에는 추가 비용이 없고, 범위가 바뀌는 경우에만 재견적합니다. 견적 유효기간은 14일입니다.</p></div>
+      <div class="term"><b>결제</b><p>선금 50% 입금 후 실측 착수, 잔금은 검수 완료 시. 최소 결제 단위는 30만원입니다. 강의는 회당 또는 패키지 선결제입니다.</p></div>
+      <div class="term"><b>수정</b><p>패키지별로 명시된 횟수(2회)가 포함됩니다. 초과 수정이나 범위 추가는 사전 안내 후 시간 단위로 정산합니다.</p></div>
+      <div class="term"><b>환불</b><p>착수 전 전액 환불, 실측 착수 후에는 진행률 공제 후 환불, 검수 승인 이후에는 환불이 불가합니다. 플랫폼 거래는 해당 플랫폼 규정을 우선합니다.</p></div>
+      <div class="term"><b>출장 범위</b><p>실측은 패키지 가격에 포함됩니다. 강의의 현장 세션(실측 동행, 하자 점검 동행)과 원거리 현장은 출장비가 별도이며, 상담 시 지역 기준으로 안내드립니다.</p></div>
+      <div class="term"><b>일정</b><p>품질 유지를 위해 동시 진행 건수를 제한합니다. 상담 시 현재 대기 상황과 가능한 실측일을 정확히 안내드립니다.</p></div>
+    </div>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="../#contact">상담 요청하기</a>
+      <a class="btn btn-amber" href="../diagnosis/">무료 사전진단</a>
+      <a class="btn btn-ghost" href="../#deliverables">결과물 보기</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>PHILIP STUDIO — Interior &amp; Architecture Design. 표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다.</div>
+    <div class="bizinfo">
+      <span><b>상호</b>카르쉬 (PHILIP STUDIO)</span>
+      <span><b>대표자</b>성필</span>
+      <span><b>사업자등록번호</b>432-18-02438</span>
+      <span><b>사업장 주소</b>서울특별시 성북구 보문로 136-4, B01호</span>
+      <span><b>전화</b><a href="tel:+821056826129">010.5682.6129</a></span>
+      <span><b>전자우편</b><a href="mailto:spinnavor@naver.com">spinnavor@naver.com</a></span>
+    </div>
+    <div>&copy; 2026 카르쉬 (PHILIP STUDIO). All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

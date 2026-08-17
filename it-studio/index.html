@@ -167,7 +167,13 @@
     padding: 18px 22px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
     color: #fff;
   }
+  /* 레벨 표시는 난이도(LV.1~3 / 맞춤) 한 축으로만 쓰고, 주제는 오른쪽 칩으로 분리한다 */
+  .class-card .head .lvrow { display: flex; align-items: center; gap: 8px; }
   .class-card .head .lv { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--sky); }
+  .class-card .head .topic {
+    margin-left: auto; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    color: #dbe8fa; border: 1px solid rgba(255,255,255,0.34); padding: 2px 9px; border-radius: 999px;
+  }
   /* 제목이 1줄이든 2줄이든 헤더 높이를 동일하게 고정 */
   .class-card .head h3 { font-size: 17px; margin-top: 4px; line-height: 1.4; min-height: 2.8em; }
   .class-card .body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
@@ -263,6 +269,38 @@
   .contract-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
   .contract-note { font-size: 12.5px; color: var(--ink-sub); margin-top: 14px; }
 
+  /* ===== about (수행자 소개) ===== */
+  .about-grid { display: grid; grid-template-columns: 250px 1fr; gap: 34px; margin-top: 34px; align-items: start; }
+  .about-photo { background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .about-photo .shot { position: relative; aspect-ratio: 3 / 4; background: var(--bg-soft); border-radius: 18px; overflow: hidden; }
+  .about-photo .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about-photo.empty .shot img { display: none; }
+  .about-photo .ph {
+    position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+    border: 1px dashed #b9cfec; border-radius: 18px; color: #8fa6c4; font-size: 12.5px; text-align: center; padding: 14px;
+  }
+  .about-photo.empty .ph { display: flex; }
+  .about-photo .who { margin-top: 14px; padding: 0 4px; }
+  .about-photo .who b { display: block; font-size: 18px; color: var(--navy); letter-spacing: -0.02em; }
+  .about-photo .who span { display: block; font-size: 12.5px; color: var(--ink-sub); margin-top: 2px; }
+  .about-lead { font-size: 16.5px; color: var(--ink); }
+  .about-lead strong { color: var(--navy); }
+  .about-lead + .about-lead { margin-top: 12px; font-size: 15px; color: var(--ink-sub); }
+  .cred { margin-top: 24px; display: grid; gap: 14px; }
+  .cred-block { background: #fff; border: 1.5px solid var(--line); border-left: 4px solid var(--amber); border-radius: var(--radius); padding: 18px 22px; }
+  .cred-block b { display: block; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: var(--amber-deep); margin-bottom: 9px; }
+  .cred-block ul { list-style: none; display: grid; gap: 7px; }
+  .cred-block li { font-size: 14px; padding-left: 15px; position: relative; }
+  .cred-block li::before { content: "—"; position: absolute; left: 0; color: #aec4e0; }
+  .cred-block li em { font-style: normal; color: var(--ink-sub); }
+  .cred-block p { font-size: 14px; color: var(--ink-sub); }
+
+  /* ===== 사업자정보 (footer) ===== */
+  .bizinfo { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .bizinfo span { white-space: nowrap; }
+  .bizinfo span b { font-weight: 700; color: #8d9ab4; margin-right: 5px; }
+  footer a { border-bottom: 1px solid rgba(255,255,255,0.16); }
+
   /* 폭이 좁아지면 진행 방식을 세로 1열로 (모바일에서 글자 깨짐 방지) */
   @media (max-width: 1000px) {
     .steps { grid-template-columns: 1fr; gap: 8px; margin-top: 26px; }
@@ -273,6 +311,8 @@
     .step::before { grid-row: 1 / span 2; margin-bottom: 0; font-size: 13px; line-height: 1.6; }
     .step b { font-size: 15px; margin-bottom: 2px; }
     .step span { font-size: 13px; }
+    .about-grid { grid-template-columns: 1fr; gap: 26px; }
+    .about-photo { max-width: 300px; }
   }
 
   @media (max-width: 640px) {
@@ -288,10 +328,12 @@
   <div class="wrap nav">
     <a class="brand" href="#top">PHILIP<em>&nbsp;STUDIO</em></a>
     <nav class="nav-links">
+      <a href="#about">수행자</a>
       <a href="#dev">웹·앱 개발</a>
       <a href="#ai">AI 도입</a>
-      <a href="#lecture">AI·IT 강의</a>
-      <a href="#process">진행 방식</a>
+      <a href="#lecture">강의</a>
+      <a href="./diagnosis/">사전진단</a>
+      <a href="./catalog/">카탈로그</a>
       <a href="#contract">계약서</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#contact">문의하기</a>
@@ -311,7 +353,7 @@
     <div class="hero-ctas">
       <a class="btn btn-primary" href="#contact">프로젝트 상담하기</a>
       <a class="btn btn-amber" href="#lecture">강의 커리큘럼 보기</a>
-      <a class="btn btn-ghost" href="#ai">AI 도입 진단</a>
+      <a class="btn btn-ghost" href="./diagnosis/">무료 사전진단 (5분)</a>
     </div>
     <div class="hero-chips">
       <span class="chip">400억 투자유치 AI 스타트업 · 상용 SaaS 풀스택</span>
@@ -332,6 +374,73 @@
     <div class="stat"><b>인프라 직접 운영</b><span>자체 Kubernetes 클러스터에 서비스 4종 배포·백업·TLS 관리</span></div>
   </div>
 </div>
+
+<!-- ================= ABOUT (수행자) ================= -->
+<section class="alt" id="about">
+  <div class="wrap">
+    <span class="track-tag track-it">WHO</span>
+    <div class="eyebrow">Who Does The Work</div>
+    <h2>이 일을 직접 하는 사람</h2>
+    <p class="sec-desc">
+      외주에서 가장 흔한 문제는 상담한 사람과 코드를 쓰는 사람이 다른 것입니다.
+      상담부터 설계, 구현, 배포, 사후 대응까지 아래 한 사람이 처음부터 끝까지 직접 맡습니다.
+    </p>
+
+    <div class="about-grid">
+      <!-- 사진: it-studio/images/profile.jpg 를 넣으면 자동으로 표시된다 -->
+      <figure class="about-photo empty">
+        <div class="shot">
+          <img src="./images/profile.jpg" alt="수행자 성필 프로필 사진"
+               onerror="this.closest('.about-photo').classList.add('empty')"
+               onload="this.closest('.about-photo').classList.remove('empty')">
+          <div class="ph">프로필 사진<br>images/profile.jpg</div>
+        </div>
+        <figcaption class="who">
+          <b>성 필 (Philip Sung)</b>
+          <span>풀스택 엔지니어 / AI 프로덕트 리드 · PHILIP STUDIO 대표</span>
+        </figcaption>
+      </figure>
+
+      <div>
+        <p class="about-lead">
+          <strong>취미로 만든 코드가 아니라, 돈을 받고 돌아가는 서비스를 만들고 지키는 일을 본업으로 합니다.</strong>
+          400억 규모 투자를 유치한 시리즈C AI 스타트업의 현직 풀스택 엔지니어이며,
+          상용 앱 3종(Obtopus · PigeonToday · M-Raum)의 기획–개발–배포–운영을 총괄하고 있습니다.
+        </p>
+        <p class="about-lead">
+          그래서 제가 파는 것은 화면이 아니라 <strong>운영을 견디는 구조</strong>입니다.
+          장애가 났을 때 어디를 먼저 보는지, 사용자가 늘면 무엇이 먼저 터지는지,
+          AI 기능이 실제 과금 흐름에 붙으면 무엇이 문제가 되는지를 매일 다루는 사람이 직접 설계합니다.
+        </p>
+
+        <div class="cred">
+          <div class="cred-block">
+            <b>현직 경력</b>
+            <ul>
+              <li>400억 규모 투자유치 시리즈C AI 스타트업 <em>— 풀스택 엔지니어 (현직)</em></li>
+              <li>Obtopus · PigeonToday · M-Raum <em>— 앱 3종 Product Lead</em></li>
+              <li>LLM 기능 상용 배포 <em>— 스트리밍 · 과금 연동까지 운영 중</em></li>
+              <li>자체 Kubernetes 클러스터 <em>— 서비스 4종 배포 · 백업 · TLS 직접 운영</em></li>
+              <li>건축사사무소 XPLUS(xplusinc.co.kr) <em>— 기업 홈페이지 구축 · 운영</em></li>
+            </ul>
+          </div>
+          <div class="cred-block">
+            <b>직접 수행 범위</b>
+            <p>
+              요구사항 정리 · 화면/데이터 설계 · TypeScript · React 프론트엔드 아키텍처 ·
+              Node.js 백엔드 · Electron 설치형 앱 · 3D 인터랙션 · LLM 기능 구현 ·
+              AI 에이전트 오케스트레이션 · 문서 구조화(RAG) 파이프라인 · Kubernetes 배포 · 장애 대응
+            </p>
+          </div>
+          <div class="cred-block">
+            <b>학력 · 기타</b>
+            <p>고려대학교 컴퓨터학과 졸업. 사업자등록 완료(카르쉬 / PHILIP STUDIO), 표준 용역계약서 기반으로 거래합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ================= DEV ================= -->
 <section id="dev">
@@ -425,55 +534,76 @@
     <h2>AI · IT 강의</h2>
     <p class="sec-desc">
       유행하는 도구 나열이 아니라, 상업 수준 서비스를 만들고 운영해 본 사람의 기준으로 원리부터 실전까지 다룹니다.
+      난이도는 <b>LV.1 입문 → LV.2 실무 → LV.3 심화</b> 한 축으로만 표시하고, 다루는 주제는 오른쪽 칩으로 구분합니다.
       모든 세션은 기본적으로 오프라인 1:1 대면으로 진행하며, 전 과정에 직접 제작한 실적용 비법노트가 교재로 제공됩니다.
     </p>
 
     <div class="class-grid">
       <div class="class-card">
-        <div class="head"><span class="lv">입문</span><h3>AI시대, IT 핵심 짚고가기</h3></div>
+        <div class="head">
+          <div class="lvrow"><span class="lv">LV.1 입문</span><span class="topic">IT 전반</span></div>
+          <h3>AI시대, IT 핵심 짚고가기</h3>
+        </div>
         <div class="body">
-          <p>비전공자·창업 준비자를 위한 IT 전체 지도. 웹이 돌아가는 원리, 개발자와 일하는 법, 외주 견적 읽는 법까지.</p>
+          <p>비전공자·창업 준비자를 위한 IT 전체 지도. 웹이 돌아가는 원리, 개발자와 일하는 법, 외주 견적 읽는 법까지. 사전 지식이 전혀 없어도 시작할 수 있습니다.</p>
           <div class="fee">1:1 회당(2h) 15만원 · 4회 패키지 59만원</div>
         </div>
       </div>
       <div class="class-card">
-        <div class="head"><span class="lv">심화</span><h3>상업수준 운영을 위한 IT Deep Dive 세션</h3></div>
-        <div class="body">
-          <p>서비스를 "만드는 것"과 "운영하는 것"의 차이. 배포, 장애 대응, 데이터 관리 등 운영 실무의 핵심.</p>
-          <div class="fee">1:1 회당(2h) 15만원 · 6회 패키지 85만원</div>
+        <div class="head">
+          <div class="lvrow"><span class="lv">LV.1 입문</span><span class="topic">AI 실습</span></div>
+          <h3>당장활용! AI 실전세션</h3>
         </div>
-      </div>
-      <div class="class-card">
-        <div class="head"><span class="lv">원리</span><h3>원리부터 파악하는 AI</h3></div>
         <div class="body">
-          <p>LLM이 왜 되는지, 어디서 틀리는지. 원리를 알아야 도구가 바뀌어도 흔들리지 않습니다.</p>
-          <div class="fee">1:1 회당(2h) 15만원 · 4회 패키지 59만원</div>
-        </div>
-      </div>
-      <div class="class-card">
-        <div class="head"><span class="lv">실전</span><h3>당장활용! AI 실전세션</h3></div>
-        <div class="body">
-          <p>내 업무에 바로 붙이는 원포인트 실습. 문서 자동화, 리서치, 콘텐츠 제작 등 케이스 지참 환영.</p>
+          <p>내 업무에 바로 붙이는 원포인트 실습. 문서 자동화, 리서치, 콘텐츠 제작 등 케이스 지참 환영. 도구를 처음 써 보는 상태에서 시작합니다.</p>
           <div class="fee">1:1 회당(2h) 15만원 · 그룹(4인 이하) 인당 5만원</div>
         </div>
       </div>
       <div class="class-card">
-        <div class="head"><span class="lv">맞춤형</span><h3>AI 레벨업 세션</h3></div>
+        <div class="head">
+          <div class="lvrow"><span class="lv">LV.2 실무</span><span class="topic">AI 원리</span></div>
+          <h3>원리부터 파악하는 AI</h3>
+        </div>
         <div class="body">
-          <p>현재 수준 진단 후 커리큘럼을 설계하는 맞춤 과정. 팀 단위 도입 교육도 가능합니다.</p>
+          <p>LLM이 왜 되는지, 어디서 틀리는지. 도구를 이미 써 본 사람이 원리를 잡는 단계입니다. 원리를 알아야 도구가 바뀌어도 흔들리지 않습니다.</p>
+          <div class="fee">1:1 회당(2h) 15만원 · 4회 패키지 59만원</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="head">
+          <div class="lvrow"><span class="lv">LV.3 심화</span><span class="topic">운영 · 아키텍처</span></div>
+          <h3>상업수준 운영을 위한 IT Deep Dive 세션</h3>
+        </div>
+        <div class="body">
+          <p>서비스를 "만드는 것"과 "운영하는 것"의 차이. 배포, 장애 대응, 데이터 관리 등 운영 실무의 핵심. 이미 서비스를 만들어 본 상태를 전제로 합니다.</p>
+          <div class="fee">1:1 회당(2h) 15만원 · 6회 패키지 85만원</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="head">
+          <div class="lvrow"><span class="lv">맞춤 설계</span><span class="topic">진단 기반 · AI</span></div>
+          <h3>AI 레벨업 세션</h3>
+        </div>
+        <div class="body">
+          <p>사전진단 결과에 맞춰 LV.1~3의 내용을 섞어 커리큘럼을 설계하는 맞춤 과정. 팀 단위 도입 교육도 가능합니다.</p>
           <div class="fee">진단 후 견적 · 기업 출강 시간당 25만원~</div>
         </div>
       </div>
       <div class="class-card">
-        <div class="head"><span class="lv">맞춤형</span><h3>IT 레벨업 세션</h3></div>
+        <div class="head">
+          <div class="lvrow"><span class="lv">맞춤 설계</span><span class="topic">진단 기반 · IT</span></div>
+          <h3>IT 레벨업 세션</h3>
+        </div>
         <div class="body">
-          <p>개발 입문부터 아키텍처 리뷰까지, 목표에 맞춰 설계하는 IT 역량 강화 과정.</p>
+          <p>개발 입문부터 아키텍처 리뷰까지, 목표에 맞춰 설계하는 IT 역량 강화 과정. 사전진단으로 시작 레벨을 먼저 정합니다.</p>
           <div class="fee">진단 후 견적 · 기업 출강 시간당 25만원~</div>
         </div>
       </div>
     </div>
 
     <div class="fee-note">
+      <b>어느 레벨부터 시작해야 할지 모르겠다면</b> — <a href="./diagnosis/" style="border-bottom:1px solid #6DA7F2;font-weight:800;">5분 무료 사전진단</a>을
+      먼저 해 보세요. 4개 영역 점수와 추천 강의가 바로 나옵니다.
       모든 수강생에게 <b>실적용 직제작 비법노트</b>(교재)와 <b>Obtopus · PigeonToday · M-Raum 멤버십</b>이 제공됩니다.
     </div>
   </div>
@@ -517,7 +647,7 @@
       <h3><span class="track-tag track-it">교육</span>AI · IT 강의</h3>
       <div class="steps">
         <div class="step"><b>상담</b><span>목표·배경 텍스트 상담 무료</span></div>
-        <div class="step"><b>수준 진단</b><span>15분 사전 진단으로 시작점 결정</span></div>
+        <div class="step"><b>수준 진단</b><span><a href="./diagnosis/" style="border-bottom:1px solid #aec4e0;">5분 사전진단</a>으로 시작 레벨 결정</span></div>
         <div class="step"><b>커리큘럼 확정</b><span>비법노트 단위로 세션 구성</span></div>
         <div class="step"><b>일정 · 결제</b><span>회당 또는 패키지 선결제</span></div>
         <div class="step"><b>세션 진행</b><span>회당 2시간, 실습 중심</span></div>
@@ -649,7 +779,8 @@
       <div class="contact-card"><b>PHONE</b><span><a href="tel:+821056826129">010.5682.6129</a></span></div>
     </div>
     <div class="hero-ctas" style="margin-top:30px;">
-      <a class="btn btn-amber" href="#top">서비스 다시 보기</a>
+      <a class="btn btn-amber" href="./catalog/">전체 카탈로그 보기</a>
+      <a class="btn btn-ghost" href="./diagnosis/">무료 사전진단</a>
     </div>
   </div>
 </section>
@@ -658,6 +789,15 @@
   <div class="wrap">
     <div>PHILIP STUDIO — Web · App · AI Engineering. 모든 작업은 표준 계약서 기반으로 진행됩니다.</div>
     <div>표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다.</div>
+    <div class="bizinfo">
+      <span><b>상호</b>카르쉬 (PHILIP STUDIO)</span>
+      <span><b>대표자</b>성필</span>
+      <span><b>사업자등록번호</b>432-18-02438</span>
+      <span><b>사업장 주소</b>서울특별시 성북구 보문로 136-4, B01호</span>
+      <span><b>전화</b><a href="tel:+821056826129">010.5682.6129</a></span>
+      <span><b>전자우편</b><a href="mailto:spinnavor@naver.com">spinnavor@naver.com</a></span>
+    </div>
+    <div>&copy; 2026 카르쉬 (PHILIP STUDIO). All rights reserved.</div>
   </div>
 </footer>
 
