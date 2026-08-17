@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<!-- PHILIP STUDIO 홍보 브로슈어 — 건축 트랙 / A4 landscape (297 x 210 mm) 6장
+     구성: 표지 / 왜 도면인가 / 용역 01 설계 패키지 / 용역 02 점검·검증·자문 / 교육 강의 / 진행 방식
+     인쇄: Ctrl+P → 용지 A4, 방향 가로, 배율 100%, 여백 없음, 배경 그래픽 켜기 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHILIP STUDIO — 실내건축 설계 / 공간 · 건축 강의 안내서</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+
+  :root{
+    --green:#0A3711; --green2:#1c5a2e; --gold:#C9A227; --goldd:#8F7118; --goldb:#D9B84D;
+    --ink:#1c241d; --sub:#5c675e; --line:#e3e8e2; --soft:#f5f8f4;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+    color:var(--ink); background:#8a938a; word-break:keep-all;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  /* ===== 인쇄 안내바 (인쇄 시 숨김) ===== */
+  .toolbar{
+    position:sticky; top:0; z-index:99; display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    background:#eef4ea; border-bottom:1px solid #cfdccb; padding:11px 18px; font-size:12px; color:#3d4a3d;
+  }
+  .toolbar button{
+    font:inherit; font-weight:700; padding:7px 16px; border:none; border-radius:0;
+    cursor:pointer; background:var(--gold); color:var(--green);
+  }
+
+  /* ===== 시트 (A4 가로 고정 프레임) ===== */
+  .sheet{
+    position:relative; width:297mm; height:210mm; overflow:hidden;
+    background:#fff; margin:14px auto; box-shadow:0 6px 26px rgba(0,0,0,.28);
+    padding:14mm 16mm; display:flex; flex-direction:column;
+  }
+
+  /* 머리말 */
+  .ph{
+    height:11mm; flex:0 0 11mm; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:0.4mm solid var(--green);
+  }
+  .brand{ font-size:11.5pt; font-weight:800; letter-spacing:.16em; color:var(--green); }
+  .brand span{ color:var(--goldd); }
+  .pnum{ font-size:7.5pt; font-weight:700; letter-spacing:.16em; color:var(--sub); }
+
+  /* 장의 요지 */
+  .msg{ flex:0 0 auto; padding:7mm 0 5mm; }
+  .kicker{ font-size:8pt; font-weight:800; letter-spacing:.2em; color:var(--goldd); margin-bottom:2.5mm; }
+  .msg h1{ font-size:21pt; line-height:1.32; letter-spacing:-.02em; color:var(--green); font-weight:800; }
+  .msg h1::after{ content:""; display:block; width:18mm; height:0.6mm; background:var(--gold); margin-top:3.5mm; }
+  .msg .lead{ margin-top:3.5mm; font-size:10pt; line-height:1.6; color:var(--sub); max-width:210mm; }
+
+  /* 본문 영역 */
+  .body{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; gap:5mm; }
+
+  /* 꼬리말 */
+  .pf{
+    flex:0 0 9mm; height:9mm; display:flex; align-items:center; justify-content:space-between;
+    border-top:0.3mm solid var(--line); font-size:7.5pt; color:var(--sub);
+  }
+  .pf b{ color:var(--goldd); font-weight:700; }
+
+  /* ===== 공통 컴포넌트 (직각 · 얇은 엣지) ===== */
+  .grid{ display:grid; gap:5mm; }
+  .g2{ grid-template-columns:repeat(2,1fr); }
+  .g3{ grid-template-columns:repeat(3,1fr); }
+  .g4{ grid-template-columns:repeat(4,1fr); }
+  .g7{ grid-template-columns:repeat(7,1fr); gap:3mm; }
+
+  .card{
+    background:#fff; border:0.3mm solid var(--line); border-top:0.7mm solid var(--green);
+    padding:6mm 6.5mm; display:flex; flex-direction:column;
+  }
+  .card.gold{ border-top-color:var(--gold); }
+  .card.tint{ background:var(--soft); }
+  .card.fill{ background:var(--green); border:none; border-left:0.9mm solid var(--gold); color:#e9f0e9; }
+  .card.fill h3, .card.fill .big{ color:#fff; }
+  .card.fill p{ color:#bfd0c1; }
+  .card .lv{ font-size:7.5pt; font-weight:800; letter-spacing:.14em; color:var(--goldd); }
+  .card h3{ font-size:11.5pt; color:var(--green); margin-top:1.5mm; line-height:1.35; }
+  .card p{ font-size:8.5pt; line-height:1.62; color:var(--sub); margin-top:2mm; }
+  .card .big{ font-size:15pt; font-weight:800; color:var(--green); letter-spacing:-.02em; margin-top:3mm; }
+  .card .big small{ font-size:8pt; font-weight:600; color:var(--sub); }
+
+  ul.tick{ list-style:none; margin-top:3.5mm; }
+  ul.tick li{
+    font-size:8.5pt; line-height:1.5; color:var(--ink); padding:1.5mm 0 1.5mm 5mm;
+    position:relative; border-bottom:0.25mm dashed var(--line);
+  }
+  ul.tick li:last-child{ border-bottom:none; }
+  ul.tick li::before{ content:"—"; position:absolute; left:0; color:var(--gold); font-weight:800; }
+
+  .card .who{ font-size:8pt; font-weight:700; color:var(--goldd); margin-top:2.5mm; }
+  .card .fee{
+    margin-top:auto; padding-top:3mm; border-top:0.3mm solid var(--gold);
+    font-size:8.5pt; font-weight:700; color:var(--green); line-height:1.45;
+  }
+  .card.fill .fee{ border-top-color:rgba(217,184,77,.55); color:#fff; }
+
+  .metric{ margin-top:auto; padding-top:4mm; border-top:0.3mm solid var(--gold); }
+  .metric b{ display:block; font-size:14pt; font-weight:800; color:var(--green); letter-spacing:-.02em; line-height:1.2; }
+  .metric span{ font-size:7.5pt; color:var(--sub); }
+
+  .note{
+    background:var(--soft); border:0.3mm solid #d7e0d4; border-left:0.9mm solid var(--gold);
+    padding:4.5mm 6mm; font-size:8.5pt; line-height:1.6; color:#3f4c3f;
+  }
+  .note b{ color:var(--green); }
+  .note.sm{ padding:3.2mm 4.5mm; font-size:8pt; line-height:1.55; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:2.5mm; }
+  .chip{
+    font-size:8pt; font-weight:600; color:var(--green); background:#fff;
+    border:0.3mm solid #cfdccb; padding:1.8mm 4mm;
+  }
+
+  /* 프로세스 (직각 칼럼) */
+  .step{
+    background:#fff; border:0.3mm solid var(--line); border-top:0.6mm solid var(--gold);
+    padding:4mm 3.2mm; display:flex; flex-direction:column;
+  }
+  .step i{ font-style:normal; font-size:7.5pt; font-weight:800; color:var(--goldd); }
+  .step b{ font-size:9pt; color:var(--green); margin-top:1.5mm; line-height:1.3; }
+  .step span{ font-size:7.5pt; color:var(--sub); margin-top:1.5mm; line-height:1.45; }
+  .rowlabel{
+    display:inline-block; font-size:7.5pt; font-weight:800; letter-spacing:.1em;
+    color:var(--green); background:#eef4ea; border:0.3mm solid #cfdccb;
+    padding:1.4mm 4mm; margin-bottom:2.5mm;
+  }
+
+  /* 강의 목록 */
+  .lect{ display:flex; flex-direction:column; }
+  .lect .row{
+    display:flex; align-items:baseline; gap:3mm; padding:2.8mm 0;
+    border-bottom:0.25mm solid var(--line);
+  }
+  .lect .row:last-child{ border-bottom:none; }
+  .lect .row .t{ font-size:9pt; font-weight:700; color:var(--green); flex:1 1 auto; }
+  .lect .row .lv2{ font-size:7pt; font-weight:800; color:var(--goldd); letter-spacing:.08em; flex:0 0 11mm; }
+  .lect .row .p{ font-size:8pt; color:var(--sub); flex:0 0 56mm; text-align:right; }
+
+  /* ===== 표지 ===== */
+  .cover{ padding:0; }
+  .cover .panel{
+    position:relative; margin:12mm; width:calc(100% - 24mm); height:calc(100% - 24mm);
+    background:var(--green); overflow:hidden;
+    padding:36mm 34mm; display:flex; flex-direction:column; color:#fff;
+  }
+  /* 프레임을 넘어 재단면까지 확장되는 직선 */
+  .cover .frame{ position:absolute; left:22mm; top:24mm; right:22mm; bottom:24mm; border:0.35mm solid var(--gold); }
+  .cover .lnh{ position:absolute; left:0; right:0; border-top:0.2mm solid rgba(201,162,39,.42); }
+  .cover .lnv{ position:absolute; top:0; bottom:0; border-left:0.2mm solid rgba(201,162,39,.42); }
+  .cover .cbrand{ font-size:12pt; font-weight:800; letter-spacing:.22em; color:#fff; position:relative; }
+  .cover .cbrand em{ font-style:normal; color:var(--goldb); }
+  .cover h1{
+    margin-top:auto; font-size:31pt; line-height:1.3; letter-spacing:-.03em; font-weight:800;
+    color:#fff; max-width:190mm; position:relative;
+  }
+  .cover h1 em{ font-style:normal; color:var(--goldb); }
+  .cover .csub{ margin-top:7mm; font-size:11pt; line-height:1.65; color:#bfd0c1; max-width:165mm; position:relative; }
+  .cover .cfoot{
+    margin-top:auto; padding-top:7mm; border-top:0.3mm solid rgba(201,162,39,.5);
+    position:relative; max-width:165mm;
+  }
+  .cover .cfoot .svc{ font-size:10pt; font-weight:700; color:#fff; letter-spacing:.02em; }
+  .cover .cfoot .con{ margin-top:2.5mm; font-size:9pt; color:#bfd0c1; line-height:1.7; }
+  .cover .cfoot .con b{ color:#fff; font-weight:700; }
+
+  @media print{
+    html,body{ background:#fff; }
+    .toolbar{ display:none; }
+    .sheet{ margin:0; box-shadow:none; page-break-after:always; }
+    .sheet:last-child{ page-break-after:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">인쇄 · PDF로 저장</button>
+  <span>Ctrl+P → 용지 <b>A4</b>, 방향 <b>가로</b>, 배율 <b>100%</b>, 여백 <b>없음</b>, 배경 그래픽 <b>켜기</b>. 총 6장입니다.</span>
+</div>
+
+<!-- ================= 01 표지 ================= -->
+<section class="sheet cover">
+  <div class="panel">
+    <div class="lnh" style="top:24mm;"></div>
+    <div class="lnh" style="bottom:24mm;"></div>
+    <div class="lnv" style="left:22mm;"></div>
+    <div class="lnv" style="right:22mm;"></div>
+    <div class="frame"></div>
+
+    <div class="cbrand">PHILIP<em>&nbsp;STUDIO</em></div>
+
+    <h1>도면 없이 받은 견적은<br>애초에 <em>비교할 수 없습니다.</em></h1>
+    <p class="csub">
+      물류센터 실시설계부터 병원 인테리어까지 수행한 건축 실무자가
+      실측 · 도면 · 모델링 · 견적설계를 직접 진행합니다.
+    </p>
+
+    <div class="cfoot">
+      <div class="svc">실내건축 · 인테리어 설계 &nbsp;/&nbsp; 점검 · 검증 · 자문 &nbsp;/&nbsp; 공간 · 건축 강의</div>
+      <div class="con">
+        <b>010.5682.6129</b> &nbsp;·&nbsp; spinnavor@naver.com &nbsp;·&nbsp; philip-studio.cloud/architecture-studio
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 왜 도면인가 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">02 / 06 · WHY</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">왜 도면이 먼저인가</div>
+    <h1>시공사마다 말이 다른 이유는 대개 하나입니다. 기준이 되는 도면이 없기 때문입니다.</h1>
+    <p class="lead">
+      도면이 없으면 각 시공사는 서로 다른 범위를 가정하고 견적을 냅니다. 그래서 금액을 나란히 놓아도 비교가 되지 않습니다.
+      치수와 범위가 확정된 도면 한 벌이 생기는 순간, 견적은 비로소 같은 조건에서 겨루게 됩니다.
+    </p>
+  </div>
+
+  <div class="body">
+    <div class="grid g4" style="flex:1 1 auto; min-height:0;">
+      <div class="card tint">
+        <div class="lv">01 · RECORD</div>
+        <h3>실시설계 실적</h3>
+        <p>물류센터 실시설계, 병원 외장설계와 인테리어 설계, 그린리모델링, 스마트쉼터를 수행했습니다.</p>
+        <div class="metric"><b>실시설계</b><span>물류센터 · 병원 · 스마트쉼터</span></div>
+      </div>
+      <div class="card tint">
+        <div class="lv">02 · FACILITY</div>
+        <h3>시설관리 실무</h3>
+        <p>경기도 건축문화상 수상 건물의 시설관리팀장으로 순회점검과 보수 판단을 맡아 왔습니다.</p>
+        <div class="metric"><b>수상 건물</b><span>건축문화상 수상 건물 시설관리팀장</span></div>
+      </div>
+      <div class="card tint">
+        <div class="lv">03 · CYCLE</div>
+        <h3>풀사이클 커버</h3>
+        <p>실측에서 도면, 모델링, 견적설계까지 한 사람이 연결하므로 단계 사이에서 정보가 새지 않습니다.</p>
+        <div class="metric"><b>한 사람이 연결</b><span>실측 – 도면 – 모델링 – 견적설계</span></div>
+      </div>
+      <div class="card tint">
+        <div class="lv">04 · EDUCATION</div>
+        <h3>5년제 건축학과</h3>
+        <p>고려대학교 건축학과(5년제)를 졸업하고 설계 실무를 수행해 왔습니다.</p>
+        <div class="metric"><b>고려대학교</b><span>건축학과 5년제 졸업</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>도면을 가지면 무엇이 달라지는가.</b> 첫째, 시공사 견적을 같은 물량 기준으로 비교할 수 있습니다.
+      둘째, 공사 중 "그건 원래 범위가 아니었다"는 분쟁의 근거가 문서로 남습니다.
+      셋째, 이번 공사가 끝난 뒤에도 도면 원본이 남아 다음 시공에 그대로 쓰입니다.
+    </div>
+
+    <div class="chips">
+      <span class="chip">현장 실측</span>
+      <span class="chip">CAD 실시도면</span>
+      <span class="chip">3D 모델링</span>
+      <span class="chip">디자인 컨셉</span>
+      <span class="chip">견적설계 · 물량 산출</span>
+      <span class="chip">시공사 견적 검증</span>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>PHILIP STUDIO · 실내건축 · 인테리어 설계 / 공간 · 건축 강의</div>
+    <div><b>010.5682.6129</b> · spinnavor@naver.com · philip-studio.cloud/architecture-studio</div>
+  </footer>
+</section>
+
+<!-- ================= 03 설계 패키지 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">03 / 06 · 용역 · SERVICE 01</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">실내건축 · 인테리어 설계</div>
+    <h1>실측부터 견적설계까지, 한 사람이 연결합니다.</h1>
+    <p class="lead">
+      모든 견적은 범위 확정 후 고정가로 제시하며, 선금 50% · 검수 후 잔금이 원칙입니다.
+      납품 도면은 원본 파일로 드리고, 표기 오류는 횟수와 무관하게 무상으로 고쳐 드립니다.
+    </p>
+  </div>
+
+  <div class="body">
+    <div class="grid g3" style="flex:1 1 auto; min-height:0;">
+      <div class="card">
+        <div class="lv">PACKAGE A</div>
+        <h3>실측 + 도면</h3>
+        <div class="big">45만원~ <small>/ 30평 이하 기준</small></div>
+        <ul class="tick">
+          <li>현장 실측 (반나절)</li>
+          <li>CAD 도면 납품 · 원본 파일 제공</li>
+          <li>치수 기준 시공 견적 비교 가능</li>
+        </ul>
+        <p style="margin-top:auto;">입주 전 공간 파악 · 견적 비교용</p>
+      </div>
+      <div class="card gold" style="border-width:0.3mm; border-top-width:1.2mm; background:var(--soft);">
+        <div class="lv" style="color:var(--gold);">PACKAGE B · 추천</div>
+        <h3>실측 + 도면 + 모델링 + 컨셉</h3>
+        <div class="big">140만원~ <small>/ 규모별 견적</small></div>
+        <ul class="tick">
+          <li>PACKAGE A 전체 포함</li>
+          <li>3D 모델링 · 디자인 컨셉 제안</li>
+          <li>자재 · 무드 방향 제시 · 수정 2회</li>
+        </ul>
+        <p style="margin-top:auto;">디자인 방향까지 잡고 싶은 경우</p>
+      </div>
+      <div class="card">
+        <div class="lv">PACKAGE C</div>
+        <h3>풀 패키지 (실시도면 + 견적설계)</h3>
+        <div class="big">350만원~ <small>/ 규모별 견적</small></div>
+        <ul class="tick">
+          <li>PACKAGE B 전체 포함 · 실시도면 작성</li>
+          <li>견적설계 (물량 산출 기준)</li>
+          <li>시공사 견적 검증 지원 · 수정 2회</li>
+        </ul>
+        <p style="margin-top:auto;">시공 발주까지 가는 프로젝트</p>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card tint" style="padding:5mm 6mm; border-top-color:var(--gold);">
+        <h3 style="font-size:10.5pt;">CAD 도면 원본 제공 · 납품 후 오기 무상 수정</h3>
+        <p>납품 도면은 원본 파일로 드립니다. 다음 시공에도 그대로 쓰이며, 납품 후 발견된 치수·표기 오류는 횟수와 무관하게 무상으로 고칩니다.</p>
+      </div>
+      <div class="card tint" style="padding:5mm 6mm; border-top-color:var(--gold);">
+        <h3 style="font-size:10.5pt;">견적설계의 성격</h3>
+        <p>견적설계는 물량 산출의 기준을 제시하는 작업입니다. 시공사 견적을 같은 조건에서 비교하게 해 주지만, 실제 공사비 금액을 보증하지는 않습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>표기 가격은 기준 시작가이며, 면적과 요구 범위 확정 후 고정가 견적으로 안내됩니다.</div>
+    <div><b>010.5682.6129</b> · spinnavor@naver.com</div>
+  </footer>
+</section>
+
+<!-- ================= 04 점검 · 검증 · 자문 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">04 / 06 · 용역 · SERVICE 02</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">점검 · 검증 · 연간 자문</div>
+    <h1>지어진 뒤에도, 판단의 기준은 계속 필요합니다.</h1>
+    <p class="lead">
+      하자가 커지기 전에 잡는 것이 가장 싼 유지관리입니다. 도면을 새로 그리는 일과는 별개로,
+      이미 지어진 공간과 이미 받아 둔 견적서를 대신 읽어 드리는 세 가지 업무가 있습니다.
+    </p>
+  </div>
+
+  <div class="body">
+    <div class="grid g3" style="flex:1 1 auto; min-height:0;">
+      <div class="card">
+        <div class="lv">01 · INSPECTION</div>
+        <h3>육안 상태점검 · 하자 진단 출장</h3>
+        <div class="who">하자가 의심되거나 보수 시기를 정해야 할 때</div>
+        <p>현장을 직접 돌며 균열·누수·마감 들뜸 등 주요 하자부위를 확인하고, 지금 고쳐야 할 것과
+          지켜봐도 되는 것을 나눠 드립니다.</p>
+        <ul class="tick">
+          <li>하자부위 리포트</li>
+          <li>보수 우선순위 제안</li>
+        </ul>
+        <div class="fee">회당 30만원~ · 연 단위 정기 계약 시 할인</div>
+      </div>
+      <div class="card gold">
+        <div class="lv" style="color:var(--gold);">02 · VERIFICATION</div>
+        <h3>시공사 견적서 검증</h3>
+        <div class="who">견적서를 받았는데 적정한지 모를 때</div>
+        <p>받아 둔 견적서를 물량 산출 기준으로 다시 계산해, 빠진 항목과 두 번 잡힌 항목,
+          지나치게 많이 잡힌 항목을 정리해 드립니다.</p>
+        <ul class="tick">
+          <li>누락 · 중복 · 과다 계상 정리</li>
+          <li>협상에 쓸 수 있는 검토 의견서</li>
+        </ul>
+        <div class="fee">30만원~ · 도면 보유 시 기준</div>
+      </div>
+      <div class="card">
+        <div class="lv">03 · ADVISORY</div>
+        <h3>건물주 · 임대인 연간 시설관리 자문</h3>
+        <div class="who">건물 한 채를 계속 관리해야 할 때</div>
+        <p>건축문화상 수상 건물의 시설관리를 맡아 온 기준으로 건물 상태를 정기적으로 보고,
+          어디에 얼마를 언제 쓸지 연 단위로 설계해 드립니다.</p>
+        <ul class="tick">
+          <li>정기 순회점검 · 상태 기록</li>
+          <li>보수 우선순위 · 연간 예산 배분</li>
+        </ul>
+        <div class="fee">회당 30만원~ · 연 계약 시 할인</div>
+      </div>
+    </div>
+
+    <div class="note sm">
+      <b>업무의 성격.</b> 본 점검은 육안 점검을 기준으로 하며 은폐부위는 제외합니다.
+      「건축물관리법」에 따른 <b>법정 정기점검은 지정 건축물관리점검기관의 업무</b>로서, 본 서비스가 이를 대체하지 않습니다.
+      구조 안전에 대한 공식 판정이 필요한 경우에는 안전진단전문기관에 별도로 의뢰하셔야 하며, 상담 시 이를 안내해 드립니다.
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>PHILIP STUDIO · 점검 · 검증 · 연간 자문 — 용역 서비스</div>
+    <div><b>010.5682.6129</b> · spinnavor@naver.com · philip-studio.cloud/architecture-studio</div>
+  </footer>
+</section>
+
+<!-- ================= 05 공간 · 건축 강의 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">05 / 06 · 교육 · COURSE</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">공간 · 건축 강의</div>
+    <h1>대신 판단해 드리는 것이 아니라, 판단의 기준을 옮겨 드립니다.</h1>
+    <p class="lead">
+      강의는 설계 외주와 성격이 다른 별도의 서비스입니다. 결과물이 도면이 아니라 판단력이며, 절차와 계약도 따로 운영합니다.
+      내 공간을 남의 말에만 의존하지 않으려면, 최소한의 기준이 내 쪽에 있어야 합니다.
+    </p>
+  </div>
+
+  <div class="body" style="gap:4mm;">
+    <div class="grid g4" style="flex:1 1 auto; min-height:0; gap:4mm;">
+      <div class="card" style="padding:5mm 5.5mm;">
+        <div class="lv">LEVEL 01 · 입문</div>
+        <h3 style="font-size:10.5pt;">기초 스케치업 / 웹툴 강의</h3>
+        <div class="who">내 공간을 직접 그려보고 싶은 사람</div>
+        <p>3D 입문 과정입니다. 내 공간을 직접 세워 보고, 가구를 놓아 보고, 동선을 눈으로 확인하는 법을 익힙니다.
+          설치 없이 쓰는 무료 웹툴 활용법까지 포함합니다.</p>
+        <div class="fee">회당(2h) 15만원<br>4회 패키지 59만원</div>
+      </div>
+      <div class="card" style="padding:5mm 5.5mm;">
+        <div class="lv">LEVEL 02 · 실무</div>
+        <h3 style="font-size:10.5pt;">도면 읽고쓰기 기초</h3>
+        <div class="who">시공사와 도면으로 대화하고 싶은 사람</div>
+        <p>평면도·입면도·상세도를 읽는 법과, 원하는 바를 도면의 언어로 시공사에 전달하는 법을 다룹니다.
+          말로 하면 달라지는 것이 도면으로 하면 달라지지 않습니다.</p>
+        <div class="fee">회당(2h) 15만원<br>4회 패키지 59만원</div>
+      </div>
+      <div class="card gold" style="padding:5mm 5.5mm; background:var(--soft);">
+        <div class="lv" style="color:var(--gold);">LEVEL 03 · 방어</div>
+        <h3 style="font-size:10.5pt;">시공관리 포인트 집중세션</h3>
+        <div class="who">인테리어 · 리모델링을 앞둔 사람</div>
+        <p>구조의 이상징후를 알아보는 눈과 주요 하자부위 체크 요령을 익힙니다.
+          공사 중 무엇을 언제 봐야 하는지, 어떤 말이 나오면 멈춰야 하는지를 다룹니다.</p>
+        <div class="fee">회당(2h) 15만원<br>현장 동행 시 출장비 별도</div>
+      </div>
+      <div class="card" style="padding:5mm 5.5mm;">
+        <div class="lv">LEVEL 04 · 코칭</div>
+        <h3 style="font-size:10.5pt;">셀프 시공 코칭</h3>
+        <div class="who">일부를 직접 손대려는 사람</div>
+        <p>직접 할 범위와 맡길 범위를 함께 정하고, 단계별로 점검해 드립니다.
+          현재 상황을 진단한 뒤 커리큘럼을 설계합니다.</p>
+        <div class="fee">진단 후 견적<br>현장 동행 시 출장비 별도</div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="flex:0 0 auto; gap:4mm;">
+      <div class="note sm">
+        <b>진행 방식.</b> 기본은 <b>오프라인 1:1 대면</b> 세션이며 회당 2시간입니다. 장소는 상담 시 협의해 정합니다.
+        전 과정에 실무에서 쓰는 <b>현장 점검 체크리스트</b>와 <b>실적용 직제작 비법노트</b>가 교재로 제공됩니다.
+      </div>
+      <div class="note sm">
+        <b>교육의 범위.</b> 강의는 판단의 기준을 익히는 교육입니다. 시공을 대행하지 않고, 자재나 인력을 대신 발주하지 않으며,
+        시공사에 대한 지시도 하지 않습니다. 현장 동행은 함께 보며 설명하는 자리이지 감리가 아닙니다.
+      </div>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>PHILIP STUDIO · 공간 · 건축 강의 — 용역과 분리해 운영하는 교육 서비스</div>
+    <div><b>010.5682.6129</b> · spinnavor@naver.com · philip-studio.cloud/architecture-studio</div>
+  </footer>
+</section>
+
+<!-- ================= 05 진행 방식 · 업무 범위 · 문의 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">06 / 06 · PROCESS &amp; CONTACT</div>
+  </header>
+
+  <div class="msg" style="padding-bottom:4mm;">
+    <div class="kicker">진행 방식</div>
+    <h1>범위를 문서로 확정한 뒤에 시작합니다.</h1>
+    <p class="lead">설계 외주와 교육은 성격이 달라 절차를 분리해 운영하며, 두 경우 모두 범위와 일정을 문서로 확정한 뒤 착수합니다.</p>
+  </div>
+
+  <div class="body" style="gap:3mm;">
+    <div>
+      <span class="rowlabel">외주 · 실측 · 설계 · 점검</span>
+      <div class="grid g7">
+        <div class="step"><i>01</i><b>상담</b><span>텍스트 기반 무료 15분</span></div>
+        <div class="step"><i>02</i><b>요구사항 정리</b><span>범위·제외 범위 문서화</span></div>
+        <div class="step"><i>03</i><b>견적 · 일정</b><span>고정가, 유효기간 14일</span></div>
+        <div class="step"><i>04</i><b>계약 · 선금</b><span>표준 계약서, 선금 50%</span></div>
+        <div class="step"><i>05</i><b>실측 · 설계</b><span>중간 보고 1회 이상</span></div>
+        <div class="step"><i>06</i><b>검수 · 잔금</b><span>약정 수정 횟수 내 수정</span></div>
+        <div class="step"><i>07</i><b>사후지원</b><span>납품 후 오기 무상 수정</span></div>
+      </div>
+    </div>
+
+    <div>
+      <span class="rowlabel">교육 · 공간 · 건축 강의</span>
+      <div class="grid g7">
+        <div class="step"><i>01</i><b>상담</b><span>목표·배경 텍스트 무료</span></div>
+        <div class="step"><i>02</i><b>수준 진단</b><span>15분 사전 진단</span></div>
+        <div class="step"><i>03</i><b>커리큘럼 확정</b><span>비법노트 단위 구성</span></div>
+        <div class="step"><i>04</i><b>일정 · 결제</b><span>회당 또는 패키지</span></div>
+        <div class="step"><i>05</i><b>세션 진행</b><span>회당 2시간, 현장 동행 별도</span></div>
+        <div class="step"><i>06</i><b>노트 제공</b><span>비법노트 + 체크리스트</span></div>
+        <div class="step"><i>07</i><b>사후 Q&amp;A</b><span>세션 후 1주 질문 지원</span></div>
+      </div>
+    </div>
+
+    <div class="note sm" style="margin-top:auto; padding:2.6mm 4.5mm;">
+      <b>업무 범위의 한계.</b> 본 서비스는 실내건축 디자인 및 설계도서 작성 용역입니다.
+      「건축법」에 따른 <b>허가·신고 대상 건축물의 설계와 공사감리는 건축사의 업무</b>로서 본 서비스에 포함되지 않습니다.
+      내력벽 해체 등 대수선에 해당하는 공사가 필요한 경우 별도의 신고와 건축사사무소의 설계가 필요하며, 상담 시 이를 안내해 드립니다.
+      전기 · 소방 공사는 각 법령에 따른 등록업자가 시공하여야 합니다.
+    </div>
+
+    <div class="grid g2" style="flex:0 0 auto;">
+      <div class="card tint" style="justify-content:center; padding:5mm 6mm; border-top-color:var(--gold);">
+        <h3 style="font-size:10.5pt;">계약서는 그 자리에서 만들어 드립니다</h3>
+        <p>홈페이지의 계약서 자동작성에 면적·금액·일정·범위를 입력하면 간이 용역계약서(A4 1장)와
+          표준 용역계약서(전 22조)가 즉시 생성됩니다.</p>
+      </div>
+      <div class="card fill" style="justify-content:center; padding:5mm 6mm;">
+        <div class="lv" style="color:var(--goldb);">CONTACT · 텍스트 상담 무료</div>
+        <div style="margin-top:2.5mm; font-size:10.5pt; line-height:1.7; color:#fff; font-weight:700;">
+          010.5682.6129 &nbsp;·&nbsp; spinnavor@naver.com<br>
+          <span style="font-weight:500; color:#bfd0c1;">philip-studio.cloud/architecture-studio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>카르쉬 (PHILIP STUDIO) · 모든 작업은 표준 계약서 기반으로 진행됩니다.</div>
+    <div><b>philip-studio.cloud/architecture-studio</b></div>
+  </footer>
+</section>
+
+</body>
+</html>

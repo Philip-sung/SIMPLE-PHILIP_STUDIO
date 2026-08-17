@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<!-- PHILIP STUDIO 홍보 브로슈어 — IT 트랙 / A4 landscape (297 x 210 mm) 6장
+     구성: 표지 / 신뢰의 근거 / 용역 01 웹·앱 개발 / 용역 02 AI 도입 / 교육 강의 / 진행 방식
+     인쇄: Ctrl+P → 용지 A4, 방향 가로, 배율 100%, 여백 없음, 배경 그래픽 켜기 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHILIP STUDIO — 웹·앱 개발 / 기업 AI 도입 / AI·IT 강의 안내서</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+
+  :root{
+    --c1:#CEDEF2; --c2:#A0C4F2; --c3:#6DA7F2; --c4:#035AA6; --c5:#023373;
+    --ink:#1d2b3f; --sub:#5a6a80; --line:#dbe6f5; --soft:#f3f7fd;
+    --r:8mm;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+    color:var(--ink); background:#8e9aa8; word-break:keep-all;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  /* ===== 인쇄 안내바 (인쇄 시 숨김) ===== */
+  .toolbar{
+    position:sticky; top:0; z-index:99; display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    background:#eaf2fd; border-bottom:1px solid var(--c2); padding:11px 18px; font-size:12px; color:#3b4a5e;
+  }
+  .toolbar button{
+    font:inherit; font-weight:700; padding:7px 16px; border:none; border-radius:999px;
+    cursor:pointer; background:var(--c3); color:var(--c5);
+  }
+
+  /* ===== 시트 (A4 가로 고정 프레임) ===== */
+  .sheet{
+    position:relative; width:297mm; height:210mm; overflow:hidden;
+    background:#fff; margin:14px auto; box-shadow:0 6px 26px rgba(0,0,0,.28);
+    padding:14mm 16mm; display:flex; flex-direction:column;
+  }
+
+  /* 머리말 */
+  .ph{
+    height:11mm; flex:0 0 11mm; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:0.4mm solid var(--c5);
+  }
+  .brand{ font-size:11.5pt; font-weight:800; letter-spacing:.16em; color:var(--c5); }
+  .brand span{ color:var(--c4); }
+  .pnum{ font-size:7.5pt; font-weight:700; letter-spacing:.16em; color:var(--sub); }
+
+  /* 장의 요지 */
+  .msg{ flex:0 0 auto; padding:7mm 0 5mm; }
+  .kicker{ font-size:8pt; font-weight:800; letter-spacing:.2em; color:var(--c4); margin-bottom:2.5mm; }
+  .msg h1{ font-size:21pt; line-height:1.32; letter-spacing:-.02em; color:var(--c5); font-weight:800; }
+  .msg .lead{ margin-top:3mm; font-size:10pt; line-height:1.6; color:var(--sub); max-width:210mm; }
+
+  /* 본문 영역 — 남는 높이를 모두 차지하고 넘치지 않음 */
+  .body{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; gap:5mm; }
+
+  /* 꼬리말 */
+  .pf{
+    flex:0 0 9mm; height:9mm; display:flex; align-items:center; justify-content:space-between;
+    border-top:0.3mm solid var(--line); font-size:7.5pt; color:var(--sub);
+  }
+  .pf b{ color:var(--c4); font-weight:700; }
+
+  /* ===== 공통 컴포넌트 ===== */
+  .grid{ display:grid; gap:5mm; }
+  .g2{ grid-template-columns:repeat(2,1fr); }
+  .g3{ grid-template-columns:repeat(3,1fr); }
+  .g4{ grid-template-columns:repeat(4,1fr); }
+  .g7{ grid-template-columns:repeat(7,1fr); gap:3mm; }
+
+  .card{
+    background:#fff; border:0.35mm solid var(--line); border-radius:var(--r);
+    padding:6mm 6.5mm; display:flex; flex-direction:column;
+  }
+  .card.tint{ background:var(--soft); border-color:var(--c1); }
+  .card.fill{ background:var(--c5); border-color:var(--c5); color:#eaf2fd; }
+  .card.fill h3, .card.fill .big{ color:#fff; }
+  .card.fill p{ color:#bcd2ee; }
+  .card .lv{ font-size:7.5pt; font-weight:800; letter-spacing:.14em; color:var(--c4); }
+  .card h3{ font-size:11.5pt; color:var(--c5); margin-top:1.5mm; line-height:1.35; }
+  .card p{ font-size:8.5pt; line-height:1.62; color:var(--sub); margin-top:2mm; }
+  .card .big{ font-size:15pt; font-weight:800; color:var(--c5); letter-spacing:-.02em; margin-top:3mm; }
+  .card .big small{ font-size:8pt; font-weight:600; color:var(--sub); }
+
+  ul.tick{ list-style:none; margin-top:3.5mm; }
+  ul.tick li{
+    font-size:8.5pt; line-height:1.5; color:var(--ink); padding:1.5mm 0 1.5mm 5mm;
+    position:relative; border-bottom:0.25mm dashed var(--line);
+  }
+  ul.tick li:last-child{ border-bottom:none; }
+  ul.tick li::before{ content:"—"; position:absolute; left:0; color:var(--c3); font-weight:800; }
+
+  .card .who{ font-size:8pt; font-weight:700; color:var(--c4); margin-top:2.5mm; }
+  .card .fee{
+    margin-top:auto; padding-top:3mm; border-top:0.3mm solid var(--c2);
+    font-size:8.5pt; font-weight:700; color:var(--c5); line-height:1.45;
+  }
+  .card.fill .fee{ border-top-color:rgba(255,255,255,.3); color:#fff; }
+
+  .metric{ margin-top:auto; padding-top:4mm; border-top:0.3mm solid var(--c2); }
+  .metric b{ display:block; font-size:15pt; font-weight:800; color:var(--c5); letter-spacing:-.02em; line-height:1.2; }
+  .metric span{ font-size:7.5pt; color:var(--sub); }
+
+  .note{
+    background:var(--soft); border:0.35mm solid var(--c1); border-radius:var(--r);
+    padding:4.5mm 6mm; font-size:8.5pt; line-height:1.6; color:#0d3f74;
+  }
+  .note b{ color:var(--c5); }
+  .note.sm{ padding:3.2mm 4.5mm; font-size:8pt; line-height:1.55; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:2.5mm; }
+  .chip{
+    font-size:8pt; font-weight:600; color:var(--c4); background:#fff;
+    border:0.3mm solid var(--c2); padding:1.8mm 4mm; border-radius:999px;
+  }
+
+  /* 프로세스 (짧은 변이 둥근 캡슐 칼럼) */
+  .step{
+    background:#fff; border:0.35mm solid var(--line); border-radius:6mm;
+    padding:4mm 3.2mm; display:flex; flex-direction:column;
+  }
+  .step i{ font-style:normal; font-size:7.5pt; font-weight:800; color:var(--c3); }
+  .step b{ font-size:9pt; color:var(--c5); margin-top:1.5mm; line-height:1.3; }
+  .step span{ font-size:7.5pt; color:var(--sub); margin-top:1.5mm; line-height:1.45; }
+  .rowlabel{
+    display:inline-block; font-size:7.5pt; font-weight:800; letter-spacing:.1em;
+    color:var(--c5); background:var(--c1); padding:1.4mm 4mm; border-radius:999px; margin-bottom:2.5mm;
+  }
+
+  /* 표 형태의 강의 목록 */
+  .lect{ display:flex; flex-direction:column; gap:0; }
+  .lect .row{
+    display:flex; align-items:baseline; gap:3mm; padding:2.4mm 0;
+    border-bottom:0.25mm solid var(--line);
+  }
+  .lect .row:last-child{ border-bottom:none; }
+  .lect .row .t{ font-size:9pt; font-weight:700; color:var(--c5); flex:1 1 auto; }
+  .lect .row .lv2{ font-size:7pt; font-weight:800; color:var(--c3); letter-spacing:.08em; flex:0 0 12mm; }
+  .lect .row .p{ font-size:8pt; color:var(--sub); flex:0 0 58mm; text-align:right; }
+
+  /* ===== 표지 ===== */
+  .cover{ padding:0; }
+  .cover .panel{
+    position:relative; margin:12mm; width:calc(100% - 24mm); height:calc(100% - 24mm);
+    background:var(--c5); border-radius:12mm; overflow:hidden;
+    padding:15mm 20mm; display:flex; flex-direction:column; color:#fff;
+  }
+  .cover .arches{ position:absolute; right:-26mm; bottom:-8mm; width:145mm; height:88mm; opacity:.95; }
+  .cover .cbrand{ font-size:12pt; font-weight:800; letter-spacing:.22em; color:#fff; }
+  .cover .cbrand em{ font-style:normal; color:var(--c2); }
+  .cover h1{
+    margin-top:auto; font-size:32pt; line-height:1.28; letter-spacing:-.03em; font-weight:800;
+    color:#fff; max-width:175mm; position:relative;
+  }
+  .cover h1 em{ font-style:normal; color:var(--c2); }
+  .cover .csub{ margin-top:7mm; font-size:11pt; line-height:1.65; color:#b7cef0; max-width:150mm; position:relative; }
+  .cover .cfoot{
+    margin-top:auto; padding-top:7mm; border-top:0.3mm solid rgba(255,255,255,.28);
+    position:relative; max-width:150mm;
+  }
+  .cover .cfoot .svc{ font-size:10pt; font-weight:700; color:#fff; letter-spacing:.02em; }
+  .cover .cfoot .con{ margin-top:2.5mm; font-size:9pt; color:#b7cef0; line-height:1.7; }
+  .cover .cfoot .con b{ color:#fff; font-weight:700; }
+
+  @media print{
+    html,body{ background:#fff; }
+    .toolbar{ display:none; }
+    .sheet{ margin:0; box-shadow:none; page-break-after:always; }
+    .sheet:last-child{ page-break-after:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">인쇄 · PDF로 저장</button>
+  <span>Ctrl+P → 용지 <b>A4</b>, 방향 <b>가로</b>, 배율 <b>100%</b>, 여백 <b>없음</b>, 배경 그래픽 <b>켜기</b>. 총 6장입니다.</span>
+</div>
+
+<!-- ================= 01 표지 ================= -->
+<section class="sheet cover">
+  <div class="panel">
+    <svg class="arches" viewBox="0 0 100 60" preserveAspectRatio="xMidYMax meet">
+      <path d="M 0 60 L 0 50 A 50 50 0 0 1 100 50 L 100 60 Z" fill="#0a4a94"/>
+      <path d="M 13 60 L 13 50 A 37 37 0 0 1 87 50 L 87 60 Z" fill="#0f63b8"/>
+      <path d="M 26 60 L 26 50 A 24 24 0 0 1 74 50 L 74 60 Z" fill="#6DA7F2"/>
+      <path d="M 39 60 L 39 50 A 11 11 0 0 1 61 50 L 61 60 Z" fill="#A0C4F2"/>
+    </svg>
+
+    <div class="cbrand">PHILIP<em>&nbsp;STUDIO</em></div>
+
+    <h1>만드는 사람과<br>운영하는 사람이 <em>같습니다.</em></h1>
+    <p class="csub">
+      400억 규모 투자유치 AI 스타트업에서 상업 서비스를 만들고 운영하는 풀스택 엔지니어가
+      웹·앱 개발, 기업 AI 도입, AI·IT 교육을 직접 수행합니다.
+    </p>
+
+    <div class="cfoot">
+      <div class="svc">웹 · 앱 개발 &nbsp;/&nbsp; 기업 AI 도입 &nbsp;/&nbsp; AI · IT 강의</div>
+      <div class="con">
+        <b>010.5682.6129</b> &nbsp;·&nbsp; spinnavor@naver.com &nbsp;·&nbsp; philip-studio.cloud/it-studio
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 신뢰의 근거 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">02 / 06 · WHY</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">신뢰의 근거</div>
+    <h1>경력의 길이가 아니라, 지금 운영 중인 서비스가 증명합니다.</h1>
+    <p class="lead">
+      개발 외주가 가장 자주 실패하는 지점은 납품 직후입니다. 만드는 일과 운영하는 일은 다른 기술이라,
+      배포·장애 대응·데이터 관리가 빠진 결과물은 한 달 뒤에 멈춥니다. 아래는 그 운영을 지금도 하고 있다는 증거입니다.
+    </p>
+  </div>
+
+  <div class="body">
+    <div class="grid g4" style="flex:1 1 auto; min-height:0;">
+      <div class="card tint">
+        <div class="lv">01 · POSITION</div>
+        <h3>시리즈C 재직</h3>
+        <p>400억 규모 투자유치 AI 스타트업의 현직 풀스택 엔지니어로, 상용 SaaS를 매일 만들고 고칩니다.</p>
+        <div class="metric"><b>Series C</b><span>400억 규모 투자유치 기업 재직</span></div>
+      </div>
+      <div class="card tint">
+        <div class="lv">02 · PRODUCT</div>
+        <h3>앱 3종 Product Lead</h3>
+        <p>Obtopus · PigeonToday · M-Raum의 기획부터 개발·배포·운영까지 전 주기를 총괄합니다.</p>
+        <div class="metric"><b>앱 3종</b><span>기획 · 개발 · 배포 · 운영 총괄</span></div>
+      </div>
+      <div class="card tint">
+        <div class="lv">03 · AI</div>
+        <h3>AI 프로덕션 실전</h3>
+        <p>LLM 스트리밍과 과금 연동을 상용 서비스에 탑재해 운영 중입니다. 데모가 아니라 결제가 붙은 기능입니다.</p>
+        <div class="metric"><b>과금 연동</b><span>결제가 붙은 LLM 기능 상용 배포</span></div>
+      </div>
+      <div class="card tint">
+        <div class="lv">04 · INFRA</div>
+        <h3>인프라 직접 운영</h3>
+        <p>자체 Kubernetes 클러스터에 서비스 4종을 배포하고 백업·TLS까지 직접 관리합니다.</p>
+        <div class="metric"><b>서비스 4종</b><span>자체 Kubernetes 클러스터 운영</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>이것이 견적에 미치는 영향.</b> 운영을 전제로 설계하면 초기 구조가 달라집니다. 로그를 남길 자리, 장애가 났을 때 되돌릴 자리,
+      데이터가 늘어났을 때 버틸 자리를 처음부터 잡아 두기 때문에, 납품 후 재작업으로 나가는 비용이 줄어듭니다.
+    </div>
+
+    <div class="chips">
+      <span class="chip">TypeScript · React · Node.js</span>
+      <span class="chip">Electron 데스크톱 앱</span>
+      <span class="chip">Kubernetes · Docker</span>
+      <span class="chip">LLM 기능 상용 배포</span>
+      <span class="chip">AI 에이전트 워크플로 상시 운용</span>
+      <span class="chip">고려대학교 컴퓨터학과</span>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>PHILIP STUDIO · 웹 · 앱 개발 / 기업 AI 도입 / AI · IT 강의</div>
+    <div><b>010.5682.6129</b> · spinnavor@naver.com · philip-studio.cloud/it-studio</div>
+  </footer>
+</section>
+
+<!-- ================= 03 웹·앱 개발 외주 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">03 / 06 · 용역 · SERVICE 01</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">웹 · 앱 개발 외주</div>
+    <h1>범위를 문서로 확정한 뒤, 고정가로 만듭니다.</h1>
+    <p class="lead">
+      견적이 낮은데 범위가 애매한 제안보다, 범위가 명확한 고정가가 결국 더 쌉니다.
+      모든 프로젝트는 요구사항 정리서를 먼저 쓰고, 거기 적힌 것만큼만 정확히 약속합니다.
+    </p>
+  </div>
+
+  <div class="body">
+    <div class="grid g3" style="flex:1 1 auto; min-height:0;">
+      <div class="card">
+        <div class="lv">STANDARD</div>
+        <h3>정적 홍보 · 랜딩 페이지</h3>
+        <div class="big">90만원~ <small>/ 작업 7일</small></div>
+        <ul class="tick">
+          <li>단일 페이지 반응형 제작</li>
+          <li>기본 SEO 메타 세팅 · 도메인 연결 가이드</li>
+          <li>소스코드 제공 · 수정 2회 포함</li>
+        </ul>
+        <p style="margin-top:auto;">매장 · 포트폴리오 · 행사 소개에 적합</p>
+      </div>
+      <div class="card" style="border-color:var(--c3); border-width:0.6mm;">
+        <div class="lv" style="color:var(--c3);">DELUXE · 인기</div>
+        <h3>인터랙션 페이지</h3>
+        <div class="big">240만원~ <small>/ 작업 14일</small></div>
+        <ul class="tick">
+          <li>스크롤 애니메이션 · 마이크로 인터랙션</li>
+          <li>1~3페이지 구성 · 모바일 성능 최적화</li>
+          <li>기본 분석 도구 연결 · 수정 3회 포함</li>
+        </ul>
+        <p style="margin-top:auto;">브랜드 경험이 중요한 제품 · 서비스 소개</p>
+      </div>
+      <div class="card">
+        <div class="lv">PREMIUM</div>
+        <h3>기능 웹 서비스</h3>
+        <div class="big">600만원~ <small>/ 기간 협의</small></div>
+        <ul class="tick">
+          <li>로그인 · 회원 시스템 · DB 연동 · 관리자 화면</li>
+          <li>기능 명세서 기반 확정 견적</li>
+          <li>배포 후 30일 무상 버그 수정</li>
+        </ul>
+        <p style="margin-top:auto;">예약 · 커뮤니티 · 사내 도구 등</p>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card tint" style="padding:5mm 6mm;">
+        <h3 style="font-size:10.5pt;">설치형 애플리케이션 (Windows / macOS)</h3>
+        <p>Electron 기반 데스크톱 앱. 자동 업데이트와 설치 패키징까지 포함한 프로덕션 수준 구축.
+          <b style="color:var(--c5);">1,000만원~ · 별도 견적</b></p>
+      </div>
+      <div class="card tint" style="padding:5mm 6mm;">
+        <h3 style="font-size:10.5pt;">유지보수 리테이너</h3>
+        <p>월 4시간 내 버그 수정과 소규모 개선. 초과분은 시간 단위 정산으로 납품 후 안정 운영을 책임집니다.
+          <b style="color:var(--c5);">월 40만원~</b></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>표기 가격은 기준 시작가이며, 범위 확정 후 고정가 견적으로 안내됩니다. 선금 50% · 검수 후 잔금.</div>
+    <div><b>010.5682.6129</b> · spinnavor@naver.com</div>
+  </footer>
+</section>
+
+<!-- ================= 04 기업 AI 도입 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">04 / 06 · 용역 · SERVICE 02</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">기업 AI 도입 진단 &amp; 에이전트 구축</div>
+    <h1>도입할지를 묻기 전에, 어디에 쓸지를 먼저 정합니다.</h1>
+    <p class="lead">
+      AI를 붙일 곳을 정하지 않고 도구부터 사는 것이 가장 비싼 실패입니다.
+      팀이 실제로 시간을 쓰는 곳을 먼저 분해하고, 줄일 수 있는 구간에만 붙입니다.
+    </p>
+  </div>
+
+  <div class="body">
+    <div class="grid g3" style="flex:1 1 auto; min-height:0;">
+      <div class="card">
+        <div class="lv">STEP 01 · 진단</div>
+        <h3>업무 흐름 분석</h3>
+        <p>팀이 한 주에 시간을 어디에 쓰는지 업무 단위로 분해하고, AI로 줄일 수 있는 구간과
+          사람이 계속 해야 하는 구간을 나눕니다. 도입할 이유가 없다면 없다고 말씀드립니다.</p>
+        <ul class="tick">
+          <li>반복 작업 · 정보 탐색 시간 계측</li>
+          <li>적용 가능 지점 · 제외 지점 구분</li>
+        </ul>
+        <div class="fee">산출물 — 진단 리포트</div>
+      </div>
+      <div class="card" style="border-color:var(--c3); border-width:0.6mm;">
+        <div class="lv" style="color:var(--c3);">STEP 02 · 설계</div>
+        <h3>도입 로드맵</h3>
+        <p>무엇을 먼저 붙일지 순서를 정하고, 월 운영비와 절감 시간을 숫자로 추정합니다.
+          한 번에 전부 바꾸지 않고, 효과가 확인되는 순서로 단계를 나눕니다.</p>
+        <ul class="tick">
+          <li>우선순위 · 단계별 도입 계획</li>
+          <li>월 운영비 · 절감 시간 추정</li>
+        </ul>
+        <div class="fee">산출물 — 로드맵 · 비용 시뮬레이션</div>
+      </div>
+      <div class="card">
+        <div class="lv">STEP 03 · 구축</div>
+        <h3>에이전트 구축</h3>
+        <p>설계한 지점에 실제로 동작하는 에이전트를 만들어 사내에 배치합니다.
+          사내 문서를 근거로 답하는 검색과, 손이 많이 가는 반복 업무의 자동화가 주된 대상입니다.</p>
+        <ul class="tick">
+          <li>사내 문서 기반 검색 에이전트</li>
+          <li>반복 업무 자동화 워크플로</li>
+        </ul>
+        <div class="fee">산출물 — 배치된 에이전트 · 인수인계</div>
+      </div>
+    </div>
+
+    <div class="card fill" style="flex:0 0 auto; padding:5mm 7mm; flex-direction:row; align-items:center; justify-content:space-between; gap:8mm;">
+      <div>
+        <div class="lv" style="color:var(--c2);">왜 이 진단이 다른가</div>
+        <p style="margin-top:1.5mm; max-width:175mm;">
+          LLM 기능을 결제 연동까지 붙여 상용 서비스에 배포·운영하고, 에이전트 워크플로를 매일 실무에 쓰는
+          엔지니어가 직접 진단합니다. 소규모 팀과 중소기업의 실무 자동화에 특화되어 있습니다.
+        </p>
+      </div>
+      <div style="font-size:11pt; font-weight:800; color:#fff; text-align:right; line-height:1.6; white-space:nowrap;">
+        진단 리포트 <span style="color:var(--c2);">150만원~</span><br>
+        에이전트 구축 <span style="color:var(--c2);">300만원~</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>PHILIP STUDIO · 기업 AI 도입 진단 &amp; 에이전트 구축 — 용역 서비스</div>
+    <div><b>010.5682.6129</b> · spinnavor@naver.com · philip-studio.cloud/it-studio</div>
+  </footer>
+</section>
+
+<!-- ================= 05 AI · IT 강의 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">05 / 06 · 교육 · COURSE</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">AI · IT 강의</div>
+    <h1>대신 만들어 드리는 것이 아니라, 판단의 기준을 옮겨 드립니다.</h1>
+    <p class="lead">
+      강의는 개발 외주와 성격이 다른 별도의 서비스입니다. 결과물이 코드가 아니라 판단력이며, 절차와 계약도 따로 운영합니다.
+      도구 사용법이 아니라, 상용 서비스에서 실제로 실패했던 지점을 다룹니다.
+    </p>
+  </div>
+
+  <div class="body" style="gap:4mm;">
+    <div class="grid g3" style="flex:1 1 auto; min-height:0; gap:4mm;">
+      <div class="card" style="padding:4.5mm 5.5mm;">
+        <div class="lv">LEVEL 01 · 입문</div>
+        <h3 style="font-size:10.5pt;">AI시대, IT 핵심 짚고가기</h3>
+        <div class="who">비전공자 · 창업 준비자</div>
+        <p>웹이 돌아가는 원리, 개발자와 일하는 법, 외주 견적을 읽는 법까지. IT 전체 지도를 먼저 그립니다.</p>
+        <div class="fee">회당(2h) 15만원 · 4회 패키지 59만원</div>
+      </div>
+      <div class="card" style="padding:4.5mm 5.5mm;">
+        <div class="lv">LEVEL 02 · 심화</div>
+        <h3 style="font-size:10.5pt;">상업수준 운영을 위한 IT Deep Dive</h3>
+        <div class="who">서비스를 운영하게 된 사람</div>
+        <p>만드는 것과 운영하는 것의 차이. 배포, 장애 대응, 데이터 관리 등 운영 실무의 핵심을 다룹니다.</p>
+        <div class="fee">회당(2h) 15만원 · 6회 패키지 85만원</div>
+      </div>
+      <div class="card" style="padding:4.5mm 5.5mm;">
+        <div class="lv">LEVEL 03 · 원리</div>
+        <h3 style="font-size:10.5pt;">원리부터 파악하는 AI</h3>
+        <div class="who">도구가 바뀌어도 흔들리지 않으려는 사람</div>
+        <p>LLM이 왜 되는지, 어디서 틀리는지. 원리를 알아야 도구가 바뀌어도 기준이 남습니다.</p>
+        <div class="fee">회당(2h) 15만원 · 4회 패키지 59만원</div>
+      </div>
+      <div class="card" style="padding:4.5mm 5.5mm;">
+        <div class="lv">LEVEL 04 · 실전</div>
+        <h3 style="font-size:10.5pt;">당장활용! AI 실전세션</h3>
+        <div class="who">내 업무에 바로 붙이려는 사람</div>
+        <p>문서 자동화, 리서치, 콘텐츠 제작 등 원포인트 실습. 실제 업무 케이스를 지참하시면 그걸로 진행합니다.</p>
+        <div class="fee">회당(2h) 15만원 · 그룹(4인 이하) 인당 5만원</div>
+      </div>
+      <div class="card" style="padding:4.5mm 5.5mm;">
+        <div class="lv">LEVEL 05 · 맞춤형</div>
+        <h3 style="font-size:10.5pt;">AI 레벨업 세션</h3>
+        <div class="who">팀 단위 도입 교육 · 개인 맞춤</div>
+        <p>현재 수준을 진단한 뒤 커리큘럼을 설계하는 과정. 팀의 업무에 맞춰 사례를 바꿔 구성합니다.</p>
+        <div class="fee">진단 후 견적 · 기업 출강 시간당 25만원~</div>
+      </div>
+      <div class="card" style="padding:4.5mm 5.5mm;">
+        <div class="lv">LEVEL 06 · 맞춤형</div>
+        <h3 style="font-size:10.5pt;">IT 레벨업 세션</h3>
+        <div class="who">개발 입문부터 아키텍처 리뷰까지</div>
+        <p>목표에 맞춰 설계하는 IT 역량 강화 과정. 현재 코드베이스를 가져오시면 그것을 교재로 씁니다.</p>
+        <div class="fee">진단 후 견적 · 기업 출강 시간당 25만원~</div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="flex:0 0 auto; gap:4mm;">
+      <div class="note sm">
+        <b>진행 방식.</b> 기본은 <b>오프라인 1:1 대면</b> 세션이며 회당 2시간입니다. 장소는 상담 시 협의해 정하고,
+        요청하시면 온라인으로도 진행합니다. 그룹은 4인 이하, 기업 출강은 사전 진단 후 커리큘럼을 설계해 제안드립니다.
+      </div>
+      <div class="note sm">
+        <b>교재와 혜택.</b> 전 과정에 실무에서 검증한 내용만 담은 <b>실적용 직제작 비법노트</b>가 제공되며,
+        직접 개발·운영하는 앱 3종 <b>Obtopus · PigeonToday · M-Raum 멤버십</b>이 함께 제공됩니다.
+      </div>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>PHILIP STUDIO · AI · IT 강의 — 용역과 분리해 운영하는 교육 서비스</div>
+    <div><b>010.5682.6129</b> · spinnavor@naver.com · philip-studio.cloud/it-studio</div>
+  </footer>
+</section>
+
+<!-- ================= 05 진행 방식 · 문의 ================= -->
+<section class="sheet">
+  <header class="ph">
+    <div class="brand">PHILIP<span>&nbsp;STUDIO</span></div>
+    <div class="pnum">06 / 06 · PROCESS &amp; CONTACT</div>
+  </header>
+
+  <div class="msg">
+    <div class="kicker">진행 방식</div>
+    <h1>문서로 시작해서, 문서로 끝냅니다.</h1>
+    <p class="lead">외주와 교육은 성격이 달라 절차를 분리해 운영하며, 두 경우 모두 범위와 일정을 문서로 확정한 뒤 시작합니다.</p>
+  </div>
+
+  <div class="body" style="gap:3.5mm;">
+    <div>
+      <span class="rowlabel">외주 · 웹 · 앱 개발</span>
+      <div class="grid g7">
+        <div class="step"><i>01</i><b>상담</b><span>텍스트 기반 무료 15분</span></div>
+        <div class="step"><i>02</i><b>요구사항 정리</b><span>범위·제외 범위 문서화</span></div>
+        <div class="step"><i>03</i><b>견적 · 일정</b><span>고정가, 유효기간 14일</span></div>
+        <div class="step"><i>04</i><b>계약 · 선금</b><span>표준 계약서, 선금 50%</span></div>
+        <div class="step"><i>05</i><b>개발</b><span>중간 보고 1회 이상</span></div>
+        <div class="step"><i>06</i><b>검수 · 잔금</b><span>약정 수정 횟수 내 수정</span></div>
+        <div class="step"><i>07</i><b>사후지원</b><span>배포 후 30일 무상 수정</span></div>
+      </div>
+    </div>
+
+    <div>
+      <span class="rowlabel">교육 · AI · IT 강의</span>
+      <div class="grid g7">
+        <div class="step"><i>01</i><b>상담</b><span>목표·배경 텍스트 무료</span></div>
+        <div class="step"><i>02</i><b>수준 진단</b><span>15분 사전 진단</span></div>
+        <div class="step"><i>03</i><b>커리큘럼 확정</b><span>비법노트 단위 구성</span></div>
+        <div class="step"><i>04</i><b>일정 · 결제</b><span>회당 또는 패키지</span></div>
+        <div class="step"><i>05</i><b>세션 진행</b><span>회당 2시간, 실습 중심</span></div>
+        <div class="step"><i>06</i><b>노트 제공</b><span>세션별 교재 제공</span></div>
+        <div class="step"><i>07</i><b>사후 Q&amp;A</b><span>세션 후 1주 질문 지원</span></div>
+      </div>
+    </div>
+
+    <div class="grid g3" style="flex:0 0 auto; margin-top:auto;">
+      <div class="note sm"><b>고정가.</b> 요구사항 정리서가 확정된 뒤에는 추가 비용이 발생하지 않으며, 범위가 바뀌는 경우에만 재견적합니다.</div>
+      <div class="note sm"><b>선금 50%.</b> 계약과 함께 선금을 받고 검수 승인 후 잔금을 받습니다. 대금 흐름이 진행 상황과 일치합니다.</div>
+      <div class="note sm"><b>사후 30일.</b> 배포 후 30일간 버그를 무상으로 수정하고, 이후는 유지보수 리테이너로 이어집니다.</div>
+    </div>
+
+    <div class="grid g2" style="flex:0 0 auto;">
+      <div class="card tint" style="justify-content:center; padding:5mm 6mm;">
+        <h3 style="font-size:10.5pt;">계약서는 그 자리에서 만들어 드립니다</h3>
+        <p>홈페이지의 계약서 자동작성에 금액·일정·범위를 입력하면 간이 용역계약서(A4 1장)와
+          표준 용역계약서(전 24조)가 즉시 생성됩니다.</p>
+      </div>
+      <div class="card fill" style="justify-content:center; padding:5mm 6mm;">
+        <div class="lv" style="color:var(--c2);">CONTACT · 텍스트 상담 무료</div>
+        <div style="margin-top:2.5mm; font-size:10.5pt; line-height:1.7; color:#fff; font-weight:700;">
+          010.5682.6129 &nbsp;·&nbsp; spinnavor@naver.com<br>
+          <span style="font-weight:500; color:#bcd2ee;">philip-studio.cloud/it-studio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <div>카르쉬 (PHILIP STUDIO) · 모든 작업은 표준 계약서 기반으로 진행됩니다.</div>
+    <div><b>philip-studio.cloud/it-studio</b></div>
+  </footer>
+</section>
+
+</body>
+</html>
