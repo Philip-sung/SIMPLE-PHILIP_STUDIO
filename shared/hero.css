@@ -1,0 +1,312 @@
+/* ============================================================
+   shared/hero.css — 풀스크린(100vw × 100vh) 히어로 슬라이드
+   it-studio / architecture-studio 공용.
+   팔레트 변수(--navy, --line 등)는 각 페이지의 <style>에 정의된 값을 그대로 사용하고,
+   여기서는 레이아웃·미디어·컨트롤과 "미디어 위 텍스트 반전"만 담당한다.
+   각 페이지의 <style> 뒤에 로드해야 이 파일이 우선 적용된다.
+   ============================================================ */
+
+/* 고정 헤더(60px) 아래로 앵커 이동 시 제목이 가려지지 않도록 */
+html {
+  scroll-padding-top: 72px;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* 상단은 고정 헤더, 하단은 슬라이드 컨트롤(마크·카운터) 여백 */
+  padding: 110px 0 120px;
+}
+.hero .wrap {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+/* 페이지 CSS의 구분선(border-bottom: 1px solid var(--line))은 밝은 색이라
+   미디어가 깔리면 화면 맨 아래에 흰 줄로 남는다. 미디어 위에서는 없앤다.
+   (에셋이 없는 폴백 히어로에서는 아래 섹션과의 경계로 필요하므로 그대로 둔다)
+   배경을 어둡게 깔아, 사진이 아직 디코딩되기 전에도 흰 글자가 읽히게 한다. */
+.hero.has-media {
+  border-bottom: none;
+  background: #0b0f16;
+}
+
+/* ---- 미디어 스트립 (슬라이드 카드) ---- */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #0b0f16;
+}
+.hero-strip {
+  display: flex;
+  height: 100%;
+  transition: transform 0.85s cubic-bezier(0.77, 0, 0.18, 1);
+}
+.hero-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.hero-slide img,
+.hero-slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 비율이 안 맞아도 비율 유지한 채 화면을 꽉 채움 */
+  object-position: center;
+  display: block;
+}
+
+/* 미디어(z-index 1)와 본문(.wrap, z-index 3) 사이에 깔리는 가독성 확보용 검은 레이어.
+   영상은 장면마다 밝기가 크게 달라 그라데이션으로는 글자가 묻히는 구간이 생기므로,
+   화면 전체를 일정한 농도로 덮는 평면 레이어를 쓴다. (미디어가 있을 때만 켜짐) */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  background: rgba(0, 0, 0, 0.682);
+}
+.hero.has-media .hero-overlay {
+  opacity: 1;
+}
+
+/* ---- 미디어 위 텍스트 반전 ---- */
+.hero.has-media h1 {
+  color: #fff;
+}
+/* 미디어 위에서는 형광펜식 밑줄을 쓰지 않는다 — 흰 배경 띠가 사진을 가린다 */
+.hero.has-media h1 .hl {
+  box-shadow: none;
+}
+.hero.has-media p.sub {
+  color: rgba(255, 255, 255, 0.88);
+}
+.hero.has-media .hero-badge {
+  background: rgba(8, 14, 24, 0.45);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(6px);
+}
+.hero.has-media .chip {
+  background: rgba(8, 14, 24, 0.35);
+  color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(4px);
+}
+.hero.has-media .btn-ghost {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+/* 히어로 버튼을 전부 흰색 아웃라인으로 통일하고, 호버 시 반투명 흰색으로 채운다.
+   페이지가 data-hero-buttons="white"를 선언한 경우에만 적용된다.
+   (미디어가 없을 때는 배경이 밝아 흰 버튼이 묻히므로 has-media에서만) */
+.hero[data-hero-buttons="white"].has-media .btn {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.hero[data-hero-buttons="white"].has-media .btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+}
+
+/* ---- 좌우 화살표 ---- */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 52px;
+  height: 76px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #fff;
+  font-size: 40px;
+  line-height: 1;
+  font-family: inherit;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+.hero-arrow:hover {
+  opacity: 1;
+}
+.hero-arrow.prev {
+  left: 12px;
+}
+.hero-arrow.next {
+  right: 12px;
+}
+
+/* ---- 하단 슬라이드 마크 (일자 → 선택 시 십자) ----
+   24×24 정방형 viewBox의 인라인 SVG 아이콘. 가로·세로 팔 길이(18)와
+   굵기(3)가 같아 십자가 정확히 정방형으로 떨어진다.
+   폰트 글리프와 달리 OS·폰트에 상관없이 항상 같은 모양으로 그려지고,
+   회전 없이 모양만 바뀌므로 XPLUS의 X↔+ 회전 연출과는 다르다. */
+.hero-marks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  z-index: 4;
+  padding: 0 24px;
+}
+.hero-marks button {
+  width: 22px;
+  height: 22px; /* 정방형 */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.5;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s ease;
+  /* 비선택: 일자 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='10.5' width='18' height='3' fill='%23ffffff'/%3E%3C/svg%3E");
+}
+/* 선택: 십자 */
+.hero-marks button.on {
+  opacity: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='10.5' width='18' height='3' fill='%23ffffff'/%3E%3Crect x='10.5' y='3' width='3' height='18' fill='%23ffffff'/%3E%3C/svg%3E");
+}
+.hero-marks button:hover {
+  opacity: 0.85;
+}
+.hero-marks button.on:hover {
+  opacity: 1;
+}
+
+/* ---- 캐러셀 위 안내문구 ---- */
+.hero-note {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 32px;
+  z-index: 4;
+  padding: 0 24px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  line-height: 1.5;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+/* 마크가 있으면 그 위로 올린다 (마크가 없으면 마크 자리에 그대로 앉는다) */
+.hero.has-marks .hero-note {
+  bottom: 66px;
+}
+
+/* ---- 우측 하단 메타 줄: [ 제목 ] [ 01 / 08 ] ---- */
+.hero-meta {
+  position: absolute;
+  right: 26px;
+  bottom: 30px;
+  z-index: 4;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 16px;
+  /* 가운데 정렬된 마크 줄까지 넘어가지 않도록 제한 — 넘치는 제목은 말줄임 */
+  max-width: 34%;
+}
+/* 파일명의 _TITLE- 값. 번호 왼쪽에서 우측정렬로 붙는다. */
+.hero-title {
+  min-width: 0; /* 좁아지면 말줄임으로 줄어들 수 있게 */
+  text-align: right;
+  color: rgba(255, 255, 255, 0.93);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hero-counter {
+  flex: none; /* 번호는 항상 온전히 보이게 */
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+.hero-counter strong {
+  font-weight: 700;
+  font-size: 17px;
+  color: #fff;
+}
+
+/* ---- 반응형 ---- */
+@media (max-width: 640px) {
+  /* 좁은 화면에서는 안내문구·마크·메타를 한 줄에 겹칠 수 없으므로 세 층으로 쌓는다.
+     아래에서부터 메타(24px) → 마크(58px) → 안내문구(88px) 순. */
+  .hero {
+    padding: 96px 0 134px;
+  }
+  .hero-arrow {
+    display: none;
+  } /* 모바일은 스와이프로 넘김 */
+  /* 슬라이드가 많아지면 마크가 두 줄로 넘치므로 모바일에서는 촘촘하게 */
+  .hero-marks {
+    gap: 8px;
+    bottom: 58px;
+  }
+  .hero-marks button {
+    width: 18px;
+    height: 18px;
+  }
+  /* 좌우를 모두 고정해 폭을 확정한다. 폭이 정해져야 긴 제목에 말줄임이 걸려
+     번호가 화면 밖으로 밀려나지 않는다. (정렬은 flex-end라 오른쪽 붙음 유지) */
+  .hero-meta {
+    left: 20px;
+    right: 20px;
+    bottom: 24px;
+    gap: 10px;
+    max-width: none;
+  }
+  .hero-title {
+    font-size: 12px;
+  }
+  .hero-note {
+    bottom: 24px;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+  }
+  .hero.has-marks .hero-note {
+    bottom: 88px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-strip,
+  .hero-marks button {
+    transition: none;
+  }
+}
