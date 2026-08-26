@@ -73,7 +73,7 @@ html {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.9s ease;
-  background: rgba(0, 0, 0, 0.682);
+  background: rgba(0, 0, 0, 0.755);
 }
 .hero.has-media .hero-overlay {
   opacity: 1;
