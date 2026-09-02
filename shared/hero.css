@@ -62,6 +62,12 @@ html {
   object-position: center;
   display: block;
 }
+/* 파일명 토큰(_BLUR-n·_GRAYSCALE)의 필터 — 값은 hero.js가 CSS 변수로 넣는다.
+   변수로 받는 이유: 모바일에서는 같은 px 블러도 훨씬 강하게 느껴지므로
+   아래 반응형 블록에서 강도를 계수로 줄이기 위해서다. */
+.hero-slide .fx {
+  filter: grayscale(var(--gs, 0)) blur(var(--blur, 0px));
+}
 
 /* 미디어(z-index 1)와 본문(.wrap, z-index 3) 사이에 깔리는 가독성 확보용 검은 레이어.
    영상은 장면마다 밝기가 크게 달라 그라데이션으로는 글자가 묻히는 구간이 생기므로,
@@ -321,6 +327,36 @@ html {
     );
     pointer-events: none;
   }
+  /* 좁은 화면에서는 같은 px 블러도 훨씬 강하게 느껴진다 — 강도를 40%로 줄인다 */
+  .hero-slide .fx {
+    filter: grayscale(var(--gs, 0)) blur(calc(var(--blur, 0px) * 0.4));
+  }
+  /* 스크린 중앙의 PHILIP STUDIO 워드마크 — 텍스트가 빠져 사진만 남은
+     모바일 스크린을 홍보 컷처럼 보이게 하는 브랜드 스탬프.
+     얇은 대문자 + 넓은 자간(럭셔리 워드마크 문법), Montserrat는
+     페이지 <head>에서 로드한다. text-indent는 자간이 마지막 글자
+     오른쪽에도 붙어 중앙이 왼쪽으로 쏠리는 것을 상쇄한다. */
+  .hero.has-media .hero-media::before {
+    content: "PHILIP STUDIO";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    font-family: "Montserrat", "Futura", "Avenir Next", Pretendard, sans-serif;
+    font-weight: 200;
+    font-size: 15px;
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
+    color: rgba(255, 255, 255, 0.94);
+    /* 영상 슬라이드 안의 밝은 장면·텍스트와 겹쳐도 읽히도록 이중 섀도.
+       화면을 어둡게 덮지 않고 글자 주변만 가라앉힌다. */
+    text-shadow:
+      0 0 3px rgba(0, 0, 0, 0.55),
+      0 1px 20px rgba(0, 0, 0, 0.6);
+  }
 
   /* 슬라이드 컨트롤(메타·마크·안내문구)을 스크린 영역 하단에 붙인다.
      bottom을 "히어로 전체(100%) − 헤더 − 미디어 높이 + 오프셋"으로 잡으면
@@ -410,10 +446,11 @@ html {
     align-items: flex-end;
     justify-content: flex-end;
     padding: 0 6px 2px 0;
-    font-size: 84px;
-    line-height: 0.85;
-    font-weight: 800;
-    letter-spacing: -0.045em;
+    font-family: "Montserrat", "Futura", "Avenir Next", Pretendard, sans-serif;
+    font-size: 78px;
+    line-height: 0.9;
+    font-weight: 300;
+    letter-spacing: -0.02em;
     text-align: right;
     color: rgba(255, 255, 255, 0.05);
     pointer-events: none;

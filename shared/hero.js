@@ -123,10 +123,15 @@
       el.decoding = "async";
       el.loading = "eager";
     }
-    var filters = [];
-    if (asset.grayscale) filters.push("grayscale(1)");
-    if (asset.blur > 0) filters.push("blur(" + asset.blur + "px)");
-    if (filters.length) el.style.filter = filters.join(" ");
+    /* 필터를 인라인으로 굳히지 않고 CSS 변수로 넘긴다.
+       실제 filter 조합은 hero.css(.fx)가 담당하므로, 화면 폭에 따라
+       블러 강도를 미디어쿼리에서 줄일 수 있다(모바일은 화면이 작아
+       같은 px 블러도 훨씬 강하게 느껴진다). */
+    if (asset.grayscale || asset.blur > 0) {
+      el.classList.add("fx");
+      el.style.setProperty("--gs", asset.grayscale ? "1" : "0");
+      el.style.setProperty("--blur", asset.blur + "px");
+    }
     // 블러는 가장자리가 비쳐 보이므로 살짝 확대해 상쇄
     if (asset.blur > 0) {
       el.style.transform = "scale(" + (1.03 + Math.min(asset.blur, 20) * 0.008).toFixed(3) + ")";
